@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.List;
 
 import android.app.Activity;
 import android.hardware.Camera;
@@ -35,11 +36,23 @@ public class CameraView extends Activity {
 		buttonClick = (Button) findViewById(R.id.buttonClick);
 		buttonClick.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) { 
-				preview.camera.autoFocus(new Camera.AutoFocusCallback() {
-					public void onAutoFocus(boolean success, Camera camera) {
-						camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-					}
-				});
+			    Camera.Parameters parameters = preview.camera.getParameters();
+			    List<String> focusModes = parameters.getSupportedFocusModes();
+			    if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO))
+			      {
+			          Log.d("camera", "focus_mode_auto");
+			          preview.camera.autoFocus(new Camera.AutoFocusCallback() {
+		                    public void onAutoFocus(boolean success, Camera camera) {
+		                        camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+		                    }
+		                });
+			      }
+			      else
+			      {
+			          Log.d("camera", "focus_mode_macro");
+			          preview.camera.takePicture(shutterCallback, rawCallback, jpegCallback);
+			      }
+				
 			}
 		});
 
