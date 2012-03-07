@@ -14,9 +14,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int buttonClick=0x7f050001;
-        public static final int list=0x7f050002;
-        public static final int preview=0x7f050000;
+        public static final int buttonClick=0x7f060001;
+        public static final int list=0x7f060002;
+        public static final int preview=0x7f060000;
     }
     public static final class layout {
         public static final int camera_view=0x7f030000;
@@ -24,8 +24,18 @@ public final class R {
         public static final int list_item=0x7f030002;
         public static final int main=0x7f030003;
     }
+    public static final class raw {
+        public static final int eggs=0x7f040000;
+        public static final int fish=0x7f040001;
+        public static final int milk=0x7f040002;
+        public static final int peanuts=0x7f040003;
+        public static final int shellfish=0x7f040004;
+        public static final int soy=0x7f040005;
+        public static final int treenuts=0x7f040006;
+        public static final int wheat=0x7f040007;
+    }
     public static final class string {
-        public static final int app_name=0x7f040001;
-        public static final int hello=0x7f040000;
+        public static final int app_name=0x7f050001;
+        public static final int hello=0x7f050000;
     }
 }
