@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.util.Log;
+import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
@@ -72,7 +74,17 @@ class Preview extends SurfaceView implements SurfaceHolder.Callback {
 		  Log.d("camera", "focus_mode_macro");
 		  parameters.setFocusMode(Camera.Parameters.FOCUS_MODE_MACRO);
 	  }
-	  camera.setDisplayOrientation(90);
+	  Log.d("camera", "orientation: " + getResources().getConfiguration().orientation);
+	  int orientation = getResources().getConfiguration().orientation;
+	  switch(orientation)
+	  {
+	  case Surface.ROTATION_0: Log.d("camera", "ROTATION_0"); camera.setDisplayOrientation(180); break;
+	  case Surface.ROTATION_90: Log.d("camera", "ROTATION_90"); camera.setDisplayOrientation(90); break;
+	  case Surface.ROTATION_180: Log.d("camera", "ROTATION_180"); camera.setDisplayOrientation(0); break;
+	  case Surface.ROTATION_270: Log.d("camera", "ROTATION_270"); camera.setDisplayOrientation(270); break;
+	  }
+	  
+	  
 	  camera.setParameters(parameters);
 	  camera.startPreview();
   }
