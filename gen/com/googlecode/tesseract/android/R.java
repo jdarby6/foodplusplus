@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package eecs.dietary.assistant;
+package com.googlecode.tesseract.android;
 
 public final class R {
     public static final class attr {

@@ -16,10 +16,7 @@
         android:textSize="15pt"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:onClick="Camera_on_click"
-        android:clickable="true"
-        />
+        android:layout_weight="1"/>
     <TextView
         android:text="Keyboard Input"
         android:onClick="TextInput_on_click"
