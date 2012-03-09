@@ -90,32 +90,31 @@ public class CameraView extends Activity {
 			FileOutputStream outStream = null;
 			try {
 				// Write to SD Card
-				String outPutString = String.format("/sdcard/%d.jpg",
+				/*String outPutString = String.format("/sdcard/%d.jpg",
 						System.currentTimeMillis());
 				outStream = new FileOutputStream(outPutString); 
 				outStream.write(data);
 				outStream.close();
-				mImageCaptureUri = Uri.fromFile(new File(outPutString));
+				mImageCaptureUri = Uri.fromFile(new File(outPutString));*/
 				Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length);
 				
 				  BitmapFactory.Options options = new BitmapFactory.Options();
-				    options.inSampleSize = 2;
-				   // if(mImageCaptureUri == null)
-			/*	    String[] proj = {MediaStore.Images.Media.DATA};
-				    Cursor cursor = managedQuery(mImageCaptureUri, proj, null, null, null);
-				    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-				    cursor.moveToFirst();
-				    String path = cursor.getString(column_index);*/
-				    Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length);
+				    options.inSampleSize = 2; //adjusts down-scaling
+				    options.inPreferQualityOverSpeed = true; //possibly will slow down
+				    options.inPurgeable = true; //might save us memory by re-allocating/de-allocating
+				//    options.inDensity = 30;
+				    //options.inScaled = true; by default already
+				    options.inTargetDensity = 30;
+				    
+				    Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length,options);
 				    Matrix mtx = new Matrix();
 				    mtx.preRotate(90);
 				    bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mtx, false);
 				    
 				    
-				//    Bitmap bitmap = BitmapFactory.decodeFile(outPutString, options);
-				    Bitmap bitmap2 = bitmap.copy(Bitmap.Config.ARGB_8888,true);
+				    bitmap = bitmap.copy(Bitmap.Config.ARGB_8888,true);
 				    
-				    DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap2);
+				    DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
 				    
 				   
 				    
@@ -125,11 +124,11 @@ public class CameraView extends Activity {
 					ad.show();
 				
 				
-			} catch (FileNotFoundException e) { 
+			} /*catch (FileNotFoundException e) { 
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			} finally {
+			}*/ finally {
 			}
 			
 			Log.d(TAG, "onPictureTaken - jpeg");
