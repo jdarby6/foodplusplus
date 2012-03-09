@@ -34,9 +34,9 @@ public class OCRFeedback extends ListActivity {
 			if(DietaryAssistantActivity._Ingredients.check(ingreds.get(a))) {
 				badingreds.add(ingreds.get(a));
 			}
-			else if(DietaryAssistantActivity._Ingredients.contains(ingreds.get(a))) {
-				okingreds.add(ingreds.get(a));
-			}
+		//	else if(DietaryAssistantActivity._Ingredients.contains(ingreds.get(a))) {
+		//		okingreds.add(ingreds.get(a));
+		//	}
 			else {
 				unknowningreds.add(ingreds.get(a));
 			}
@@ -69,9 +69,9 @@ public class OCRFeedback extends ListActivity {
 				//view.setContentDescription("Violates allergy");
 				//view.setVerticalFadingEdgeEnabled(true);
 			}
-			else if(DietaryAssistantActivity._Ingredients.contains(ingredient)) {
-				view.setBackgroundColor(colors[1]);
-			}
+	//		else if(DietaryAssistantActivity._Ingredients.contains(ingredient)) {
+	//			view.setBackgroundColor(colors[1]);
+	//		}
 			else {
 				view.setBackgroundColor(colors[2]);
 			}

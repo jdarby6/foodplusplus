@@ -7,11 +7,17 @@ import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,12 +29,14 @@ public class CameraView extends Activity {
 	Preview preview; 
 	Button buttonClick; 
 	Uri mImageCaptureUri;
+	AlertDialog ad;
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.camera_view);
+		ad =  new AlertDialog.Builder(this).create();
 
 		preview = new Preview(this); 
 		((FrameLayout) findViewById(R.id.preview)).addView(preview); 
@@ -52,13 +60,16 @@ public class CameraView extends Activity {
 			          Log.d("camera", "focus_mode_macro");
 			          preview.camera.takePicture(shutterCallback, rawCallback, jpegCallback);
 			      }
-				
+			    
+			    //Matrix mtx = new Matrix();
+			 
 			}
 		});
 
 		Log.d(TAG, "onCreate'd");
 	}
 
+	
 	// Called when shutter is opened
 	ShutterCallback shutterCallback = new ShutterCallback() { 
 		public void onShutter() {
@@ -86,12 +97,41 @@ public class CameraView extends Activity {
 				outStream.close();
 				mImageCaptureUri = Uri.fromFile(new File(outPutString));
 				Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length);
+				
+				  BitmapFactory.Options options = new BitmapFactory.Options();
+				    options.inSampleSize = 2;
+				   // if(mImageCaptureUri == null)
+			/*	    String[] proj = {MediaStore.Images.Media.DATA};
+				    Cursor cursor = managedQuery(mImageCaptureUri, proj, null, null, null);
+				    int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+				    cursor.moveToFirst();
+				    String path = cursor.getString(column_index);*/
+				    Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length);
+				    Matrix mtx = new Matrix();
+				    mtx.preRotate(90);
+				    bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mtx, false);
+				    
+				    
+				//    Bitmap bitmap = BitmapFactory.decodeFile(outPutString, options);
+				    Bitmap bitmap2 = bitmap.copy(Bitmap.Config.ARGB_8888,true);
+				    
+				    DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap2);
+				    
+				   
+				    
+				    
+				//	AlertDialog ad = new AlertDialog.Builder().create();
+				    ad.setMessage(DietaryAssistantActivity._OCR.readText);
+					ad.show();
+				
+				
 			} catch (FileNotFoundException e) { 
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {
 			}
+			
 			Log.d(TAG, "onPictureTaken - jpeg");
 		}
 	};
