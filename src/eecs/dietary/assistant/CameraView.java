@@ -104,7 +104,8 @@ public class CameraView extends Activity {
 				    options.inPurgeable = true; //might save us memory by re-allocating/de-allocating
 				//    options.inDensity = 30;
 				    //options.inScaled = true; by default already
-				    options.inTargetDensity = 30;
+				    options.inTargetDensity = 300;
+				   // options.
 				    
 				    Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length,options);
 				    Matrix mtx = new Matrix();
