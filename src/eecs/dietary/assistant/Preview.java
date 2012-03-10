@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.hardware.Camera;
 import android.hardware.Camera.PreviewCallback;
 import android.util.Log;

@@ -63,9 +63,17 @@ class Ingredients {
 	}
 
 	public boolean check(String ingredient) {
+		Cursor cursor = dbHelper.returnAllergyNames(ingredient);
+		List<String> results = new ArrayList<String>();
+		for(int i = 0; i < cursor.getCount(); i++) {
+			cursor.moveToNext();
+			results.add(cursor.getString(0));
+		}
 		for(int i = 0; i < allergiesSuffered.size(); i++) {
-			if(ingredient.toLowerCase().trim() == allergiesSuffered.get(i).toLowerCase().trim()) {
-				return true;
+			for(int j = 0; j < results.size(); j++) {
+				if(results.get(j).toLowerCase().trim().equals(allergiesSuffered.get(i).toLowerCase().trim())) {
+					return true;
+				}
 			}
 		}
 		return false;
