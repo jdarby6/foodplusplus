@@ -42,19 +42,9 @@ public class DietaryAssistantActivity extends Activity {
 
 	public void Camera_on_click(final View trash) {
 		
-		String _path = Environment.getExternalStorageDirectory().toString() + "/ocr.jpg";
-		File file = new File(_path);
-		Uri outputFileUri = Uri.fromFile(file);
-
-		final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-		intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
-
-		startActivityForResult(intent, 0);
-		
-		/*
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, CameraView.class);
-		startActivityForResult(intent, 0);*/
+		startActivityForResult(intent, 0);
 	}
 
 	public void TextInput_on_click(final View trash) {

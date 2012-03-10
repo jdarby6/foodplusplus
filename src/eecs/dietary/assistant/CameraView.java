@@ -1,18 +1,24 @@
 package eecs.dietary.assistant;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.hardware.Camera.ShutterCallback;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,13 +26,119 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 
 public class CameraView extends Activity {
+	
+	public int pixeldensity = 200;
+	public int subsamplefactor = 2;
+	public boolean preferquality = true;
+	private String _imagepath = Environment.getExternalStorageDirectory().toString() + "/ocr.jpg";
+	AlertDialog ad; 
+	
+	@Override 
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.list_item); //trash view
+		
+		ad = new AlertDialog.Builder(this).create();
+		
+		File file = new File(_imagepath);
+		Uri outputFileUri = Uri.fromFile(file);
+
+		final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+		intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+		
+	
+		startActivityForResult(intent, 0);
+	
+		
+	}
+	
+		@Override 
+	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
+		super.onActivityResult(requestcode, resultcode, data);
+
+		if(resultcode == -1) {
+			//User has now accepted the photo and pressed OK 
+			//OCR Stuff
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			
+			options.inSampleSize = subsamplefactor;
+			options.inPreferQualityOverSpeed = preferquality;
+			options.inTargetDensity = pixeldensity;
+			Bitmap bitmap = BitmapFactory.decodeFile(_imagepath, options);
+			
+			try {
+
+				ExifInterface exif = new ExifInterface(_imagepath);
+				int exifOrientation = exif.getAttributeInt(
+						ExifInterface.TAG_ORIENTATION,
+						ExifInterface.ORIENTATION_NORMAL);
+
+				int rotate = 0;
+
+				switch (exifOrientation) {
+				case ExifInterface.ORIENTATION_ROTATE_90:
+					rotate = 90;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_180:
+					rotate = 180;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_270:
+					rotate = 270;
+					break;
+				}
+
+					// Getting width & height of the given image.
+					int w = bitmap.getWidth();
+					int h = bitmap.getHeight();
+
+					// Setting pre rotate
+					Matrix mtx = new Matrix();
+					mtx.preRotate(rotate);
+
+					// Rotating Bitmap
+					bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
+
+					// Convert to ARGB_8888, required by tess
+					bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+					
+					DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
+					
+					ad.setMessage(DietaryAssistantActivity._OCR.readText);
+					ad.show();
+				
+					
+			} catch (IOException e) {
+				ad.setMessage("io exception");
+				ad.show();
+				
+			}
+
+			
+		}
+		
+		
+		
+		
+	}
+}
+	
+	
+	
+	
+	
+	
+	
+	
+
+/*
 	private static final String TAG = "CameraDemo";
 	Preview preview; 
 	Button buttonClick; 
 	Uri mImageCaptureUri;
 	AlertDialog ad;
 
-	/** Called when the activity is first created. */
+	/** Called when the activity is first created. 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -90,7 +202,7 @@ public class CameraView extends Activity {
 				outStream = new FileOutputStream(outPutString); 
 				outStream.write(data);
 				outStream.close();
-				mImageCaptureUri = Uri.fromFile(new File(outPutString));*/
+				mImageCaptureUri = Uri.fromFile(new File(outPutString));
 				Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length);
 				
 				  BitmapFactory.Options options = new BitmapFactory.Options();
@@ -124,7 +236,7 @@ public class CameraView extends Activity {
 				e.printStackTrace();
 			} catch (IOException e) {
 				e.printStackTrace();
-			}*/ finally {
+			} finally {
 			}
 			
 			Log.d(TAG, "onPictureTaken - jpeg");
@@ -132,6 +244,6 @@ public class CameraView extends Activity {
 	};
 
 }
-
+*/
 
 
