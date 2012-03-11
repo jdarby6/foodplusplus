@@ -48,6 +48,7 @@ class Ingredients {
 	}
 
 	public List<String> returnAll() {
+		all_ingreds.clear();
 		Cursor cursor = dbHelper.returnAll();
 		int count = cursor.getCount();
 		for(int i = 0; i < count; i++) {
@@ -57,10 +58,10 @@ class Ingredients {
 		return all_ingreds;
 	}
 
-	public List<String> getAllergies(String ingredient) {
+	/*public List<String> getAllergies(String ingredient) {
 		// TODO Auto-generated method stub
 		return all_ingreds;
-	}
+	}*/
 
 	public boolean check(String ingredient) {
 		Cursor cursor = dbHelper.returnAllergyNames(ingredient);
