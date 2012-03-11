@@ -159,10 +159,10 @@ public class CameraView extends Activity {
 		else {
 			intent.setData(outputFileUri);
 
-			intent.putExtra("outputX", 200);
-			intent.putExtra("outputY", 200);
-			intent.putExtra("aspectX", 1);
-			intent.putExtra("aspectY", 1);
+//			intent.putExtra("outputX", 200);
+//			intent.putExtra("outputY", 200);
+//			intent.putExtra("aspectX", 1);
+//			intent.putExtra("aspectY", 1);
 			intent.putExtra("scale", true);
 			intent.putExtra("return-data", true);
 
