@@ -28,7 +28,7 @@ public class CameraView extends Activity {
 	public static int RETURN_FROM_OCR = 555749321;
 	public int pixeldensity = 300;
 	public int subsamplefactor = 2;
-	
+
 	private Uri outputFileUri;
 
 	public boolean preferquality = true;
@@ -51,7 +51,6 @@ public class CameraView extends Activity {
 
 		startActivityForResult(intent, 0);
 
-
 	}
 
 	@Override 
@@ -65,9 +64,9 @@ public class CameraView extends Activity {
 		}
 		else if(requestcode == RETURN_FROM_CROP) {  	
 
-	        File f = new File(_imagepath);            
-	        
-	        if (f.exists()) f.delete();
+			File f = new File(_imagepath);            
+
+			if (f.exists()) f.delete();
 
 			BitmapFactory.Options options = new BitmapFactory.Options();
 
@@ -122,15 +121,10 @@ public class CameraView extends Activity {
 				Intent i = new Intent(this, OCRFeedback.class);
 				startActivityForResult(i,RETURN_FROM_OCR);
 
-
-
 			} catch (IOException e) {
 				ad.setMessage("io exception");
 				ad.show();
-
 			}
-
-
 		}
 		else if(requestcode==RETURN_FROM_OCR) {
 
@@ -140,23 +134,11 @@ public class CameraView extends Activity {
 			final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 			intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
-
 			startActivityForResult(intent, 0);
-
-
-
-
-
 		}
-
 		else {
-
 			super.finish();
 		}
-
-
-
-
 	}
 
 	private void doCrop() {
@@ -173,7 +155,8 @@ public class CameraView extends Activity {
 			Toast.makeText(this, "Can not find image crop app", Toast.LENGTH_SHORT).show();
 
 			return;
-		} else {
+		} 
+		else {
 			intent.setData(outputFileUri);
 
 			intent.putExtra("outputX", 200);
@@ -190,7 +173,8 @@ public class CameraView extends Activity {
 				i.setComponent( new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
 
 				startActivityForResult(i, RETURN_FROM_CROP);
-			} else {
+			} 
+			else {
 				for (ResolveInfo res : list) {
 					final CropOption co = new CropOption();
 
@@ -230,128 +214,3 @@ public class CameraView extends Activity {
 		}
 	}
 }
-
-
-
-
-
-
-
-
-
-/*
-	private static final String TAG = "CameraDemo";
-	Preview preview; 
-	Button buttonClick; 
-	Uri mImageCaptureUri;
-	AlertDialog ad;
-
-	/** Called when the activity is first created. 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.camera_view);
-		ad =  new AlertDialog.Builder(this).create();
-
-		preview = new Preview(this); 
-		((FrameLayout) findViewById(R.id.preview)).addView(preview); 
-
-		buttonClick = (Button) findViewById(R.id.buttonClick);
-		buttonClick.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) { 
-			    Camera.Parameters parameters = preview.camera.getParameters();
-			    List<String> focusModes = parameters.getSupportedFocusModes();
-			    if (focusModes.contains(Camera.Parameters.FOCUS_MODE_AUTO))
-			      {
-			          Log.d("camera", "focus_mode_auto");
-			          preview.camera.autoFocus(new Camera.AutoFocusCallback() {
-		                    public void onAutoFocus(boolean success, Camera camera) {
-		                        camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-		                    }
-		                });
-			      }
-			      else
-			      {
-			          Log.d("camera", "focus_mode_macro");
-			          preview.camera.takePicture(shutterCallback, rawCallback, jpegCallback);
-			      }
-
-			    //Matrix mtx = new Matrix();
-
-			}
-		});
-
-		Log.d(TAG, "onCreate'd");
-	}
-
-
-	// Called when shutter is opened
-	ShutterCallback shutterCallback = new ShutterCallback() { 
-		public void onShutter() {
-			Log.d(TAG, "onShutter'd");
-		}
-	};
-
-	// Handles data for raw picture
-	PictureCallback rawCallback = new PictureCallback() { 
-		public void onPictureTaken(byte[] data, Camera camera) {
-			Log.d(TAG, "onPictureTaken - raw");
-		}
-	};
-
-	// Handles data for jpeg picture
-	PictureCallback jpegCallback = new PictureCallback() { 
-		public void onPictureTaken(byte[] data, Camera camera) {
-			FileOutputStream outStream = null;
-			try {
-				// Write to SD Card
-				/*String outPutString = String.format("/sdcard/%d.jpg",
-						System.currentTimeMillis());
-				outStream = new FileOutputStream(outPutString); 
-				outStream.write(data);
-				outStream.close();
-				mImageCaptureUri = Uri.fromFile(new File(outPutString));
-				Log.d(TAG, "onPictureTaken - wrote bytes: " + data.length);
-
-				  BitmapFactory.Options options = new BitmapFactory.Options();
-				    options.inSampleSize = 2; //adjusts down-scaling
-				    options.inPreferQualityOverSpeed = true; //possibly will slow down
-				    options.inPurgeable = true; //might save us memory by re-allocating/de-allocating
-				//    options.inDensity = 30;
-				    //options.inScaled = true; by default already
-				    options.inTargetDensity = 300;
-				   // options.
-
-				    Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length,options);
-				    Matrix mtx = new Matrix();
-				    mtx.preRotate(90);
-				    bitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), mtx, false);
-
-
-				    bitmap = bitmap.copy(Bitmap.Config.ARGB_8888,true);
-
-				    DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
-
-
-
-
-				//	AlertDialog ad = new AlertDialog.Builder().create();
-				    ad.setMessage(DietaryAssistantActivity._OCR.readText);
-					ad.show();
-
-
-			} /*catch (FileNotFoundException e) { 
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			} finally {
-			}
-
-			Log.d(TAG, "onPictureTaken - jpeg");
-		}
-	};
-
-}
- */
-
-
