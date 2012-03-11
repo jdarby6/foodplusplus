@@ -41,6 +41,13 @@ public class KeyboardInputView extends ListActivity {
 		
 	}
 	
+	@Override 
+	public void onPause() {
+		super.onPause();
+		super.finish();
+		
+	}
+	
 
 
 	protected void onListItemClick(ListView l, View v, int position, long id) {
