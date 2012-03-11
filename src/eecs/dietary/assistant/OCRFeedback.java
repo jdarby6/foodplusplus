@@ -37,7 +37,7 @@ public class OCRFeedback extends ListActivity {
 		List<String> okingreds = new ArrayList<String>();
 		List<String> unknowningreds = new ArrayList<String>();
 		for(int a=0; a<ingreds.size(); a++) {
-			if(DietaryAssistantActivity._Ingredients.check(ingreds.get(a))) {
+			if(true) {
 				badingreds.add(ingreds.get(a));
 			}
 		//	else if(DietaryAssistantActivity._Ingredients.contains(ingreds.get(a))) {
@@ -70,7 +70,9 @@ public class OCRFeedback extends ListActivity {
 		
 			View view = super.getView(position,convertView,parent);
 			
-			if(DietaryAssistantActivity._Ingredients.check(ingredient)) {
+			ingredient = ingredient.replaceAll("[^a-zA-Z0-9]+", " ");
+			
+			if(true) {
 				view.setBackgroundColor(colors[0]);
 				//view.setContentDescription("Violates allergy");
 				//view.setVerticalFadingEdgeEnabled(true);

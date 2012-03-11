@@ -7,11 +7,13 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 
 //This is the List View and its activity for the single text ingredient input
@@ -19,13 +21,13 @@ import android.widget.ListView;
 //It will be passed through the Intent extra parameters including "allergiesSuffered"
 public class KeyboardInputView extends ListActivity {
 
-	List<String> _allergiesSuffered;
+	//List<String> _allergiesSuffered;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		_allergiesSuffered = DietaryAssistantActivity._Ingredients.allergiesSuffered;
+		//_allergiesSuffered = DietaryAssistantActivity._Ingredients.allergiesSuffered;
 		setListAdapter(new myAdapter(this, R.layout.list_item, DietaryAssistantActivity._Ingredients.returnAll()));
 
 		
@@ -44,20 +46,32 @@ public class KeyboardInputView extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 
-		super.onListItemClick(l, v, position, id);
-		if(!_allergiesSuffered.isEmpty()) { 
-			AlertDialog ad = new AlertDialog.Builder(this).create();
+		int first_pos = l.getFirstVisiblePosition(); //used to fix toast position 
+		
+		if(!DietaryAssistantActivity._Ingredients.allergiesSuffered.isEmpty()) { 
+			
+			View entry = l.getChildAt(position-first_pos);
+			int[] xy = new int[2];
+			entry.getLocationOnScreen(xy);
+			
+			CharSequence toasttext = "";
+			
 			String ingredient = (String) l.getAdapter().getItem(position);
 
-			//dummy message for now....
-			String message = ingredient + " is in the following allergies I suffer:\n";
 			Cursor cursor = DietaryAssistantActivity._Ingredients.dbHelper.returnAllergyNames(ingredient);
 			for(int i = 0; i < cursor.getCount(); i++) {
 				cursor.moveToNext();
-				message = message + "(" + (i+1) + ")" + " " + cursor.getString(0) + "\n";
+				if(DietaryAssistantActivity._Ingredients.allergiesSuffered.contains(cursor.getString(0))) {
+					toasttext = toasttext + cursor.getString(0) + "\n";
+					
+				}
 			}
-			ad.setMessage(message);
-			ad.show();
+			if(toasttext.length()>2) {
+				Toast toast = Toast.makeText(this, toasttext, Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, xy[1]);
+				toast.show();
+			}
+			
 		}
 	}
 

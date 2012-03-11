@@ -35,11 +35,11 @@ public class OCRReader {
 					minval = LDValue[i][j];
 				}
 			}
-			if(minval < Math.min(ingredients[i].trim().toLowerCase().length(), IngredientDictionary.get(minindex).trim().toLowerCase().length())) {
+			if(minval < 0.5*Math.min(ingredients[i].trim().toLowerCase().length(), IngredientDictionary.get(minindex).trim().toLowerCase().length())) {
 				cleanedIngredients.add(IngredientDictionary.get(minindex));
 			}
 			else {
-				//cleanedIngredients.add(ingredients[i].trim().toUpperCase());
+				cleanedIngredients.add(ingredients[i].trim().toUpperCase());
 			}
 		}
 		
