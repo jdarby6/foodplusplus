@@ -58,15 +58,15 @@ public class CameraView extends Activity {
 		super.onActivityResult(requestcode, resultcode, data);
 
 
-		if(resultcode == RETURN_FROM_CAMERA) {
+		if(resultcode == RETURN_FROM_CAMERA && requestcode != RETURN_FROM_CROP) {
 			//User has now accepted the photo and pressed OK 
 			doCrop();
 		}
 		else if(requestcode == RETURN_FROM_CROP) {  	
 
-			File f = new File(_imagepath);            
+			/*File f = new File(_imagepath);            
 
-			if (f.exists()) f.delete();
+			if (f.exists()) f.delete();*/
 
 			BitmapFactory.Options options = new BitmapFactory.Options();
 
