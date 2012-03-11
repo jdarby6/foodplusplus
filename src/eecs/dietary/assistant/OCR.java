@@ -8,7 +8,7 @@ import com.googlecode.tesseract.android.TessBaseAPI;
 
 public class OCR {
 	
-	private TessBaseAPI _tessapi;
+	public TessBaseAPI _tessapi;
 	public String readText;
 	
 	
@@ -21,6 +21,8 @@ public class OCR {
 		_tessapi.setImage(bitmap);
 		readText = _tessapi.getUTF8Text();
 	}
+	
+	
 	
 
 }

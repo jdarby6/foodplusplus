@@ -9,7 +9,7 @@ import java.util.List;
 
 public class OCRReader {
 	
-	List<String> IngredientDictionary;
+	List<String> IngredientDictionary = new ArrayList<String>();
 	List<String> IngredientsFound = new ArrayList<String>();
 	
 	List<String> RetrieveIngredients(String OCRtext) {
@@ -21,6 +21,7 @@ public class OCRReader {
 		
 		for(int i=0; i<ingredients.length; i++) {
 			for(int j=0; j<IngredientDictionary.size(); j++) {
+				//need to check if actually suffering that allergy
 				LDValue[i][j] = getLevenshteinDistance(ingredients[i].trim().toLowerCase(),IngredientDictionary.get(j).trim().toLowerCase());
 			}
 		}
@@ -34,11 +35,11 @@ public class OCRReader {
 					minval = LDValue[i][j];
 				}
 			}
-			if(minval < 5) {
+			if(minval < Math.min(ingredients[i].trim().toLowerCase().length(), IngredientDictionary.get(minindex).trim().toLowerCase().length())) {
 				cleanedIngredients.add(IngredientDictionary.get(minindex));
 			}
 			else {
-				cleanedIngredients.add(ingredients[i].trim().toUpperCase());
+				//cleanedIngredients.add(ingredients[i].trim().toUpperCase());
 			}
 		}
 		

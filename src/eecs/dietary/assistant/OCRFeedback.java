@@ -25,6 +25,13 @@ public class OCRFeedback extends ListActivity {
 
 	}
 	
+	@Override
+	public void onPause() {
+		super.onPause();
+		super.finish();
+		//finish();
+	}
+	
 	private void fillIngredsFound(List<String> ingreds) {
 		List<String> badingreds = new ArrayList<String>();
 		List<String> okingreds = new ArrayList<String>();

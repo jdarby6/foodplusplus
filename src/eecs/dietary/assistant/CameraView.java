@@ -27,8 +27,10 @@ import android.widget.FrameLayout;
 
 public class CameraView extends Activity {
 	
-	public int pixeldensity = 200;
+	public static int RETURN_FROM_OCR = 555749321;
+	public int pixeldensity = 300;
 	public int subsamplefactor = 2;
+	
 	public boolean preferquality = true;
 	private String _imagepath = Environment.getExternalStorageDirectory().toString() + "/ocr.jpg";
 	AlertDialog ad; 
@@ -56,6 +58,7 @@ public class CameraView extends Activity {
 		@Override 
 	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
 		super.onActivityResult(requestcode, resultcode, data);
+	
 
 		if(resultcode == -1) {
 			//User has now accepted the photo and pressed OK 
@@ -103,9 +106,16 @@ public class CameraView extends Activity {
 					bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
 					
 					DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
+					int conf = DietaryAssistantActivity._OCR._tessapi.meanConfidence();
+					DietaryAssistantActivity._OCRReader.IngredientDictionary = DietaryAssistantActivity._Ingredients.returnAll();
+					DietaryAssistantActivity._OCRReader.IngredientsFound = DietaryAssistantActivity._OCRReader.RetrieveIngredients(DietaryAssistantActivity._OCR.readText);
 					
-					ad.setMessage(DietaryAssistantActivity._OCR.readText);
-					ad.show();
+					///ad.setMessage(Integer.toString(conf) + "//" + DietaryAssistantActivity._OCR.readText);
+					///ad.show();
+					
+					Intent i = new Intent(this, OCRFeedback.class);
+					startActivityForResult(i,RETURN_FROM_OCR);
+					
 				
 					
 			} catch (IOException e) {
@@ -115,6 +125,27 @@ public class CameraView extends Activity {
 			}
 
 			
+		}
+		else if(requestcode==RETURN_FROM_OCR) {
+			
+			File file = new File(_imagepath);
+			Uri outputFileUri = Uri.fromFile(file);
+
+			final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
+			
+		
+			startActivityForResult(intent, 0);
+			
+			
+			
+			
+			
+		}
+		
+		else {
+			
+			super.finish();
 		}
 		
 		
