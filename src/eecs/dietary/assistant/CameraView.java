@@ -49,7 +49,7 @@ public class CameraView extends Activity {
 		final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
-		startActivityForResult(intent, RETURN_FROM_CAMERA);
+		startActivityForResult(intent, 0);
 
 
 	}
@@ -63,7 +63,7 @@ public class CameraView extends Activity {
 			//User has now accepted the photo and pressed OK 
 			doCrop();
 		}
-		else if(resultcode == RETURN_FROM_CROP) {  	
+		else if(requestcode == RETURN_FROM_CROP) {  	
 
 	        File f = new File(_imagepath);            
 	        
