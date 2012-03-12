@@ -9,41 +9,79 @@ import java.util.List;
 
 public class OCRReader {
 	
-	List<String> IngredientDictionary = new ArrayList<String>();
-	List<String> IngredientsFound = new ArrayList<String>();
+//	List<String> IngredientDictionary = new ArrayList<String>();
+//	List<String> IngredientsFound = new ArrayList<String>();
+	
+	
+	
+	List<String> FindBadIngredients(String OCRtext) {
+		List<String> badingreds = new ArrayList<String>();
+		List<String> tempingreds = new ArrayList<String>();
+			
+		int pos = FindFirstPositionOf("Ingredients:",OCRtext); 
+		int LD = 0;
+		OCRtext = OCRtext.substring(pos+"Ingredients:".length(),OCRtext.length());
+ 		
+		for(int i=0; i<DietaryAssistantActivity._Ingredients.allergiesSuffered.size(); i++) {
+			tempingreds = DietaryAssistantActivity._Ingredients.returnByAllergy(DietaryAssistantActivity._Ingredients.allergiesSuffered.get(i));
+			for(int j=0; j<tempingreds.size(); j++) {
+				pos = FindFirstPositionOf(tempingreds.get(j),OCRtext);
+				if(pos+tempingreds.get(j).length() > OCRtext.length()) { } 
+				else {
+					LD = getLevenshteinDistance(tempingreds.get(j).toUpperCase(),OCRtext.substring(pos, pos+tempingreds.get(j).length()).toUpperCase());
+					if( (double) LD / (double)tempingreds.get(j).length() < 0.2) { //change less than 20% of characters
+						badingreds.add(tempingreds.get(j));
+					}
+				}
+				
+			}
+		}
+
+		return badingreds;
+	}
+	
+	
+	
+	
+	
+	int FindFirstPositionOf(String word, String text) {
+		//checks every subset of word.length in text and returns best match using levenshtein distance
+		int pos = -1;
+		
+		String substring = "a";
+		int start = 0;
+		int minval = 1000;
+		int val = 0;
+		while((start+word.length()-1)<text.length()) {
+			substring = text.substring(start, start+word.length());
+			start = start + 1;
+			val = getLevenshteinDistance(word.toUpperCase(),substring.toUpperCase());
+			if(val < minval) {
+				minval = val;
+				pos = start-1;
+			}
+		}
+		
+		return pos;
+	}
+	
+	
 	
 	List<String> RetrieveIngredients(String OCRtext) {
+		
+		int pos = FindFirstPositionOf("Ingredients:",OCRtext); 
+		OCRtext = OCRtext.substring(pos+"Ingredients:".length(),OCRtext.length());
+		
 		List<String> cleanedIngredients = new ArrayList<String>();
 		
 		String[] ingredients = OCRtext.split(",");
 		
-		int LDValue[][] = new int[ingredients.length+1][IngredientDictionary.size()+1];
 		
 		for(int i=0; i<ingredients.length; i++) {
-			for(int j=0; j<IngredientDictionary.size(); j++) {
-				//need to check if actually suffering that allergy
-				LDValue[i][j] = getLevenshteinDistance(ingredients[i].trim().toLowerCase(),IngredientDictionary.get(j).trim().toLowerCase());
-			}
+				cleanedIngredients.add(ingredients[i]);
 		}
 		
-		for(int i=0; i<ingredients.length; i++) {
-			int minindex = 0;
-			int minval = 10000;
-			for(int j=0; j<IngredientDictionary.size();j++) {
-				if(LDValue[i][j] < minval) {
-					minindex = j;
-					minval = LDValue[i][j];
-				}
-			}
-			if(minval < 0.5*Math.min(ingredients[i].trim().toLowerCase().length(), IngredientDictionary.get(minindex).trim().toLowerCase().length())) {
-				cleanedIngredients.add(IngredientDictionary.get(minindex));
-			}
-			else {
-				cleanedIngredients.add(ingredients[i].trim().toUpperCase());
-			}
-		}
-		
-		IngredientsFound = cleanedIngredients;
+//		IngredientsFound = cleanedIngredients;
 		
 		return cleanedIngredients;
 	}

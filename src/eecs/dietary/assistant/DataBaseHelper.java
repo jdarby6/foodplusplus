@@ -156,4 +156,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	public Cursor returnAllergyNames(String ingredient) {
 		return myDataBase.rawQuery("SELECT allergy FROM all_ingreds WHERE ingredient = '" + ingredient + "' ORDER BY allergy ASC", null);
 	}
+	
+	public Cursor returnIngredientNames(String allergy) {
+		return myDataBase.rawQuery("SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = '" + allergy.toUpperCase() +"'",null);
+	}
+	
 }

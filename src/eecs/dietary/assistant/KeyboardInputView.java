@@ -68,7 +68,7 @@ public class KeyboardInputView extends ListActivity {
 			Cursor cursor = DietaryAssistantActivity._Ingredients.dbHelper.returnAllergyNames(ingredient);
 			for(int i = 0; i < cursor.getCount(); i++) {
 				cursor.moveToNext();
-				if(DietaryAssistantActivity._Ingredients.allergiesSuffered.contains(cursor.getString(0))) {
+				if(DietaryAssistantActivity._Ingredients.allergiesSuffered.contains(cursor.getString(0).toLowerCase())) {
 					toasttext = toasttext + cursor.getString(0) + "\n";
 					
 				}

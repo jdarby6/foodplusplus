@@ -3,6 +3,7 @@ package eecs.dietary.assistant;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -13,12 +14,23 @@ import android.widget.ArrayAdapter;
 public class OCRFeedback extends ListActivity {
 	
 	List<String> ingredsFound = new ArrayList<String>(); //stores the ingredients in order
+	List<String> badingreds = new ArrayList<String>();
+	List<String> okingreds = new ArrayList<String>();
+	List<String> unknowningreds = new ArrayList<String>();
+	
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
-	  fillIngredsFound(DietaryAssistantActivity._OCRReader.IngredientsFound);
+	  AlertDialog ad = new AlertDialog.Builder(this).create();
+	  String ocrtext = DietaryAssistantActivity._OCR.readText;
+	  int pos = DietaryAssistantActivity._OCRReader.FindFirstPositionOf("Ingredients:", ocrtext);
+	  ad.setMessage(ocrtext.subSequence(pos, pos+"Ingredients".length()));
+	  ad.show();
+	  
+	  fillIngredsFound(DietaryAssistantActivity._OCRReader.FindBadIngredients(ocrtext),true);
+	  fillIngredsFound(DietaryAssistantActivity._OCRReader.RetrieveIngredients(ocrtext),false);
 	  
 	//  ingredsFound = DietaryAssistantActivity._OCRReader.IngredientsFound;
 	  setListAdapter(new myFeedbackAdapter(this, R.layout.list_item, ingredsFound));
@@ -32,12 +44,10 @@ public class OCRFeedback extends ListActivity {
 		//finish();
 	}
 	
-	private void fillIngredsFound(List<String> ingreds) {
-		List<String> badingreds = new ArrayList<String>();
-		List<String> okingreds = new ArrayList<String>();
-		List<String> unknowningreds = new ArrayList<String>();
+	private void fillIngredsFound(List<String> ingreds, boolean bad) {
+	
 		for(int a=0; a<ingreds.size(); a++) {
-			if(true) {
+			if(bad) {
 				badingreds.add(ingreds.get(a));
 			}
 		//	else if(DietaryAssistantActivity._Ingredients.contains(ingreds.get(a))) {
@@ -47,9 +57,13 @@ public class OCRFeedback extends ListActivity {
 				unknowningreds.add(ingreds.get(a));
 			}
 		}
-		ingredsFound.addAll(badingreds);
-		ingredsFound.addAll(okingreds);
-		ingredsFound.addAll(unknowningreds);
+		if(bad) {
+			ingredsFound.addAll(badingreds);
+		}
+		else {
+		//ingredsFound.addAll(okingreds);
+			ingredsFound.addAll(unknowningreds);
+		}
 		
 	}
 	
@@ -70,9 +84,9 @@ public class OCRFeedback extends ListActivity {
 		
 			View view = super.getView(position,convertView,parent);
 			
-			ingredient = ingredient.replaceAll("[^a-zA-Z0-9]+", " ");
+			//ingredient = ingredient.replaceAll("[^a-zA-Z0-9]+", " ");
 			
-			if(true) {
+			if(position < badingreds.size()) {
 				view.setBackgroundColor(colors[0]);
 				//view.setContentDescription("Violates allergy");
 				//view.setVerticalFadingEdgeEnabled(true);

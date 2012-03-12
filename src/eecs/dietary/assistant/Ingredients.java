@@ -63,6 +63,16 @@ class Ingredients {
 		return all_ingreds;
 	}*/
 
+	public List<String> returnByAllergy(String allergy) {
+		Cursor cursor = dbHelper.returnIngredientNames(allergy);
+		List<String> results = new ArrayList<String>();
+		for(int i=0; i < cursor.getCount(); i++) {
+			cursor.moveToNext();
+			results.add(cursor.getString(0));
+		}
+		return results;
+	}
+	
 	public boolean check(String ingredient) {
 		Cursor cursor = dbHelper.returnAllergyNames(ingredient);
 		List<String> results = new ArrayList<String>();

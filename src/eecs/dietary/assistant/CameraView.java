@@ -26,15 +26,15 @@ import android.widget.Toast;
 public class CameraView extends Activity {
 
 	public static int RETURN_FROM_CAMERA = -1;
-	public static int RETURN_FROM_CROP = 4;
+	public static int RETURN_FROM_CROP = 57392923;
 	public static int RETURN_FROM_OCR = 555749321;
-	public int pixeldensity = 300;
-	public int subsamplefactor = 2;
+	public int pixeldensity = 400;
+	public int subsamplefactor = 1;
 
 	private Uri outputFileUri;
 
 	public boolean preferquality = true;
-	private String _imagepath = Environment.getExternalStorageDirectory().toString() + "/ocr.jpg";
+	private String _imagepath = Environment.getExternalStorageDirectory().toString() + "/ocr.png";
 	AlertDialog ad; 
 
 	@Override 
@@ -74,7 +74,8 @@ public class CameraView extends Activity {
 			
 				OutputStream outstream;
 				outstream = getContentResolver().openOutputStream(outputFileUri);
-				temp.compress(Bitmap.CompressFormat.JPEG,100,outstream);
+				temp.compress(Bitmap.CompressFormat.PNG, 100, outstream);
+				//temp.compress(Bitmap.CompressFormat.JPEG,100,outstream);
 				outstream.close();
 			}
 			catch(FileNotFoundException e) {}
@@ -127,8 +128,8 @@ public class CameraView extends Activity {
 
 				DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
 				int conf = DietaryAssistantActivity._OCR._tessapi.meanConfidence();
-				DietaryAssistantActivity._OCRReader.IngredientDictionary = DietaryAssistantActivity._Ingredients.returnAll();
-				DietaryAssistantActivity._OCRReader.IngredientsFound = DietaryAssistantActivity._OCRReader.RetrieveIngredients(DietaryAssistantActivity._OCR.readText);
+//				DietaryAssistantActivity._OCRReader.IngredientDictionary = DietaryAssistantActivity._Ingredients.returnAll();
+//				DietaryAssistantActivity._OCRReader.IngredientsFound = DietaryAssistantActivity._OCRReader.RetrieveIngredients(DietaryAssistantActivity._OCR.readText);
 
 				///ad.setMessage(Integer.toString(conf) + "//" + DietaryAssistantActivity._OCR.readText);
 				///ad.show();
