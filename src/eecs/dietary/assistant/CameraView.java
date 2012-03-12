@@ -1,7 +1,9 @@
 package eecs.dietary.assistant;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,6 +69,19 @@ public class CameraView extends Activity {
 			/*File f = new File(_imagepath);            
 
 			if (f.exists()) f.delete();*/
+			try {
+				Bitmap temp = (Bitmap) data.getExtras().get("data");
+			
+				OutputStream outstream;
+				outstream = getContentResolver().openOutputStream(outputFileUri);
+				temp.compress(Bitmap.CompressFormat.JPEG,100,outstream);
+				outstream.close();
+			}
+			catch(FileNotFoundException e) {}
+			catch (IOException e) {} 
+			
+			
+			
 
 			BitmapFactory.Options options = new BitmapFactory.Options();
 
@@ -165,6 +180,8 @@ public class CameraView extends Activity {
 //			intent.putExtra("aspectY", 1);
 			intent.putExtra("scale", true);
 			intent.putExtra("return-data", true);
+			intent.putExtra("output", outputFileUri);
+			intent.putExtra(MediaStore.EXTRA_OUTPUT, outputFileUri);
 
 			if (size == 1) {
 				Intent i 		= new Intent(intent);
