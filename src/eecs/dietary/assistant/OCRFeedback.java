@@ -23,11 +23,11 @@ public class OCRFeedback extends ListActivity {
 	public void onCreate(Bundle savedInstanceState) {
 	  super.onCreate(savedInstanceState);
 	  
-	  AlertDialog ad = new AlertDialog.Builder(this).create();
+	//  AlertDialog ad = new AlertDialog.Builder(this).create();
 	  String ocrtext = DietaryAssistantActivity._OCR.readText;
 	  int pos = DietaryAssistantActivity._OCRReader.FindFirstPositionOf("Ingredients:", ocrtext);
-	  ad.setMessage(ocrtext.subSequence(pos, pos+"Ingredients".length()));
-	  ad.show();
+	//  ad.setMessage(ocrtext.subSequence(pos, pos+"Ingredients".length()));
+	//  ad.show();
 	  
 	  fillIngredsFound(DietaryAssistantActivity._OCRReader.FindBadIngredients(ocrtext),true);
 	  fillIngredsFound(DietaryAssistantActivity._OCRReader.RetrieveIngredients(ocrtext),false);

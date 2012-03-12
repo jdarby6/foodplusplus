@@ -61,7 +61,7 @@ public class KeyboardInputView extends ListActivity {
 			int[] xy = new int[2];
 			entry.getLocationOnScreen(xy);
 			
-			CharSequence toasttext = "";
+			CharSequence toasttext = "Conflicts with...\n";
 			
 			String ingredient = (String) l.getAdapter().getItem(position);
 
@@ -73,7 +73,8 @@ public class KeyboardInputView extends ListActivity {
 					
 				}
 			}
-			if(toasttext.length()>2) {
+			if(toasttext.length()>"Conflicts with...\n".length()+1) {
+				toasttext = toasttext.subSequence(0, toasttext.length()-1); //chop off last newline
 				Toast toast = Toast.makeText(this, toasttext, Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.TOP|Gravity.CENTER, 0, xy[1]);
 				toast.show();
