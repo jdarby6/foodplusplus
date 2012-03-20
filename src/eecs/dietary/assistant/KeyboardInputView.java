@@ -2,7 +2,6 @@ package eecs.dietary.assistant;
 
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;

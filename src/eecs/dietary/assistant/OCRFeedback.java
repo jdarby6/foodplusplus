@@ -3,7 +3,6 @@ package eecs.dietary.assistant;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.os.Bundle;
@@ -25,7 +24,7 @@ public class OCRFeedback extends ListActivity {
 	  
 	//  AlertDialog ad = new AlertDialog.Builder(this).create();
 	  String ocrtext = DietaryAssistantActivity._OCR.readText;
-	  int pos = DietaryAssistantActivity._OCRReader.FindFirstPositionOf("Ingredients:", ocrtext);
+//	  int pos = DietaryAssistantActivity._OCRReader.FindFirstPositionOf("Ingredients:", ocrtext);
 	//  ad.setMessage(ocrtext.subSequence(pos, pos+"Ingredients".length()));
 	//  ad.show();
 	  
@@ -80,7 +79,7 @@ public class OCRFeedback extends ListActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			int[] colors = new int[] { 0x30FF0000, 0xFF00FF00, 0xFF888888 }; //0 is red, 1 is green, 2 is gray
 			
-			String ingredient = super.getItem(position);
+//			String ingredient = super.getItem(position);
 		
 			View view = super.getView(position,convertView,parent);
 			

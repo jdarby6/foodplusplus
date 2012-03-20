@@ -1,7 +1,5 @@
 package eecs.dietary.assistant;
 
-import java.io.File;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,8 +10,7 @@ import android.view.View;
 public class DietaryAssistantActivity extends Activity {
 	/** Called when the activity is first created. */
 
-	public static Ingredients _Ingredients; //so every activity can access it..dunno if this is the best style
-	//(i was using intent's before to pass data but that got messy)
+	public static Ingredients _Ingredients;
 	
 	public static OCR _OCR;
 	
@@ -23,13 +20,7 @@ public class DietaryAssistantActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		
-	//	AlertDialog ad = new AlertDialog.Builder(this).create();
-		
-		File myDir = Environment.getExternalStorageDirectory();
-	//	ad.setMessage(myDir.toString());
-	//	ad.show();
-		
-		_OCR = new OCR(myDir);
+		_OCR = new OCR(Environment.getExternalStorageDirectory()); //location of tesseract language file (on phone)
 		_OCRReader = new OCRReader();
 		
 		_Ingredients = new Ingredients(getBaseContext());
@@ -42,6 +33,15 @@ public class DietaryAssistantActivity extends Activity {
 		
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, CameraView.class);
+		
+		startActivityForResult(intent, 0);
+	}
+	
+	public void Barcode_on_click(final View trash) {
+		
+		Intent intent = new Intent();
+		intent.setClass(DietaryAssistantActivity.this, BarcodeView.class);
+		
 		startActivityForResult(intent, 0);
 	}
 
@@ -50,16 +50,16 @@ public class DietaryAssistantActivity extends Activity {
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, KeyboardInputView.class);
 
-		startActivityForResult(intent,0);
+		startActivityForResult(intent, 0);
 
 	}
 
 	public void Allergy_on_click(final View trash) {
-		//will be used to call up the allergy selector 
 
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, AllergyChoiceView.class);
-		startActivityForResult(intent,0);
+		
+		startActivityForResult(intent, 0);
 
 	}
 

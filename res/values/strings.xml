@@ -3,5 +3,6 @@
 
     <string name="hello">Hello World, DietaryAssistantActivity!</string>
     <string name="app_name">DietaryAssistant</string>
+    <string name="method">Select Image Source</string>
 
 </resources>
