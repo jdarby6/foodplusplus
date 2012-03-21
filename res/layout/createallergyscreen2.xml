@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+  
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="65dp"
+        android:paddingTop="5dp"
+        android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:ellipsize="none"
+        android:gravity="top"
+        android:scrollHorizontally="false"
+        android:singleLine="false"
+        android:text="Great! Should we include any known allergies?"
+        android:textSize="10pt" />
+
+    </LinearLayout> 
+ 
+  <LinearLayout
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="1"
+   >
+	  	
+	  <ListView android:id="@+id/listallergycreate2"
+	    android:layout_width="fill_parent" 
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1" >
+	    </ListView>
+      
+     </LinearLayout>
+     <LinearLayout
+         android:orientation="horizontal"
+         android:layout_width="fill_parent"
+         android:layout_height="40dp"
+      >
+	 
+		    <Button
+		        android:id="@+id/buttonBackAllergyCreate2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="0.5"
+		        android:text="Back" />
+			<Button
+		        android:id="@+id/buttonForwardAllergyCreate2"
+		        android:layout_width="wrap_content"
+		        android:layout_height="fill_parent"
+		        android:layout_weight="0.5"
+		        android:text="Continue" />
+         
+         </LinearLayout>
+
+</LinearLayout>
