@@ -31,6 +31,10 @@
             android:launchMode="singleTop"
         >
         </activity>
+        <activity android:name=".BarcodeFeedback"
+        	android:launchMode="singleTop"
+        >
+        </activity>
         <activity
             android:name=".KeyboardInputView"
             android:launchMode="singleTop"

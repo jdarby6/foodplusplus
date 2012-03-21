@@ -17,7 +17,7 @@ class Ingredients {
 
 	//Constructor that populates "all_allergies" list variable
 	Ingredients(Context context) {
-		dbHelper = new DataBaseHelper(context);
+		dbHelper = new DataBaseHelper(context, "all_ingreds_db"); //copy local database "all_ingreds_db" to work with this app
 		try {
 			dbHelper.createDataBase();
 

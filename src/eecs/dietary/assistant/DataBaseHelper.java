@@ -17,7 +17,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	//The Android's default system path of your application database.
 	private static String DB_PATH = "/data/data/eecs.dietary.assistant/databases/";
 
-	private static String DB_NAME = "all_ingreds_db";
+	private static String DB_NAME;
 
 	private SQLiteDatabase myDataBase; 
 
@@ -28,9 +28,9 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	 * Takes and keeps a reference of the passed context in order to access to the application assets and resources.
 	 * @param context
 	 */
-	public DataBaseHelper(Context context) {
-
-		super(context, DB_NAME, null, 1);
+	public DataBaseHelper(Context context, String name) {
+		super(context, name, null, 1);
+		DB_NAME = name;
 		this.myContext = context;
 	}	
 
@@ -149,6 +149,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 	// Add your public helper methods to access and get content from the database.
 
+	//Methods for ingredients database
 	public Cursor returnAll() {
 		return myDataBase.rawQuery("SELECT DISTINCT ingredient FROM all_ingreds ORDER BY ingredient ASC", null);
 	}
@@ -167,6 +168,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	
 	public Cursor checkIfAllergyExists(String allergy) {
 		return myDataBase.rawQuery("SELECT allergy FROM all_ingreds WHERE allergy = '" + allergy + "'",null);
+	}
+	
+	//Methods for barcode database
+	public Cursor findUPC(String upc) {
+		return myDataBase.rawQuery("SELECT brand, name, description, container, size, uom, ingredients FROM barcode_data WHERE upc_a = " + upc, null);
 	}
 	
 	
