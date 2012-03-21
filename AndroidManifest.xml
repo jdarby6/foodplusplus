@@ -45,6 +45,27 @@
         >
         </activity>
         
+        <activity android:name=".CreateAllergyActivity"
+            android:screenOrientation="portrait"
+        >
+        </activity>
+        <activity android:name=".CreateAllergyActivity2"
+            android:screenOrientation="portrait"
+        >
+        </activity>
+        <activity android:name=".CreateAllergyActivity3"
+            android:screenOrientation="portrait"
+        >
+        </activity>
+        <activity android:name=".CreateAllergyActivityCreateIngredient"
+            android:screenOrientation="portrait"
+        >
+        </activity>
+        <activity android:name=".CreateAllergyActivityReviewAllergy"
+            android:screenOrientation="portrait"
+        >
+        </activity>
+        
         <activity android:name="com.google.zxing.client.android.CaptureActivity"
    			android:screenOrientation="landscape"
    			android:configChanges="orientation|keyboardHidden"

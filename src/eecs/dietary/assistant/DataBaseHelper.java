@@ -161,4 +161,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		return myDataBase.rawQuery("SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = '" + allergy.toUpperCase() +"'",null);
 	}
 	
+	public Cursor checkIfIngredientExists(String ingredient) {
+		return myDataBase.rawQuery("SELECT ingredient FROM all_ingreds WHERE ingredient = '" + ingredient + "'", null);
+	}
+	
+	public Cursor checkIfAllergyExists(String allergy) {
+		return myDataBase.rawQuery("SELECT allergy FROM all_ingreds WHERE allergy = '" + allergy + "'",null);
+	}
+	
+	
 }

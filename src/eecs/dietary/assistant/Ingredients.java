@@ -75,18 +75,39 @@ class Ingredients {
 	
 	public boolean check(String ingredient) {
 		Cursor cursor = dbHelper.returnAllergyNames(ingredient);
-		List<String> results = new ArrayList<String>();
+		//List<String> results = new ArrayList<String>();
+		String result; 
 		for(int i = 0; i < cursor.getCount(); i++) {
 			cursor.moveToNext();
-			results.add(cursor.getString(0));
-		}
-		for(int i = 0; i < allergiesSuffered.size(); i++) {
-			for(int j = 0; j < results.size(); j++) {
-				if(results.get(j).toLowerCase().trim().equals(allergiesSuffered.get(i).toLowerCase().trim())) {
+			result = cursor.getString(0);
+			for(int j=0; j< allergiesSuffered.size(); j++) {
+				if(result.toLowerCase().equals(allergiesSuffered.get(j).toLowerCase())) {
 					return true;
-				}
+				}		
 			}
 		}
 		return false;
 	}
+	
+	public boolean checkIfIngredientExists(String ingredient) {
+		Cursor cursor = dbHelper.checkIfIngredientExists(ingredient.toUpperCase());
+		if(cursor.getCount() > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+		
+	}
+	
+	public boolean checkIfAllergyExists(String allergy) {
+		Cursor cursor = dbHelper.checkIfAllergyExists(allergy.toUpperCase());
+		if(cursor.getCount() > 0) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }

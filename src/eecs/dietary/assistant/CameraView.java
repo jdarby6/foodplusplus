@@ -61,7 +61,7 @@ public class CameraView extends Activity {
 		dialog.setTitle(getResources().getString(R.string.method));
 
 		dialog.setItems(addPhoto,new DialogInterface.OnClickListener(){
-			@Override
+	//		@Override -- caused errors for me when compiling (jason)
 			public void onClick(DialogInterface dialog, int id) {
 
 				if(id == 0){

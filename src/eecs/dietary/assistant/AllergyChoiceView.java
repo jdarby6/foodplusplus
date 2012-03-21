@@ -1,25 +1,72 @@
 package eecs.dietary.assistant;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+
 import android.app.ListActivity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Filterable;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
 
 public class AllergyChoiceView extends ListActivity {
 
+	public static int CALL_CREATE_ALLERGY = 73612;
+	
+	private List<String> _bindinglist;
+	private List<String> _clickeditems;
+	private ListView _listview;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		ListView lv = getListView();
-		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		lv.setClickable(true);
+		_clickeditems = new ArrayList<String>();
+		_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
+		
+		_listview = getListView();
+		_listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		_listview.setClickable(true);
+		_listview.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) { 
+					
+					if( ((TextView)arg1).getText()=="Create new allergy...") {
+						Intent i = new Intent();
+						i.setClass(AllergyChoiceView.this, CreateAllergyActivity.class);
+						startActivityForResult(i,CALL_CREATE_ALLERGY);
+			
+					}
+					else {
+						if(_clickeditems.contains(((TextView)arg1).getText())) {
+							_clickeditems.remove(((TextView)arg1).getText());
+							//lv.setItemChecked(arg2, false);
+						}
+						else {
+							_clickeditems.add((String)((TextView)arg1).getText());
+							//lv.setItemChecked(arg2, true);
+						}
+					}
+				}
+			});
+				
 
-		setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_multiple_choice, DietaryAssistantActivity._Ingredients.all_allergies));
+		
+		_bindinglist = new ArrayList<String>();
+		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
+		_bindinglist.add("Create new allergy...");
+		setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
 		for(int i = 0; i < DietaryAssistantActivity._Ingredients.all_allergies.size(); i++) {
-			if(DietaryAssistantActivity._Ingredients.allergiesSuffered.contains((String) DietaryAssistantActivity._Ingredients.all_allergies.get(i))) {
-				lv.setItemChecked(i, true); 
+			if(DietaryAssistantActivity._Ingredients.allergiesSuffered.contains((String) _bindinglist.get(i))) {
+				_listview.setItemChecked(i, true); 
 			}
 		}
 	}
@@ -32,6 +79,35 @@ public class AllergyChoiceView extends ListActivity {
 		}
 		else { 
 			DietaryAssistantActivity._Ingredients.allergiesSuffered.add((String) l.getItemAtPosition(position));
+		}
+	}
+	
+	private class myAdapter extends ArrayAdapter<String> implements Filterable {
+		public myAdapter(Context context, int textViewResourceId, List<String> list2) {
+			super(context,textViewResourceId,list2);
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+			String ingredient = getItem(position);
+			View view = super.getView(position,convertView,parent);
+	
+			if(ingredient=="Create new ingredient...") {
+				//make it look normal
+			}
+			else {
+				if(_clickeditems.contains(ingredient)) {
+					_listview.setItemChecked(position, true);
+				
+					//lv.set
+					
+				}
+				else {
+					_listview.setItemChecked(position,false);
+				}
+			}
+			
+			return view;
 		}
 	}
 }
