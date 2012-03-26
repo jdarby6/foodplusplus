@@ -31,6 +31,7 @@ import android.widget.TextView;
 public class CreateAllergyActivity3 extends ListActivity {
 		
 	public static int CALL_REVIEW_SCREEN = 784781;
+	public static int BACKWARD_BUTTON = 9281;
 	
     private List<String> _filteredModelItemsArray;
 	
@@ -47,7 +48,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 	private List<String> _bindinglist;
 	private List<String> _ingredients;
 	private List<String> _checkedallergies;
-	
+	private String allergyname; 
 	
 
 	@Override
@@ -66,15 +67,15 @@ public class CreateAllergyActivity3 extends ListActivity {
 		_keyboard = (Button) this.findViewById(R.id.buttonKeyAllergyCreate3);
 		_backward.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
-		
-				
+				setResult(BACKWARD_BUTTON);
+				finish();
 			}
 		});		
 		_forward.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
 				Intent i = new Intent();
 				i.setClass(CreateAllergyActivity3.this, CreateAllergyActivityReviewAllergy.class);
-				i.putExtra("allergyname", "blahblab");
+				i.putExtra("allergyname", allergyname);
 				ArrayList<String> ingredients = new ArrayList<String>();
 				ingredients.addAll(_clickeditems);
 				i.putStringArrayListExtra("ingredients", ingredients);
@@ -97,6 +98,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 		Intent sender = getIntent();
 		_checkedallergies = new ArrayList<String>();
 		_checkedallergies = sender.getStringArrayListExtra("checkedallergies");
+		allergyname = sender.getStringExtra("allergyname");
 		
 		_clickeditems = new HashSet<String>();
 		for(int i=0; i<(_checkedallergies.size()); i++) {

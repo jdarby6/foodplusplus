@@ -35,6 +35,7 @@ public class CreateAllergyActivity extends Activity {
 				if(true) {
 					Intent i = new Intent();
 					i.setClass(CreateAllergyActivity.this, CreateAllergyActivity2.class);
+					i.putExtra("allergyname", et.getText().toString());
 					startActivityForResult(i, CALL_CREATEACTIVITY2);
 				}	
 			}
