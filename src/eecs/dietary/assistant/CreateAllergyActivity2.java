@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -21,7 +22,7 @@ public class CreateAllergyActivity2 extends Activity {
 	private Button forward;
 	public static int BACKWARD_BUTTON_CODE = 90819084;
 	private List<String> _clickeditems;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -74,6 +75,25 @@ public class CreateAllergyActivity2 extends Activity {
 		
 		
 	}
+	
+	@Override 
+	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
+		super.onActivityResult(requestcode, resultcode, data);
+		//if(requestcode == CreateAllergyActivity3.) {
+			if(resultcode == CreateAllergyActivity2.BACKWARD_BUTTON_CODE) {
+				AlertDialog ad = new AlertDialog.Builder(this).create();
+				ad.setMessage("eewrqreeq");
+				ad.show();
+			}
+			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
+				setResult(CreateAllergyActivityReviewAllergy.SAVED_BUTTON);
+				finish();
+			}
+			//decide what to do now about going back straight to main menu
+		}	
+	//}
+	
+	
 }
 
 

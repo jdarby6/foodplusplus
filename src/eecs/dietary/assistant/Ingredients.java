@@ -57,6 +57,15 @@ class Ingredients {
 		}
 		return all_ingreds;
 	}
+	
+	public void InsertAllergyAndIngredient(String allergy, String ingredient) {
+		
+		dbHelper.Insert(allergy, ingredient);
+		
+	}
+	
+	
+	
 
 	/*public List<String> getAllergies(String ingredient) {
 		// TODO Auto-generated method stub

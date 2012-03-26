@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,9 +30,8 @@ import android.widget.TextView;
 
 public class CreateAllergyActivity3 extends ListActivity {
 		
-	public static int CALL_CREATE_INGREDIENT = 993801;
+	public static int CALL_REVIEW_SCREEN = 784781;
 	
-//	private List<String> allModelItemsArray = new ArrayList<String>();
     private List<String> _filteredModelItemsArray;
 	
 	
@@ -49,6 +49,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 	private List<String> _checkedallergies;
 	
 	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -75,11 +76,9 @@ public class CreateAllergyActivity3 extends ListActivity {
 				i.setClass(CreateAllergyActivity3.this, CreateAllergyActivityReviewAllergy.class);
 				i.putExtra("allergyname", "blahblab");
 				ArrayList<String> ingredients = new ArrayList<String>();
-				//String [] array;
 				ingredients.addAll(_clickeditems);
 				i.putStringArrayListExtra("ingredients", ingredients);
-				//i.putExtra
-				startActivityForResult(i,0);
+				startActivityForResult(i,CALL_REVIEW_SCREEN);
 			}
 		});	
 		_keyboard.setOnClickListener(new Button.OnClickListener() { 
@@ -93,9 +92,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 		_ingredients.addAll(DietaryAssistantActivity._Ingredients.returnAll());
 		
 		_bindinglist = new ArrayList<String>();
-		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.returnAll());
-		_bindinglist.add("Create new ingredient...");
-		
+		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.returnAll());		
 		
 		Intent sender = getIntent();
 		_checkedallergies = new ArrayList<String>();
@@ -120,24 +117,31 @@ public class CreateAllergyActivity3 extends ListActivity {
 		_listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) { 
-				
-				if(((TextView)arg1).getText() == "Create new ingredient...") {
-					Intent i = new Intent();
-					i.setClass(CreateAllergyActivity3.this,CreateAllergyActivityCreateIngredient.class);
-					startActivityForResult(i,CALL_CREATE_INGREDIENT);
+				if(_clickeditems.contains(((TextView)arg1).getText())) {
+					_clickeditems.remove(((TextView)arg1).getText());
 				}
 				else {
-					if(_clickeditems.contains(((TextView)arg1).getText())) {
-						_clickeditems.remove(((TextView)arg1).getText());
-					}
-					else {
-						_clickeditems.add((String)((TextView)arg1).getText());
-					}
-				}
-					
+					_clickeditems.add((String)((TextView)arg1).getText());
+				}			
 			}
 		});
+			
 	}
+	
+	@Override 
+	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
+		super.onActivityResult(requestcode, resultcode, data);
+		if(requestcode == CALL_REVIEW_SCREEN) {
+			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
+				setResult(CreateAllergyActivityReviewAllergy.SAVED_BUTTON);
+				finish();
+			}
+			else if(resultcode == CreateAllergyActivityReviewAllergy.BACKWARD_BUTTON) {
+				
+			}
+		}	
+	}
+	
 		
 		//helper for the filter 
 		private TextWatcher filterTextWatcher = new TextWatcher() {
@@ -155,6 +159,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 		    }
 
 		};
+		
 		//helper for the filter
 		@Override
 		protected void onDestroy() {
@@ -163,7 +168,8 @@ public class CreateAllergyActivity3 extends ListActivity {
 		}
 		
 		
-		private class myAdapter extends ArrayAdapter<String> implements Filterable {
+		
+			private class myAdapter extends ArrayAdapter<String> implements Filterable {
 		    private ModelFilter filter;
 		    private LayoutInflater mInflater;
 		    private List<String> mlist;
@@ -178,82 +184,18 @@ public class CreateAllergyActivity3 extends ListActivity {
 			@Override
 			public View getView(int position, View convertView, ViewGroup parent) {
 				int[] colors = new int[] { 0x30FF0000, 0x300000FF }; //0 is red, 1 is blue
-				ViewHolder holder;	
 				String ingredient = getItem(position);
-
+				View view = super.getView(position,convertView,parent);
+		
+				if(_clickeditems.contains(ingredient)) {
+					
+					view.setBackgroundColor(colors[0]);
+					_listview.setItemChecked(position, true);
 				
-			/*	if(convertView == null) {
-					convertView = mInflater.inflate(android.R.layout.simple_list_item_multiple_choice, null);
-					holder = new ViewHolder();
-					holder.textView = (TextView) convertView.findViewById(android.R.id.text1);
-					convertView.setTag(holder);
 				}
 				else {
-					holder = (ViewHolder) convertView.getTag();
-				}
-				
-				holder.textView.setText(ingredient);
-				return convertView; */
-				
-			
-			View view = super.getView(position,convertView,parent);
-				
-				
-			//	view.setOnClickListener(new myOnClickListener());
-
-
-		//		ViewHolder holder = null;
-				//((TextView)view).
-				
-				
-				if(ingredient=="Create new ingredient...") {
-					//convertView.e
-					//view.setClickable(false);
-					//view.
-					
-					/*view.setOnClickListener(new OnClickListener() {
-
-						public void onClick(View v) {
-							v.setBackgroundColor(0x30FF0000);
-							Intent i = new Intent();
-							i.setClass(CreateAllergyActivity3.this,CreateAllergyActivityCreateIngredient.class);
-							startActivityForResult(i,0);
-							
-							// TODO Auto-generated method stub
-					//		AlertDialog ad = new AlertDialog.Builder(.getContext()).create();
-					//		ad.setMessage("qerqwerqwer");
-					//		ad.show();
-							
-						}
-					});*/
-						
-					//	view = mInflater.inflate(android.R.layout.simple_list_item_1,null);
-						
-						
-						
-				}
-					
-					
-				//	view = mInflater.inflate(android.R.layout.simple_list_item_1, null);
-					//view.set
-					
-			
-				else {
-				//	view = mInflater.inflate(android.R.layout.simple_list_item_multiple_choice,null);
-				//	holder = new ViewHolder();
-				//	holder.textView = (TextView) ;
-					if(_clickeditems.contains(ingredient)) {
-						
-						view.setBackgroundColor(colors[0]);
-						_listview.setItemChecked(position, true);
-					
-						//lv.set
-						
-					}
-					else {
-						view.setBackgroundColor(colors[1]);
-						_listview.setItemChecked(position,false);
-					}
+					view.setBackgroundColor(colors[1]);
+					_listview.setItemChecked(position,false);
 				}
 				
 				return view;
@@ -267,9 +209,6 @@ public class CreateAllergyActivity3 extends ListActivity {
 		        return filter;
 		      }
 		
-		
-	//}
-			
 		//custom filter (used so we never filter our "create ingredient")
 		private class ModelFilter extends Filter
         {
@@ -289,7 +228,6 @@ public class CreateAllergyActivity3 extends ListActivity {
                         if(m.toLowerCase().contains(constraint.toString().toLowerCase()))
                             filteredItems.add(m);
                     }
-                    filteredItems.add("Create new ingredient..."); //always add to the end
                     result.count = filteredItems.size();
                     result.values = filteredItems;
                 }
@@ -318,32 +256,8 @@ public class CreateAllergyActivity3 extends ListActivity {
        }
 
 		}
-		
-		public class myOnClickListener implements OnClickListener {
-			public void onClick(View v) {
 			
-				
-				
-			//if(clickeditems.contains((CheckedTextView)v
-			
-					//CheckedTextView 
-				//v.setEnabled(true);
-				
-			//	String ingredient = (String) ((TextView)v).
-				
-				
-				//v.
-				
-				
-				
-			}
-		}
-		
-		public static class ViewHolder {
-			public TextView textView;
-		}
-		
-		
+	
 }
 
 

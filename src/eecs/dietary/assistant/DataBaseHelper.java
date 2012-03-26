@@ -47,7 +47,8 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 			//By calling this method and empty database will be created into the default system path
 			//of your application so we are gonna be able to overwrite that database with our database.
-			this.getReadableDatabase();
+//			this.getReadableDatabase();
+			this.getWritableDatabase();
 
 			try {
 
@@ -72,7 +73,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 		try{
 			String myPath = DB_PATH + DB_NAME;
-			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+			checkDB = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
 		}catch(SQLiteException e){
 
@@ -123,7 +124,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 		//Open the database
 		String myPath = DB_PATH + DB_NAME;
-		myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READONLY);
+		myDataBase = SQLiteDatabase.openDatabase(myPath, null, SQLiteDatabase.OPEN_READWRITE);
 
 	}
 
@@ -173,6 +174,22 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	//Methods for barcode database
 	public Cursor findUPC(String upc) {
 		return myDataBase.rawQuery("SELECT brand, name, description, container, size, uom, ingredients FROM barcode_data WHERE upc_a = " + upc, null);
+	}
+	
+	public void Insert(String allergy, String ingredient) {
+		if(myDataBase.isReadOnly()) { }
+		else {
+			try {
+				myDataBase.execSQL("INSERT INTO all_ingreds(allergy, ingredient) VALUES('"+allergy+"', '"+ingredient+"')");
+			}
+			catch(SQLException e) {
+				
+				int x = 5;
+				
+			}
+		}
+			//myDataBase.ex
+			//myDataBase.
 	}
 	
 	

@@ -9,13 +9,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+//First screen in create allergy sequence
+//Displays text box input for allergy name 
 
 public class CreateAllergyActivity extends Activity {
 	
 	private Button discard;
 	private Button create; 
 	private EditText et;
-	public static int RETURN_FROM_CREATEACTIVITY2 = 38238414;
+	public static int CALL_CREATEACTIVITY2 = 38238414;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -33,7 +35,7 @@ public class CreateAllergyActivity extends Activity {
 				if(true) {
 					Intent i = new Intent();
 					i.setClass(CreateAllergyActivity.this, CreateAllergyActivity2.class);
-					startActivityForResult(i, RETURN_FROM_CREATEACTIVITY2);
+					startActivityForResult(i, CALL_CREATEACTIVITY2);
 				}	
 			}
 		});
@@ -49,13 +51,11 @@ public class CreateAllergyActivity extends Activity {
 	@Override 
 	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
 		super.onActivityResult(requestcode, resultcode, data);
-		if(requestcode == RETURN_FROM_CREATEACTIVITY2) {
-			if(resultcode == CreateAllergyActivity2.BACKWARD_BUTTON_CODE) {
-				AlertDialog ad = new AlertDialog.Builder(this).create();
-				ad.setMessage("eewrqreeq");
-				ad.show();
+		if(requestcode == CALL_CREATEACTIVITY2) {
+			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
+				setResult(CreateAllergyActivityReviewAllergy.SAVED_BUTTON);
+				finish();
 			}
-			//decide what to do now about going back straight to main menu
 		}	
 	}		
 }

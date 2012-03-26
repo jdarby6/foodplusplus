@@ -1,3 +1,4 @@
+/*
 package eecs.dietary.assistant;
 
 import android.app.Activity;
@@ -52,4 +53,4 @@ public class CreateAllergyActivityCreateIngredient extends Activity {
 	
 		
 		
-}
+}*/

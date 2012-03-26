@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -71,6 +72,25 @@ public class AllergyChoiceView extends ListActivity {
 		}
 	}
 
+	@Override 
+	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
+		super.onActivityResult(requestcode, resultcode, data);
+		if(requestcode == CALL_CREATE_ALLERGY) {
+			if(resultcode == CreateAllergyActivity2.BACKWARD_BUTTON_CODE) {
+				AlertDialog ad = new AlertDialog.Builder(this).create();
+				ad.setMessage("eewrqreeq");
+				ad.show();
+			}
+			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
+				//ADD CODE HERE TO UPADTE THE LIST AND CHECK OFF THE NEW ALLERGY ?
+				setResult(CreateAllergyActivityReviewAllergy.SAVED_BUTTON);
+				finish();
+			}
+			//decide what to do now about going back straight to main menu
+		}	
+	}
+	
+	
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		// TODO Auto-generated method stub
 		super.onListItemClick(l, v, position, id);
