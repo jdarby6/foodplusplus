@@ -41,6 +41,7 @@
             android:layout_height="fill_parent"
             android:id="@+id/checkbox"
             android:focusable="false"
+            android:clickable="false"
         />
       </LinearLayout>
         
