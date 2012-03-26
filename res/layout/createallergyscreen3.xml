@@ -12,6 +12,10 @@
         android:hint="type to filter"
         android:inputType="text"
         android:maxLines="1"/>
+    <Button android:id="@+id/buttonAddIngredient"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add New Ingredient" />
 
     <!-- Set height to 0, and let the weight param expand it -->
     <!-- Note the use of the default ID! This lets us use a 

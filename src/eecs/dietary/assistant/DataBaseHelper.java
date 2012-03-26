@@ -171,7 +171,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	
 	//look for a specific ingredient (returns the name of the ingredient if it's found)
 	public Cursor checkIfIngredientExists(String ingredient) {
-		return myDataBase.rawQuery("SELECT ingredient FROM all_ingreds WHERE ingredient = '" + ingredient + "'", null);
+		return myDataBase.rawQuery("SELECT ingredient FROM all_ingreds WHERE ingredient = '" + ingredient.toUpperCase() + "'", null);
 	}
 	
 	//look for a specific allergy (returns the name of the allergy if it's found)

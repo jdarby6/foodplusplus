@@ -1,7 +1,6 @@
 package eecs.dietary.assistant;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -41,7 +40,7 @@ public class CreateAllergyActivity2 extends Activity {
 		
 		lv = (ListView) findViewById(R.id.listallergycreate2);
 		
-		lv.setAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice,  (ArrayList)DietaryAssistantActivity._Ingredients.all_allergies));
+		lv.setAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, DietaryAssistantActivity._Ingredients.all_allergies));
 		lv.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		lv.setClickable(true);
 		
@@ -155,8 +154,3 @@ private class myAdapter extends ArrayAdapter<String>  {
 	
 	
 }
-
-
-
-
-

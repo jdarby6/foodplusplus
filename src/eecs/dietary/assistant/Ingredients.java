@@ -10,9 +10,9 @@ import android.database.SQLException;
 
 
 class Ingredients {
-	List<String> all_ingreds;
-	List<String> allergiesSuffered;
-	List<String> all_allergies;
+	ArrayList<String> all_ingreds;
+	ArrayList<String> allergiesSuffered;
+	ArrayList<String> all_allergies;
 	DataBaseHelper dbHelper;
 
 	//Constructor that populates "all_allergies" list variable
@@ -47,7 +47,7 @@ class Ingredients {
 		all_allergies.add("wheat");	
 	}
 
-	public List<String> returnAll() {
+	public ArrayList<String> returnAll() {
 		all_ingreds.clear();
 		Cursor cursor = dbHelper.returnAll();
 		int count = cursor.getCount();
@@ -72,9 +72,9 @@ class Ingredients {
 		return all_ingreds;
 	}*/
 
-	public List<String> returnByAllergy(String allergy) {
+	public ArrayList<String> returnByAllergy(String allergy) {
 		Cursor cursor = dbHelper.returnIngredientNames(allergy);
-		List<String> results = new ArrayList<String>();
+		ArrayList<String> results = new ArrayList<String>();
 		for(int i=0; i < cursor.getCount(); i++) {
 			cursor.moveToNext();
 			results.add(cursor.getString(0));
