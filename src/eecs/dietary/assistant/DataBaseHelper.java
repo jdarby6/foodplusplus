@@ -150,32 +150,36 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 
 	// Add your public helper methods to access and get content from the database.
 
-	//Methods for ingredients database
+	/*
+	 ***** Methods for ingredients database *****
+	 */
+	
+	//get all ingredients in alphabetical order
 	public Cursor returnAll() {
 		return myDataBase.rawQuery("SELECT DISTINCT ingredient FROM all_ingreds ORDER BY ingredient ASC", null);
 	}
 	
+	//get all allergies in alphabetical order
 	public Cursor returnAllergyNames(String ingredient) {
 		return myDataBase.rawQuery("SELECT allergy FROM all_ingreds WHERE ingredient = '" + ingredient + "' ORDER BY allergy ASC", null);
 	}
 	
+	//get all ingredients associated with a certain allergy
 	public Cursor returnIngredientNames(String allergy) {
-		return myDataBase.rawQuery("SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = '" + allergy.toUpperCase() +"'",null);
+		return myDataBase.rawQuery("SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = '" + allergy.toUpperCase() +"'", null);
 	}
 	
+	//look for a specific ingredient (returns the name of the ingredient if it's found)
 	public Cursor checkIfIngredientExists(String ingredient) {
 		return myDataBase.rawQuery("SELECT ingredient FROM all_ingreds WHERE ingredient = '" + ingredient + "'", null);
 	}
 	
+	//look for a specific allergy (returns the name of the allergy if it's found)
 	public Cursor checkIfAllergyExists(String allergy) {
-		return myDataBase.rawQuery("SELECT allergy FROM all_ingreds WHERE allergy = '" + allergy + "'",null);
+		return myDataBase.rawQuery("SELECT allergy FROM all_ingreds WHERE allergy = '" + allergy.toUpperCase() + "'", null);
 	}
 	
-	//Methods for barcode database
-	public Cursor findUPC(String upc) {
-		return myDataBase.rawQuery("SELECT brand, name, description, container, size, uom, ingredients FROM barcode_data WHERE upc_a = " + upc, null);
-	}
-	
+	//insert a new row into the ingredients database
 	public void Insert(String allergy, String ingredient) {
 		if(myDataBase.isReadOnly()) { }
 		else {
@@ -190,6 +194,19 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		}
 			//myDataBase.ex
 			//myDataBase.
+	}
+	
+	
+	
+	
+	
+	/*
+	 ***** Methods for barcode database *****
+	 */
+	
+	//look for a upc code, return its info if found
+	public Cursor findUPC(String upc) {
+		return myDataBase.rawQuery("SELECT brand, name, description, container, size, uom, ingredients FROM barcode_data WHERE upc_a = " + upc, null);
 	}
 	
 	

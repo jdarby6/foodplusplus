@@ -28,6 +28,7 @@ public class AllergyChoiceView extends ListActivity {
 	private ArrayList<String> _bindinglist;
 	private List<String> _clickeditems;
 	private ListView _listview;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
