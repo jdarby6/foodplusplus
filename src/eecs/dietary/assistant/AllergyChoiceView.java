@@ -54,11 +54,13 @@ public class AllergyChoiceView extends ListActivity {
 						
 							if(_clickeditems.contains(allergy)) {
 								_clickeditems.remove(allergy);
+								DietaryAssistantActivity._Ingredients.allergiesSuffered.remove(allergy);
 								CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
 								cb.setChecked(false);
 							}
 							else {
 								_clickeditems.add(allergy);
+								DietaryAssistantActivity._Ingredients.allergiesSuffered.add(allergy);
 								CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
 								cb.setChecked(true);
 							}
