@@ -42,9 +42,7 @@ public class CreateAllergyActivity extends Activity {
 
 				if(et.getText().toString().trim().isEmpty()) error_flag = BLANK_FIELD;
 				else {
-					String text = et.getText().toString();
-					Cursor cursor = DietaryAssistantActivity._Ingredients.dbHelper.checkIfAllergyExists(text);
-					int count = cursor.getCount();
+					Cursor cursor = DietaryAssistantActivity._Ingredients.dbHelper.checkIfAllergyExists(et.getText().toString());
 					if(cursor.getCount() > 0) error_flag = ALLERGY_EXISTS;
 				}
 				
@@ -98,7 +96,8 @@ public class CreateAllergyActivity extends Activity {
 			           }
 			       });
 			dialog = builder.create();
-		} else if (id == BLANK_FIELD) {
+		} 
+	    else if (id == BLANK_FIELD) {
 			builder = new AlertDialog.Builder(this);
 			builder.setMessage("You must type in a name for this allergy before continuing.")
 			       .setTitle("Error")
@@ -109,7 +108,8 @@ public class CreateAllergyActivity extends Activity {
 			           }
 			       });
 			dialog = builder.create();
-		} else {
+		} 
+	    else {
 			dialog = null;
 		}
 	    return dialog;
