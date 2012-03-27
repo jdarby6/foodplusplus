@@ -19,12 +19,17 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.ColorMatrix;
+import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
+import android.graphics.Paint;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.widget.Toast;
 
 public class CameraView extends Activity {
@@ -35,6 +40,7 @@ public class CameraView extends Activity {
 	public static int PICK_FROM_FILE = 3;
 	public static int RETURN_FROM_CROP = 57392923;
 	public static int RETURN_FROM_OCR = 555749321;
+	public static int RETURN_FROM_NEW_CROP = 54324587;
 
 	private Uri outputFileUri;
 	public int pixeldensity = 400;
@@ -52,7 +58,8 @@ public class CameraView extends Activity {
 		//		ad = new AlertDialog.Builder(this).create();
 
 		File file = new File(_imagepath);
-		outputFileUri = Uri.fromFile(file);
+		outputFileUri = Uri.fromFile(file);		
+		//outputFileUri.
 
 
 
@@ -100,14 +107,20 @@ public class CameraView extends Activity {
 		if(requestcode == RETURN_FROM_CAMERA) {
 			//User has now accepted the photo and pressed OK 
 			if (resultcode == RESULT_OK) {
-				doCrop();
+				//doCrop();
+				Intent sendImage = new Intent(this, CropTest.class);
+				sendImage.putExtra("UserImage", _imagepath);
+				startActivityForResult(sendImage, RETURN_FROM_NEW_CROP);
 			}
 		}
 		else if(requestcode == PICK_FROM_FILE) {
 			//User has selected an image from the phone's gallery to be cropped
 			if (resultcode == RESULT_OK) {
-				String sourceImagePath = getPath(data.getData());
-				copyGalleryPhotoLoc(sourceImagePath);
+				//String sourceImagePath = getPath(data.getData());
+				File FILE_PATH = Environment.getExternalStorageDirectory();
+	            FILE_PATH = new File(FILE_PATH + "/DietaryAssistant/tmp/");
+	            String final_path = FILE_PATH.toString() + "/cropped.png";
+				copyGalleryPhotoLoc(final_path);
 
 				doCrop();
 			}
@@ -124,9 +137,66 @@ public class CameraView extends Activity {
 			setResult(0);
 			finish();
 		}
-		else {
-			ad.setMessage("Error: Unrecognized requestcode: '" + requestcode + "'");
-			ad.show();
+		else if(requestcode == RETURN_FROM_NEW_CROP) {
+			File FILE_PATH = Environment.getExternalStorageDirectory();
+            FILE_PATH = new File(FILE_PATH + "/DietaryAssistant/tmp/");
+            String final_path = FILE_PATH.toString() + "/cropped.png";
+            Log.d("mycamera", final_path);
+			
+			BitmapFactory.Options options = new BitmapFactory.Options();
+
+			options.inSampleSize = subsamplefactor;
+			options.inPreferQualityOverSpeed = preferquality;
+			options.inTargetDensity = pixeldensity;
+			Bitmap bitmap = BitmapFactory.decodeFile(final_path, options); 	
+			
+			try {
+
+				ExifInterface exif = new ExifInterface(_imagepath);
+				int exifOrientation = exif.getAttributeInt(
+						ExifInterface.TAG_ORIENTATION,
+						ExifInterface.ORIENTATION_NORMAL);
+
+				int rotate = 0;
+
+				switch (exifOrientation) {
+				case ExifInterface.ORIENTATION_ROTATE_90:
+					rotate = 90;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_180:
+					rotate = 180;
+					break;
+				case ExifInterface.ORIENTATION_ROTATE_270:
+					rotate = 270;
+					break;
+				}
+
+				// Getting width & height of the given image.
+				int w = bitmap.getWidth();
+				int h = bitmap.getHeight();
+
+				// Setting pre rotate
+				Matrix mtx = new Matrix();
+				mtx.preRotate(rotate);
+
+				// Rotating Bitmap
+				bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
+
+				// Convert to ARGB_8888, required by tess
+				bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+
+			} catch (IOException e) {
+				ad.setMessage("io exception");
+				ad.show();
+			}
+
+			startOCR(bitmap);
+		}
+		else
+		{
+			Log.d("mycamera", "Error: Unrecognized requestcode: '" + requestcode + "'");
+			//ad.setMessage("Error: Unrecognized requestcode: '" + requestcode + "'");
+			//ad.show();
 			super.finish();
 		}
 	}
@@ -290,6 +360,10 @@ public class CameraView extends Activity {
 
 
 	public void startOCR(Bitmap bitmap) {
+		Log.d("mycamera", "Starting OCR");
+		if(bitmap == null) Log.d("mycamera", "bimap is null. shit.");			
+		else
+		{
 		DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
 		//		int conf = DietaryAssistantActivity._OCR._tessapi.meanConfidence();
 		//		DietaryAssistantActivity._OCRReader.IngredientDictionary = DietaryAssistantActivity._Ingredients.returnAll();
@@ -300,6 +374,7 @@ public class CameraView extends Activity {
 
 		Intent i = new Intent(this, OCRFeedback.class);
 		startActivityForResult(i, RETURN_FROM_OCR);
+		}
 	}
 
 
