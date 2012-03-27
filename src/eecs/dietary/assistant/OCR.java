@@ -16,8 +16,9 @@ public class OCR {
 	
 	OCR(File dir) {
 		_tessapi = new TessBaseAPI();
-		_tessapi.init(dir.toString(),"eng",TessBaseAPI.OEM_TESSERACT_CUBE_COMBINED);
-		//_tessapi.init(dir.toString(), "eng");
+		//_tessapi.init(dir.toString(),"eng",TessBaseAPI.OEM_TESSERACT_CUBE_COMBINED);
+		_tessapi.init(dir.toString(), "eng");
+		
 		_tessapi.setVariable("tessedit_char_whitelist",whitelist);
 	//	_tessapi.setPageSegMode(TessBaseAPI.PSM_AUTO_OSD);
 	//	_tessapi.

@@ -41,8 +41,9 @@ public final class R {
         public static final int ic_launcher=0x7f020000;
         public static final int icon=0x7f020001;
         public static final int launcher_icon=0x7f020002;
-        public static final int share_via_barcode=0x7f020003;
-        public static final int shopper_icon=0x7f020004;
+        public static final int milk=0x7f020003;
+        public static final int share_via_barcode=0x7f020004;
+        public static final int shopper_icon=0x7f020005;
     }
     public static final class id {
         /**  Messages IDs 
@@ -53,6 +54,8 @@ public final class R {
         public static final int bookmark_title=0x7f080015;
         public static final int bookmark_url=0x7f080016;
         public static final int bottomtext=0x7f08000c;
+        public static final int bottomtextingred=0x7f080043;
+        public static final int bottomtextingred2=0x7f080044;
         public static final int buttonAddIngredient=0x7f080035;
         public static final int buttonBackAllergyCreate2=0x7f080032;
         public static final int buttonBackAllergyCreate3=0x7f080036;
@@ -64,6 +67,7 @@ public final class R {
         public static final int buttonForwardAllergyCreate2=0x7f080033;
         public static final int buttonForwardAllergyCreate3=0x7f080038;
         public static final int buttonKeyAllergyCreate3=0x7f080037;
+        public static final int buttonKeyIngredients=0x7f080047;
         public static final int checkbox=0x7f08000d;
         public static final int contents_supplement_text_view=0x7f080026;
         public static final int contents_text_view=0x7f080025;
@@ -77,6 +81,7 @@ public final class R {
         public static final int encode_view=0x7f08003b;
         public static final int format_text_view=0x7f08001e;
         public static final int format_text_view_label=0x7f08001d;
+        public static final int grid_item_image=0x7f080046;
         public static final int help_contents=0x7f08003d;
         public static final int history_detail=0x7f080041;
         public static final int history_title=0x7f080040;
@@ -85,30 +90,31 @@ public final class R {
         public static final int iv_icon=0x7f080039;
         public static final int launch_product_query=0x7f080004;
         public static final int linearLayout1=0x7f08000e;
-        public static final int list=0x7f080042;
+        public static final int list=0x7f080048;
         public static final int listallergycreate2=0x7f080031;
         public static final int meta_text_view=0x7f080024;
         public static final int meta_text_view_label=0x7f080023;
-        public static final int page_number_view=0x7f080047;
+        public static final int myGrid=0x7f080045;
+        public static final int page_number_view=0x7f08004d;
         public static final int preview=0x7f080017;
         public static final int preview_view=0x7f080019;
-        public static final int query_button=0x7f080045;
-        public static final int query_text_view=0x7f080044;
+        public static final int query_button=0x7f08004b;
+        public static final int query_text_view=0x7f08004a;
         public static final int quit=0x7f080005;
         public static final int restart_preview=0x7f080006;
         public static final int result_button_view=0x7f080027;
-        public static final int result_list_view=0x7f080046;
+        public static final int result_list_view=0x7f08004c;
         public static final int result_view=0x7f08001b;
         public static final int return_scan_result=0x7f080007;
         public static final int search_book_contents_failed=0x7f080008;
         public static final int search_book_contents_succeeded=0x7f080009;
-        public static final int share_app_button=0x7f080049;
-        public static final int share_bookmark_button=0x7f08004a;
-        public static final int share_clipboard_button=0x7f08004c;
-        public static final int share_contact_button=0x7f08004b;
-        public static final int share_text_view=0x7f08004d;
+        public static final int share_app_button=0x7f08004f;
+        public static final int share_bookmark_button=0x7f080050;
+        public static final int share_clipboard_button=0x7f080052;
+        public static final int share_contact_button=0x7f080051;
+        public static final int share_text_view=0x7f080053;
         public static final int shopper_button=0x7f080028;
-        public static final int snippet_view=0x7f080048;
+        public static final int snippet_view=0x7f08004e;
         public static final int status_view=0x7f080029;
         public static final int text=0x7f08002a;
         public static final int textView1=0x7f08000f;
@@ -117,10 +123,11 @@ public final class R {
         public static final int textView4=0x7f080012;
         public static final int textView5=0x7f080013;
         public static final int textView6=0x7f080014;
-        public static final int textviewreviewallergy=0x7f080043;
+        public static final int textviewreviewallergy=0x7f080049;
         public static final int time_text_view=0x7f080022;
         public static final int time_text_view_label=0x7f080021;
         public static final int toptext=0x7f08000b;
+        public static final int toptextingred=0x7f080042;
         public static final int tv_name=0x7f08003a;
         public static final int type_text_view=0x7f080020;
         public static final int type_text_view_label=0x7f08001f;
@@ -142,14 +149,18 @@ public final class R {
         public static final int feedback=0x7f03000c;
         public static final int help=0x7f03000d;
         public static final int history_list_item=0x7f03000e;
-        public static final int list=0x7f03000f;
-        public static final int list_item=0x7f030010;
-        public static final int main=0x7f030011;
-        public static final int reviewallergyscreen=0x7f030012;
-        public static final int search_book_contents=0x7f030013;
-        public static final int search_book_contents_header=0x7f030014;
-        public static final int search_book_contents_list_item=0x7f030015;
-        public static final int share=0x7f030016;
+        public static final int ingredient_card=0x7f03000f;
+        public static final int ingredienticon=0x7f030010;
+        public static final int ingredientslist=0x7f030011;
+        public static final int list=0x7f030012;
+        public static final int list_item=0x7f030013;
+        public static final int main=0x7f030014;
+        public static final int reviewallergyscreen=0x7f030015;
+        public static final int search_book_contents=0x7f030016;
+        public static final int search_book_contents_header=0x7f030017;
+        public static final int search_book_contents_list_item=0x7f030018;
+        public static final int share=0x7f030019;
+        public static final int transparent_dialog_ingredient=0x7f03001a;
     }
     public static final class raw {
         public static final int beep=0x7f050000;
