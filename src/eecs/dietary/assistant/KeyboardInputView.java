@@ -34,12 +34,15 @@ public class KeyboardInputView extends ListActivity {
 
 	private GridView gv;
 	private Button key;
+	private Dialog d;
+	private Toast toast;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.ingredientslist);
 		
+		//d = new Dialog(this,android.R.style.Theme_Dialog);
 		
 		//_allergiesSuffered = DietaryAssistantActivity._Ingredients.allergiesSuffered;
 		setListAdapter(new IngredientListAdapter(this, R.layout.list_item, DietaryAssistantActivity._Ingredients.returnAll()));
@@ -79,8 +82,22 @@ public class KeyboardInputView extends ListActivity {
 		String ingredient = (String) l.getAdapter().getItem(position);
 		List<String> allergs =  DietaryAssistantActivity._Ingredients.ReturnAllAllergiesUnderIngredient(ingredient);
 		
-		Dialog d = new Dialog(this,android.R.style.Theme_Dialog);
+		d = new Dialog(this,android.R.style.Theme_Dialog);
 		d.setContentView(R.layout.ingredient_card);
+	
+		Button close = (Button) d.findViewById(R.id.closeCard);
+		close.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View arg0) {
+				// TODO Auto-generated method stub
+				if(toast != null) {
+					toast.cancel();
+				}
+				d.dismiss();
+			}
+			
+			
+		});
 		
 		TextView tt = (TextView) d.findViewById(R.id.toptextingred);
 		tt.setText(ingredient);
@@ -99,7 +116,7 @@ public class KeyboardInputView extends ListActivity {
 				int[] xy = new int[2];
 				CharSequence cs = allergy;
 				entry.getLocationOnScreen(xy);
-				Toast toast = Toast.makeText(gv.getContext(),cs,Toast.LENGTH_SHORT);
+				toast = Toast.makeText(gv.getContext(),cs,Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.TOP|Gravity.CENTER, xy[0], xy[1]);
 				toast.show();
 				
