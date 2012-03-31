@@ -65,6 +65,7 @@ class Ingredients {
 	}
 	
 	public ArrayList<String> ReturnAllAllergiesUnderIngredient(String ingredient) {
+		int y = 5;
 		ArrayList<String> allergs = new ArrayList<String>();
 		Cursor cursor = DietaryAssistantActivity._Ingredients.dbHelper.returnAllergyNames(ingredient);
 		for(int i = 0; i < cursor.getCount(); i++) {

@@ -1,16 +1,30 @@
 package eecs.dietary.assistant;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 //First screen in create allergy sequence
 //Displays text box input for allergy name 
@@ -23,13 +37,46 @@ public class CreateAllergyActivity extends Activity {
 	private Button discard;
 	private Button create; 
 	private EditText et;
+	private GridView gv;
+	private List<String> allergIcons; 
+	private int selectedIconIndex = 0;
+	
 	public static int CALL_CREATEACTIVITY2 = 38238414;
+	public static int DISCARD = 391931;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.createallergyscreen1);
+		allergIcons = new ArrayList<String>();
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		
+		gv = (GridView) this.findViewById(R.id.gridAllergies);
+		gv.setAdapter(new ImageAdapterAllergyIcons(this,allergIcons));
+		gv.setFocusable(true);
+		gv.setClickable(true);
+		gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+					long arg3) {
+						selectedIconIndex = arg2;
+						gv.invalidateViews(); //may not be the most efficient way to do the click
+											  //highlighting but think it should be good enough
+			
+			}
+		});
+		
+		
 		et = (EditText) this.findViewById(R.id.editTextAllergyCreate);	
 		et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		
 		
 		this.discard = (Button) this.findViewById(R.id.buttonDiscardAllergy1);
 		this.create = (Button) this.findViewById(R.id.buttonCreateAllergy1);
@@ -50,6 +97,7 @@ public class CreateAllergyActivity extends Activity {
 					Intent i = new Intent();
 					i.setClass(CreateAllergyActivity.this, CreateAllergyActivity2.class);
 					i.putExtra("allergyname", et.getText().toString());
+					i.putExtra("iconIndex",selectedIconIndex);
 					startActivityForResult(i, CALL_CREATEACTIVITY2);
 				}
 				else if(error_flag == ALLERGY_EXISTS) {
@@ -62,6 +110,7 @@ public class CreateAllergyActivity extends Activity {
 		});
 		this.discard.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
+				setResult(DISCARD);
 				finish();
 				
 			}
@@ -114,4 +163,61 @@ public class CreateAllergyActivity extends Activity {
 		}
 	    return dialog;
 	}
+	
+	
+	
+	
+	public class ImageAdapterAllergyIcons extends BaseAdapter {
+	      private Context _context;
+	      private final List<String> _allergies;
+	      
+	      
+	      
+	      public ImageAdapterAllergyIcons(Context _MyContext, List<String> allergies)
+	      {
+	         _context = _MyContext;
+	         _allergies = allergies;
+	      }
+	      
+	      public View getView(int position, View convertView, ViewGroup parent) 
+	      {
+	    	  LayoutInflater inflater = (LayoutInflater) _context
+	    				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    	 
+	    			View gridView;
+	    			String allergy = (String) getItem(position);
+	    			
+	    													
+    				gridView = new View(_context);  //currently not re-using views...may be inefficient but should be good enough
+    				gridView = inflater.inflate(R.layout.ingredienticon, null);
+    	 
+    				// set image based on selected text
+    				ImageView imageView = (ImageView) gridView
+    						.findViewById(R.id.icon); //NEEDS TO BE FIXED BASED ON INGREDIENT
+     			    			
+
+	    			if(position == selectedIconIndex) {
+	    				gridView.setBackgroundColor(Color.rgb(0xE7, 0x7A, 0x26));
+	    			}
+	    			
+	    			return gridView;
+	      }
+
+	      public Object getItem(int arg0) {
+	    	  return _allergies.get(arg0);
+	      }
+
+	      public long getItemId(int arg0) {
+	         // TODO Auto-generated method stub
+	         return 0;
+	      }
+
+		public int getCount() {
+			return _allergies.size();
+		}
+		
+	   }
+	
+	
+	
 }

@@ -28,7 +28,9 @@ public class CreateAllergyActivity2 extends Activity {
 	private ArrayList<String> _clickeditems;
 	private String allergyname;
 	private ListView lv;
+	private int allergyIconIndex;
 
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -37,7 +39,7 @@ public class CreateAllergyActivity2 extends Activity {
 
 		Intent sender = getIntent();
 		allergyname = sender.getExtras().getString("allergyname");
-		
+		allergyIconIndex = sender.getExtras().getInt("iconIndex");
 		lv = (ListView) findViewById(R.id.listallergycreate2);
 		
 		lv.setAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, DietaryAssistantActivity._Ingredients.all_allergies));
@@ -65,20 +67,20 @@ public class CreateAllergyActivity2 extends Activity {
 			
 		this.backward = (Button) this.findViewById(R.id.buttonBackAllergyCreate2);
 		this.forward = (Button) this.findViewById(R.id.buttonForwardAllergyCreate2);
-		this.backward.setOnClickListener(new Button.OnClickListener() { //somehow is setting the "create" button
+		this.backward.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
 				setResult(BACKWARD_BUTTON_CODE);
 				finish(); 
 			}
 		});
-		this.forward.setOnClickListener(new Button.OnClickListener() { //somehow is setting the "create" button
+		this.forward.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
 				Intent i = new Intent();
 				i.setClass(CreateAllergyActivity2.this, CreateAllergyActivity3.class);
 				i.putStringArrayListExtra("checkedallergies", (ArrayList<String>) _clickeditems);
 				i.putExtra("allergyname",allergyname);
+				i.putExtra("iconIndex",allergyIconIndex);
 				startActivityForResult(i,CALL_ACTIVITY_3);
-				//finish();
 			}
 		});
 		
@@ -88,19 +90,17 @@ public class CreateAllergyActivity2 extends Activity {
 	@Override 
 	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
 		super.onActivityResult(requestcode, resultcode, data);
-		//if(requestcode == CreateAllergyActivity3.) {
-			if(resultcode == CreateAllergyActivity2.BACKWARD_BUTTON_CODE) {
-				AlertDialog ad = new AlertDialog.Builder(this).create();
-				ad.setMessage("eewrqreeq");
-				ad.show();
+		if(requestcode == CALL_ACTIVITY_3) {
+			if(resultcode == CreateAllergyActivity3.BACKWARD_BUTTON) {
+				//backward button 
+				//do nothing 
 			}
 			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
 				setResult(CreateAllergyActivityReviewAllergy.SAVED_BUTTON);
 				finish();
 			}
-			//decide what to do now about going back straight to main menu
-		}	
-	//}
+		}
+	}
 	
 	
 private class myAdapter extends ArrayAdapter<String>  {
@@ -132,7 +132,8 @@ private class myAdapter extends ArrayAdapter<String>  {
 					tt.setText(allergy);
 				}
 				if(bt != null) {
-					bt.setText("temp");
+					int numberOfIngredients = DietaryAssistantActivity._Ingredients.returnByAllergy(allergy).size();
+					bt.setText(Integer.toString(numberOfIngredients)+ " ingredients");
 				}
 				
 				if(_clickeditems.contains(allergy)) {

@@ -58,6 +58,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 	private List<String> _checkedallergies;
 	private List<String> _addedIngreds;
 	private String allergyname; 
+	private int allergyIconIndex;
 
 
 	@Override
@@ -96,6 +97,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 				ArrayList<String> ingredients = new ArrayList<String>();
 				ingredients.addAll(_clickeditems);
 				i.putStringArrayListExtra("ingredients", ingredients);
+				i.putExtra("iconIndex",allergyIconIndex);
 				startActivityForResult(i,CALL_REVIEW_SCREEN);
 			}
 		});	
@@ -116,7 +118,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 		_checkedallergies = new ArrayList<String>();
 		_checkedallergies = sender.getStringArrayListExtra("checkedallergies");
 		allergyname = sender.getStringExtra("allergyname");
-		
+		allergyIconIndex = sender.getExtras().getInt("iconIndex");
 		_addedIngreds = new ArrayList<String>();
 
 		_clickeditems = new HashSet<String>();
@@ -158,7 +160,8 @@ public class CreateAllergyActivity3 extends ListActivity {
 				finish();
 			}
 			else if(resultcode == CreateAllergyActivityReviewAllergy.BACKWARD_BUTTON) {
-
+				//backward button
+				//do nothing
 			}
 		}	
 	}

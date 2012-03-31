@@ -1,69 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:padding="0dip"
+	android:layout_height="fill_parent"
+    android:padding="10dp"
+    android:layout_marginTop="0dp"
+    android:orientation="vertical"
     > 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="0dip"
-        android:layout_weight="1"
-        android:layout_height="wrap_content"
-        >
         <TextView
             android:id="@+id/toptextingred"
             android:layout_width="fill_parent"
-            android:layout_height="0dip"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_gravity="top"
             android:gravity="top"
+            android:layout_gravity="top"
+            android:text="TestIngredient"
+            android:textSize="26dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="?android:attr/textColorPrimary"
         />
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="0dip"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/bottomtextingred"
-            android:ellipsize="marquee"
+            android:textColor="?android:attr/textColorSecondary"
         />
         <TextView
             android:layout_width="fill_parent"
-            android:layout_height="0dip"
+            android:layout_height="wrap_content"
             android:layout_weight="1" 
+            android:layout_marginTop="5dp"
             android:id="@+id/bottomtextingred2"
-            android:ellipsize="marquee"
             android:text="Don't eat if you are..."
+            android:textColor="#ff0000"
          />
        	<GridView xmlns:android="http://schemas.android.com/apk/res/android" 
 			android:id="@+id/myGrid"
 			android:layout_width="fill_parent" 
-			android:layout_height="fill_parent"
+			android:layout_height="wrap_content"
 			android:stretchMode="columnWidth"
 			android:numColumns="auto_fit"
 			android:columnWidth="50dp"
-			>
-			
+			>			
       </GridView>
-      
-       	
-       	<Button
-       	    android:id="@+id/closeCard"
-       	    android:layout_width="fill_parent"
-       	    android:layout_height="50dp"
-       	    android:text="Close"
-       	    android:padding="4dp"
-       	    >
-       	    
-       	</Button>
-      
+           	
+   	<Button
+   	    android:id="@+id/closeCard"
+   	    android:layout_width="fill_parent"
+   	    android:layout_height="50dp"
+   	    android:text="Close"
+   	    >
+   	    
+   	</Button> 
      
-       	
-       	
-       	
-       	
-       	
-       	
-       	
-       	
-    </LinearLayout>
-      
 </LinearLayout>

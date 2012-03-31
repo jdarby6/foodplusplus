@@ -71,8 +71,8 @@ public class AllergyChoiceView extends ListActivity {
 			});
 				
 		_bindinglist = new ArrayList<String>();
-		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
 		_bindinglist.add("Create new allergy...");
+		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
 		setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
 	}
 
@@ -81,14 +81,14 @@ public class AllergyChoiceView extends ListActivity {
 		super.onActivityResult(requestcode, resultcode, data);
 		if(requestcode == CALL_CREATE_ALLERGY) {
 			if(resultcode == CreateAllergyActivity2.BACKWARD_BUTTON_CODE) {
-				AlertDialog ad = new AlertDialog.Builder(this).create();
-				ad.setMessage("eewrqreeq");
-				ad.show();
+				//backward button from next screen... do nothing
+			}
+			if(resultcode == CreateAllergyActivity.DISCARD) {
+				//do nothing
 			}
 			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
-				//ADD CODE HERE TO UPADTE THE LIST AND CHECK OFF THE NEW ALLERGY ?
-				setResult(CreateAllergyActivityReviewAllergy.SAVED_BUTTON);
-				finish();
+				//add code to update the allergy list in this view with the newest created allergy (if not already done)
+				//****
 			}
 		}	
 	}
@@ -108,15 +108,15 @@ public class AllergyChoiceView extends ListActivity {
 		
 			String allergy = getItem(position);
 			View v = convertView;
-			//if(v == null) { -- NOT SURE IF RIGHT STYLE / implemented properly
-				LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-				if(allergy == "Create new allergy...") {
-					v = li.inflate(R.layout.create_allergy_item, null);
-				}
-				else {
-					v = li.inflate(R.layout.allergy_list_item, null);	
-				}
-			//}
+
+			LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			if(allergy == "Create new allergy...") {
+				v = li.inflate(R.layout.create_allergy_item, null);
+			}
+			else {
+				v = li.inflate(R.layout.allergy_list_item, null);	
+			}
+
 			v.setFocusable(false);
 			
 			if(allergy != null) {
@@ -134,7 +134,10 @@ public class AllergyChoiceView extends ListActivity {
 						tt.setText(allergy);
 					}
 					if(bt != null) {
-						bt.setText("temp");
+						//need to make this fill in the "additional info" about allergies (text below allergy name)
+						//*****
+						int numberOfIngredients = DietaryAssistantActivity._Ingredients.returnByAllergy(allergy).size();
+						bt.setText(Integer.toString(numberOfIngredients)+ " ingredients");
 					}
 					
 					if(_clickeditems.contains(allergy)) {

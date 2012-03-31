@@ -3,14 +3,17 @@ package eecs.dietary.assistant;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.R.string;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -81,10 +84,16 @@ public class KeyboardInputView extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		String ingredient = (String) l.getAdapter().getItem(position);
 		List<String> allergs =  DietaryAssistantActivity._Ingredients.ReturnAllAllergiesUnderIngredient(ingredient);
-		
+//		List<String> allergs2 = new ArrayList<String>();
+//		allergs2.add(Integer.toString(allergs.size()));
+		//allergs2.add("ewqrqwerqwre");
+		//allergs2.add("348284");
+		//allergs2.add("18182183");
 		d = new Dialog(this,android.R.style.Theme_Dialog);
+		d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		d.setContentView(R.layout.ingredient_card);
-	
+		
+		
 		Button close = (Button) d.findViewById(R.id.closeCard);
 		close.setOnClickListener(new OnClickListener() {
 
@@ -101,7 +110,7 @@ public class KeyboardInputView extends ListActivity {
 		
 		TextView tt = (TextView) d.findViewById(R.id.toptextingred);
 		tt.setText(ingredient);
-		tt.setTextSize(30);
+		//tt.setTextSize(30);
 		
 		gv = (GridView) d.findViewById(R.id.myGrid);		
 		gv.setAdapter(new ImageAdapterIngredientCard(this, allergs));
@@ -110,26 +119,39 @@ public class KeyboardInputView extends ListActivity {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
 				// TODO Auto-generated method stub
-				
+				if(toast != null) {
+					toast.cancel();
+				}
 				String allergy = (String) gv.getAdapter().getItem(arg2);
 				View entry = gv.getChildAt(arg2);
+				View entry2 = entry.findViewById(R.id.grid_item_image);
 				int[] xy = new int[2];
 				CharSequence cs = allergy;
-				entry.getLocationOnScreen(xy);
+				entry2.getLocationOnScreen(xy);
+
 				toast = Toast.makeText(gv.getContext(),cs,Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.TOP|Gravity.CENTER, xy[0], xy[1]);
 				toast.show();
 				
 				
 			}
-			
-			
-			
-			
-			
-		
 		});
-		
+	/*	gv.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View view) {
+				// TODO Auto-generated method stub
+				int[] xy = new int[2]; 
+		        view.getLocationOnScreen(xy);
+		        toast = Toast.makeText(gv.getContext(),"hehehhe",Toast.LENGTH_SHORT);
+				toast.setGravity(Gravity.TOP|Gravity.CENTER, xy[0], xy[1]);
+				toast.show();
+				
+			}
+			
+			
+			
+			
+		});*/
 	
 		TextView bt = (TextView) d.findViewById(R.id.bottomtextingred);		//NEED TO DO --
 		bt.setText("hehehehqhwerhqwerhqwreqhwerhqhwerhjqwerqrewr");         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT
@@ -231,18 +253,19 @@ public class KeyboardInputView extends ListActivity {
 		
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			int[] colors = new int[] { 0x30FF0000, 0x300000FF }; //0 is red, 1 is blue
+			int[] colors = new int[] { 0x30FF0000, 0x300000FF, 0x000000 }; //0 is red, 1 is blue
 
 			String ingredient = super.getItem(position);
 
 			View view = super.getView(position,convertView,parent);
-
+			((TextView)view).setTextColor(Color.GREEN);
+			view.setBackgroundColor(Color.WHITE);
 			if(DietaryAssistantActivity._Ingredients.check(ingredient)) {
 
 				view.setBackgroundColor(colors[0]);
 			}
 			else {
-				view.setBackgroundColor(colors[1]);
+				view.setBackgroundColor(Color.TRANSPARENT);
 			}
 
 			return view;

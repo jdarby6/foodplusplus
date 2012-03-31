@@ -6,23 +6,24 @@
         
   <LinearLayout
     android:orientation="vertical"
-    android:layout_width="wrap_content"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="0.75"
+    android:layout_weight="0.9"
    >
    <LinearLayout
   	    android:orientation="vertical"
     	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:layout_weight="0.8"
+    	android:layout_height="wrap_content"
+    	android:layout_weight="1"
   	    
   	    > 
     <TextView 
         android:text="Let's create a new allergy! What shall we call it?"
-        android:textSize="10pt"
+        android:textSize="25dp"
         android:layout_width="fill_parent"
-        android:layout_height="0dip"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
+        android:layout_margin="5dp"
         android:gravity="center_vertical"
         />
     </LinearLayout>
@@ -30,8 +31,8 @@
   	<LinearLayout
   	    android:orientation="vertical"
     	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:layout_weight="0.7"
+    	android:layout_height="wrap_content"
+    	android:layout_weight="1"
   	    
   	    > 
     <EditText
@@ -43,6 +44,19 @@
      >
      
     </EditText>
+    
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android" 
+			android:id="@+id/gridAllergies"
+			android:layout_width="fill_parent" 
+			android:layout_height="wrap_content"
+			android:stretchMode="columnWidth"
+			android:numColumns="auto_fit"
+			android:columnWidth="45dp"
+			android:gravity="center_horizontal|center_vertical"
+			>			
+      </GridView>
+    
+    
     </LinearLayout> 
   
   </LinearLayout>
@@ -50,7 +64,7 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:layout_weight="0.25"
+    android:layout_weight="0.1"
    >
     <Button
         android:id="@+id/buttonDiscardAllergy1"
