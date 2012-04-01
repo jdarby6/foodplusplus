@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.widget.ImageView;
 
 
 class Ingredients {
@@ -128,6 +129,30 @@ class Ingredients {
 		else {
 			return false;
 		}
+	}
+
+	public int GetIconIndex(String allergy) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public void setImageIcon(ImageView iv, int allergyIconIndex) {
+		// TODO Auto-generated method stub
+		
+		if(iv != null) {
+	    	  switch(allergyIconIndex) {
+		    	  case 0:		    		 
+		    		  iv.setImageResource(R.drawable.icon);
+		    		  break;
+		    	  case 1:
+		    		  iv.setImageResource(R.drawable.milk);
+		    		  break;	  
+		    	  default:
+		    		  iv.setImageResource(R.drawable.icon);
+		    		  break;
+	    	  }
+		}  
+		
 	}
 	
 }

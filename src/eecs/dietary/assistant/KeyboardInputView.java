@@ -33,7 +33,6 @@ import android.widget.Toast;
 //It will be passed through the Intent extra parameters including "allergiesSuffered"
 public class KeyboardInputView extends ListActivity {
 
-	//List<String> _allergiesSuffered;
 
 	private GridView gv;
 	private Button key;
@@ -45,9 +44,6 @@ public class KeyboardInputView extends ListActivity {
 
 		setContentView(R.layout.ingredientslist);
 		
-		//d = new Dialog(this,android.R.style.Theme_Dialog);
-		
-		//_allergiesSuffered = DietaryAssistantActivity._Ingredients.allergiesSuffered;
 		setListAdapter(new IngredientListAdapter(this, R.layout.list_item, DietaryAssistantActivity._Ingredients.returnAll()));
 
 		
@@ -84,11 +80,7 @@ public class KeyboardInputView extends ListActivity {
 	protected void onListItemClick(ListView l, View v, int position, long id) {
 		String ingredient = (String) l.getAdapter().getItem(position);
 		List<String> allergs =  DietaryAssistantActivity._Ingredients.ReturnAllAllergiesUnderIngredient(ingredient);
-//		List<String> allergs2 = new ArrayList<String>();
-//		allergs2.add(Integer.toString(allergs.size()));
-		//allergs2.add("ewqrqwerqwre");
-		//allergs2.add("348284");
-		//allergs2.add("18182183");
+
 		d = new Dialog(this,android.R.style.Theme_Dialog);
 		d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		d.setContentView(R.layout.ingredient_card);
@@ -208,20 +200,24 @@ public class KeyboardInputView extends ListActivity {
 	    	  LayoutInflater inflater = (LayoutInflater) _context
 	    				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    	 
-	    			View gridView;
+	    			View gridItem;
 	    			String allergy = (String) getItem(position);
 	    			if (convertView == null) {
 	    	 
-	    				gridView = new View(_context);
-	    				gridView = inflater.inflate(R.layout.ingredienticon, null);
+	    				gridItem = new View(_context);
+	    				gridItem = inflater.inflate(R.layout.ingredienticon, null);
+	    				int iconIndex = DietaryAssistantActivity._Ingredients.GetIconIndex(allergy);
 	    	 
-	    				// set image based on selected text
-	    				ImageView imageView = (ImageView) gridView
-	    						.findViewById(R.id.icon); //NEEDS TO BE FIXED BASED ON INGREDIENT
+	    				ImageView imageView = (ImageView) gridItem
+	    						.findViewById(R.id.grid_item_image);
+	    				
+	    				DietaryAssistantActivity._Ingredients.setImageIcon(imageView, iconIndex);
+	    				
+	    				
 	     			} else {
-	    				gridView = (View) convertView;
+	    				gridItem = (View) convertView;
 	    			}
-	    			return gridView;
+	    			return gridItem;
 	      }
 
 	      public Object getItem(int arg0) {

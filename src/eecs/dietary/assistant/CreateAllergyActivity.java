@@ -184,26 +184,35 @@ public class CreateAllergyActivity extends Activity {
 	    	  LayoutInflater inflater = (LayoutInflater) _context
 	    				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	    	 
-	    			View gridView;
+	    			View gridItem;
 	    			String allergy = (String) getItem(position);
 	    			
-	    													
-    				gridView = new View(_context);  //currently not re-using views...may be inefficient but should be good enough
-    				gridView = inflater.inflate(R.layout.ingredienticon, null);
-    	 
-    				// set image based on selected text
-    				ImageView imageView = (ImageView) gridView
-    						.findViewById(R.id.icon); //NEEDS TO BE FIXED BASED ON INGREDIENT
-     			    			
+	    				
+	    			if(convertView == null) {
+	    			
+	    				gridItem = new View(_context);  
+	    				gridItem = inflater.inflate(R.layout.ingredienticon, null);
+	    			}
+	    			else {
+	    				gridItem = convertView;
+	    			}
 
+	    			ImageView imageView = (ImageView) gridItem
+    						.findViewById(R.id.grid_item_image); 
+    				DietaryAssistantActivity._Ingredients.setImageIcon(imageView,position);
+    				
 	    			if(position == selectedIconIndex) {
-	    				gridView.setBackgroundColor(Color.rgb(0xE7, 0x7A, 0x26));
+	    				gridItem.setBackgroundColor(Color.rgb(0xE7, 0x7A, 0x26));
+	    			}
+	    			else {
+	    				gridItem.setBackgroundColor(Color.TRANSPARENT);
 	    			}
 	    			
-	    			return gridView;
+	    			return gridItem;
 	      }
 
-	      public Object getItem(int arg0) {
+	     
+		public Object getItem(int arg0) {
 	    	  return _allergies.get(arg0);
 	      }
 

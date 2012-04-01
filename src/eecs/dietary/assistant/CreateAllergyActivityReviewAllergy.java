@@ -39,9 +39,9 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 		allergyIconIndex = sender.getExtras().getInt("iconIndex");
 		tv = (TextView) findViewById(R.id.textviewreviewallergy);
 		tv.setText(allergyname );
+		iv = (ImageView) findViewById(R.id.iconcreateallergy);
 		
-		iv = (ImageView) this.findViewById(R.id.iconcreateallergy); 
-		//need to set the proper icon here based on the allergyIconIndex
+		DietaryAssistantActivity._Ingredients.setImageIcon(iv,allergyIconIndex);
 		
 		ingredientstoinclude = sender.getExtras().getStringArrayList("ingredients");
 		
@@ -68,10 +68,6 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 	});
 	
 	}
-	
-	
-	
-	
 	
 	
 }
