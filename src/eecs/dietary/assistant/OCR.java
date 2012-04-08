@@ -44,7 +44,7 @@ public class OCR {
 	public void setQualityRating(int quality) {
 		pixeldensity = (int) (450 * (double)quality/(double)100);
 		preferquality = quality > 75;
-		subsamplefactor = (int) Math.floor(5 - quality * 4);
+		subsamplefactor = (int) Math.floor(5 - ((double)quality/(double)100) * 4);
 		ocrquality = quality;
 
 	}
