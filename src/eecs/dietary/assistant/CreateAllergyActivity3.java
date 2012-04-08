@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
+import eecs.dietary.assistant.KeyboardInputView.ImageAdapterIngredientCard;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
@@ -15,6 +17,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -23,14 +26,19 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class CreateAllergyActivity3 extends ListActivity {
@@ -61,6 +69,9 @@ public class CreateAllergyActivity3 extends ListActivity {
 	//private List<String> _addedIngreds;
 	private String allergyname; 
 	private int allergyIconIndex;
+	private Dialog d;
+	private Toast toast;
+	private GridView gv;
 
 
 	@Override
@@ -158,8 +169,65 @@ public class CreateAllergyActivity3 extends ListActivity {
 				}			
 			}
 		});
+		_listview.setOnItemLongClickListener(new OnItemLongClickListener() {
 
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				
+				String ingredient = (String) _listview.getItemAtPosition(arg2);
+				List<String> allergs =  DietaryAssistantActivity._Ingredients.ReturnAllAllergiesUnderIngredient(ingredient);
+
+				d = new Dialog(arg1.getContext(),android.R.style.Theme_Dialog);
+				d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				d.setContentView(R.layout.ingredient_card);
+				
+				Button close = (Button) d.findViewById(R.id.closeCard);
+				close.setOnClickListener(new OnClickListener() {
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						if(toast != null) {
+							toast.cancel();
+						}
+						d.dismiss();
+					}
+					
+				});
+				TextView tt = (TextView) d.findViewById(R.id.toptextingred);
+				tt.setText(ingredient);
+				
+				gv = (GridView) d.findViewById(R.id.myGrid);		
+				gv.setAdapter(new ImageAdapterIngredientCard(arg1.getContext(), allergs));
+				gv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+					public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
+							long arg3) {
+						// TODO Auto-generated method stub
+						if(toast != null) {
+							toast.cancel();
+						}
+						String allergy = (String) gv.getAdapter().getItem(arg2);
+						View entry = gv.getChildAt(arg2);
+						View entry2 = entry.findViewById(R.id.grid_item_image);
+						int[] xy = new int[2];
+						CharSequence cs = allergy;
+						entry2.getLocationOnScreen(xy);
+
+						toast = Toast.makeText(gv.getContext(),cs,Toast.LENGTH_SHORT);
+						toast.setGravity(Gravity.TOP|Gravity.CENTER, xy[0], xy[1]);
+						toast.show();
+					}
+				});
+
+				
+				TextView bt = (TextView) d.findViewById(R.id.bottomtextingred);		//NEED TO DO --
+				bt.setText("hehehehqhwerhqwerhqwreqhwerhqhwerhjqwerqrewr");         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT	
+				d.show();
+				return false;
+				
+				
+			}});
 	}
+
 
 	@Override 
 	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
@@ -201,7 +269,61 @@ public class CreateAllergyActivity3 extends ListActivity {
 		_filterbox.removeTextChangedListener(filterTextWatcher);
 	}
 
+	 public class ImageAdapterIngredientCard extends BaseAdapter {
+	      private Context _context;
+	      private final List<String> _allergies;
+	      
+	      
+	      
+	      public ImageAdapterIngredientCard(Context _MyContext, List<String> allergies)
+	      {
+	         _context = _MyContext;
+	         _allergies = allergies;
+	      }
+	      
+	      public View getView(int position, View convertView, ViewGroup parent) 
+	      {
+	    	  LayoutInflater inflater = (LayoutInflater) _context
+	    				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+	    	 
+	    			View gridItem;
+	    			String ingredient = (String) getItem(position);
+	    			String allergy = "milk";
+	    			if (convertView == null) {
+	    	 
+	    				gridItem = new View(_context);
+	    				gridItem = inflater.inflate(R.layout.ingredienticon, null);
+	    				int iconIndex = DietaryAssistantActivity._Ingredients.GetIconIndex(allergy);
+	    	 
+	    				ImageView imageView = (ImageView) gridItem
+	    						.findViewById(R.id.grid_item_image);
+	    				
+	    				DietaryAssistantActivity._Ingredients.setImageIcon(imageView, iconIndex);
+	    				
+	    				
+	     			} else {
+	    				gridItem = (View) convertView;
+	    			}
+	    			return gridItem;
+	      }
 
+	      public Object getItem(int arg0) {
+	    	  return _allergies.get(arg0);
+	      }
+
+	      public long getItemId(int arg0) {
+	         // TODO Auto-generated method stub
+	         return 0;
+	      }
+
+		public int getCount() {
+			return _allergies.size();
+		}
+		
+	   }
+	
+	
+	
 
 	private class myAdapter extends ArrayAdapter<String> implements Filterable {
 		private ModelFilter filter;
