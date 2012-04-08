@@ -4,65 +4,71 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
         
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_weight="1"
-    >
-     
-    <TextView
-        android:text="Camera"
-        android:textSize="12pt"
+  <RelativeLayout
+        android:id="@+id/RelativeLayout1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="500px"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:onClick="Camera_on_click"
-        android:clickable="true"
-        android:gravity="center_horizontal"
-        />
-    <TextView
-    	android:text="Barcode"
-    	android:textSize="12pt"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content"
-    	android:layout_weight="1"
-    	android:clickable="true"
-    	android:onClick="Barcode_on_click"
-    	android:gravity="center_horizontal"
-    	/>
-    <TextView
-        android:text="Keyboard Input"
-        android:onClick="TextInput_on_click"
-        android:clickable="true"
-        android:textSize="12pt"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        />
-    <TextView
-        android:text="Allergies"
-        android:textSize="12pt"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:onClick="Allergy_on_click"
-        android:gravity="center_horizontal"
-        />
-     <TextView
-        android:text="Options"
-        android:textSize="12pt"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:clickable="true"
-        android:onClick="Options_on_click"
-        android:gravity="center_horizontal"
-        />
+        android:background="@drawable/mainbackground"
+        android:orientation="vertical" >
 
-  </LinearLayout>
+        <ImageButton
+            android:id="@+id/keyboardButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_above="@+id/optionsButton"
+            android:layout_alignLeft="@+id/optionsButton"
+            android:layout_marginBottom="20dp"
+            android:onClick="TextInput_on_click"
+            android:padding="0dp"
+            android:src="@drawable/keyboardbtn" />
+
+        <ImageButton
+            android:id="@+id/barcodeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/keyboardButton"
+            android:layout_alignLeft="@+id/keyboardButton"
+            android:layout_marginBottom="20dp"
+            android:onClick="Barcode_on_click"
+            android:padding="0dp"
+            android:src="@drawable/barcodebtn" />
+
+        <ImageButton
+            android:id="@+id/cameraButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/barcodeButton"
+            android:layout_alignLeft="@+id/barcodeButton"
+            android:layout_marginBottom="20dp"
+            android:onClick="Camera_on_click"
+            android:padding="0dp"
+            android:src="@drawable/camerabtn" />
+
+        <ImageButton
+            android:id="@+id/allergiesButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/cameraButton"
+            android:layout_alignLeft="@+id/cameraButton"
+            android:layout_marginBottom="20dp"
+            android:layout_centerVertical="true"
+            android:onClick="Allergy_on_click"
+            android:padding="0dp"
+            android:src="@drawable/allergiesbtn" />
+        
+        <ImageButton
+            android:id="@+id/optionsButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:onClick="Options_on_click"
+            android:padding="0dp"
+            android:src="@drawable/optionsbtn" />
+
+    </RelativeLayout>
 
 </LinearLayout>
