@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -188,12 +189,27 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 			}
 			catch(SQLException e) {
 				
-				int x = 5;
+//				int x = 5;
 				
 			}
 		}
 			//myDataBase.ex
 			//myDataBase.
+	}
+	
+	public Cursor returnAllAllergens(List<String> allergies) {
+		if(allergies.size() > 0) {
+			String query = "SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = " + allergies.get(0);
+			
+			for(int i = 1; i < allergies.size(); i++) {
+				query = query + " OR allergy = " + allergies.get(i);
+			}
+			
+			query = query + " ORDER BY ingredient ASC";
+			
+			return myDataBase.rawQuery(query, null);
+		}
+		else return null;
 	}
 	
 	

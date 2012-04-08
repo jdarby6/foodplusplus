@@ -4,5 +4,6 @@
     <string name="hello">Hello World, DietaryAssistantActivity!</string>
     <string name="app_name">DietaryAssistant</string>
     <string name="method">Select Image Source</string>
+    <string name="found_result">Found Result!</string>
 
 </resources>
