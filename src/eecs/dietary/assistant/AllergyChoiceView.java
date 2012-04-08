@@ -11,10 +11,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.Filterable;
 import android.widget.ListView;
@@ -28,11 +30,14 @@ public class AllergyChoiceView extends ListActivity {
 	private ArrayList<String> _bindinglist;
 	private List<String> _clickeditems;
 	private ListView _listview;
+	private Button _createbutton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
+		setContentView(R.layout.allergyselection);
 		_clickeditems = new ArrayList<String>();
 		_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
 		
@@ -45,35 +50,38 @@ public class AllergyChoiceView extends ListActivity {
 	
 						String allergy = (String) _listview.getItemAtPosition(arg2);
 						
-						if(allergy == "Create new allergy...") { 
-							Intent i = new Intent();
-							i.setClass(AllergyChoiceView.this, CreateAllergyActivity.class);
-							startActivityForResult(i,CALL_CREATE_ALLERGY);
-							
+						if(_clickeditems.contains(allergy)) {
+							_clickeditems.remove(allergy);
+							DietaryAssistantActivity._Ingredients.allergiesSuffered.remove(allergy);
+							CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
+							cb.setChecked(false);
 						}
 						else {
-						
-							if(_clickeditems.contains(allergy)) {
-								_clickeditems.remove(allergy);
-								DietaryAssistantActivity._Ingredients.allergiesSuffered.remove(allergy);
-								CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
-								cb.setChecked(false);
-							}
-							else {
-								_clickeditems.add(allergy);
-								DietaryAssistantActivity._Ingredients.allergiesSuffered.add(allergy);
-								CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
-								cb.setChecked(true);
-							}
-						}
-					
+							_clickeditems.add(allergy);
+							DietaryAssistantActivity._Ingredients.allergiesSuffered.add(allergy);
+							CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
+							cb.setChecked(true);
+						}				
 					}
 			});
 				
 		_bindinglist = new ArrayList<String>();
-		_bindinglist.add("Create new allergy...");
 		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
 		setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
+	
+		
+		_createbutton = (Button) findViewById(R.id.allergycreate);
+		_createbutton.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				Intent i = new Intent();
+				i.setClass(AllergyChoiceView.this, CreateAllergyActivity.class);
+				startActivityForResult(i,CALL_CREATE_ALLERGY);
+			}
+			
+			
+			
+		});
 	}
 
 	@Override 
@@ -109,46 +117,35 @@ public class AllergyChoiceView extends ListActivity {
 			String allergy = getItem(position);
 			View v = convertView;
 
-			LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			if(allergy == "Create new allergy...") {
-				v = li.inflate(R.layout.create_allergy_item, null);
-			}
-			else {
+			if(v==null) {
+			
+				LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = li.inflate(R.layout.allergy_list_item, null);	
+				v.setFocusable(false);
 			}
-
-			v.setFocusable(false);
 			
 			if(allergy != null) {
 				
-				if(allergy == "Create new allergy...") { 
-					TextView t = (TextView) v.findViewById(R.id.text);
-					if(t != null) {
-						t.setText(allergy);
-					}
+				TextView tt = (TextView) v.findViewById(R.id.toptext);
+				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+				if(tt != null) {
+					tt.setText(allergy);
+				}
+				if(bt != null) {
+					//need to make this fill in the "additional info" about allergies (text below allergy name)
+					//*****
+					int numberOfIngredients = DietaryAssistantActivity._Ingredients.returnByAllergy(allergy).size();
+					bt.setText(Integer.toString(numberOfIngredients)+ " ingredients");
+				}
+				
+				if(_clickeditems.contains(allergy)) {
+					CheckBox cb = (CheckBox) v.findViewById(R.id.checkbox);
+					cb.setChecked(true);
 				}
 				else {
-					TextView tt = (TextView) v.findViewById(R.id.toptext);
-					TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-					if(tt != null) {
-						tt.setText(allergy);
-					}
-					if(bt != null) {
-						//need to make this fill in the "additional info" about allergies (text below allergy name)
-						//*****
-						int numberOfIngredients = DietaryAssistantActivity._Ingredients.returnByAllergy(allergy).size();
-						bt.setText(Integer.toString(numberOfIngredients)+ " ingredients");
-					}
-					
-					if(_clickeditems.contains(allergy)) {
+					if(v.findViewById(R.id.checkbox) != null) {
 						CheckBox cb = (CheckBox) v.findViewById(R.id.checkbox);
-						cb.setChecked(true);
-					}
-					else {
-						if(v.findViewById(R.id.checkbox) != null) {
-							CheckBox cb = (CheckBox) v.findViewById(R.id.checkbox);
-							cb.setChecked(false);	
-						}
+						cb.setChecked(false);	
 					}
 				}
 			

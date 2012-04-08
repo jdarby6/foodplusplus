@@ -17,6 +17,7 @@ import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
@@ -24,6 +25,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -43,7 +45,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 	private List<String> _filteredModelItemsArray;
 
 
-	private Button _addIngred;
+	//private Button _addIngred;
 	private Button _backward;
 	private Button _forward;
 	private Button _keyboard; 
@@ -56,7 +58,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 	private List<String> _bindinglist;
 	private List<String> _ingredients;
 	private List<String> _checkedallergies;
-	private List<String> _addedIngreds;
+	//private List<String> _addedIngreds;
 	private String allergyname; 
 	private int allergyIconIndex;
 
@@ -64,20 +66,21 @@ public class CreateAllergyActivity3 extends ListActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.createallergyscreen3);
-
+		
 		//setting up the edit box on the top of screen
 		_filterbox = (EditText) findViewById(R.id.createallergy3searchbox);
 		_filterbox.addTextChangedListener(filterTextWatcher);
 		_filterbox.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 
 		//setting up button to add new ingredient to list
-		_addIngred = (Button) this.findViewById(R.id.buttonAddIngredient);
-		_addIngred.setOnClickListener(new Button.OnClickListener() {
+		//_addIngred = (Button) this.findViewById(R.id.buttonAddIngredient);
+		/*_addIngred.setOnClickListener(new Button.OnClickListener() {
 			public void onClick(View v) {
 				CreateAllergyActivity3.this.showDialog(ADD_INGREDIENT);
 			}
-		});
+		});*/
 
 		//setting up buttons
 		_backward = (Button) this.findViewById(R.id.buttonBackAllergyCreate3);
@@ -119,7 +122,8 @@ public class CreateAllergyActivity3 extends ListActivity {
 		_checkedallergies = sender.getStringArrayListExtra("checkedallergies");
 		allergyname = sender.getStringExtra("allergyname");
 		allergyIconIndex = sender.getExtras().getInt("iconIndex");
-		_addedIngreds = new ArrayList<String>();
+		
+		//_addedIngreds = new ArrayList<String>();
 
 		_clickeditems = new HashSet<String>();
 		for(int i = 0; i < _checkedallergies.size(); i++) {
@@ -128,7 +132,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 
 		_filteredModelItemsArray = new ArrayList<String>();
 
-		_myAdapter = new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist);
+		_myAdapter = new myAdapter(this, R.layout.list_item, _bindinglist);
 		setListAdapter(_myAdapter);
 
 
@@ -140,11 +144,17 @@ public class CreateAllergyActivity3 extends ListActivity {
 		_listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) { 
-				if(_clickeditems.contains(((TextView)arg1).getText())) {
-					_clickeditems.remove(((TextView)arg1).getText());
+				String ingredient = (String) _listview.getItemAtPosition(arg2);
+				
+				if(_clickeditems.contains(ingredient)) {
+					CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
+					cb.setChecked(false);
+					_clickeditems.remove(ingredient);
 				}
 				else {
-					_clickeditems.add((String)((TextView)arg1).getText());
+					CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
+					cb.setChecked(true);
+					_clickeditems.add(ingredient);
 				}			
 			}
 		});
@@ -201,28 +211,41 @@ public class CreateAllergyActivity3 extends ListActivity {
 		public myAdapter(Context context, int textViewResourceId, List<String> list2) {
 			super(context,textViewResourceId,list2);
 			mInflater = LayoutInflater.from(context);
+			mlist = list2;
 		}
 
 
 
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			int[] colors = new int[] { 0x30FF0000, 0x300000FF }; //0 is red, 1 is blue
 			String ingredient = getItem(position);
-			View view = super.getView(position,convertView,parent);
+			View v = convertView;
 
+			if(v==null) {
+			
+				LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				v = li.inflate(R.layout.ingredient_item_checkable, null);	
+				v.setFocusable(false);
+			}
+			
+			CheckBox cb = (CheckBox) v.findViewById(R.id.checkbox);
+			TextView tv = (TextView) v.findViewById(R.id.text);
+			tv.setText(ingredient);
+					
 			if(_clickeditems.contains(ingredient)) {
 
-				view.setBackgroundColor(colors[0]);
-				_listview.setItemChecked(position, true);
+				//view.setBackgroundColor(colors[0]);
+				//_listview.setItemChecked(position, true);
+				cb.setChecked(true);
 
 			}
 			else {
-				view.setBackgroundColor(colors[1]);
-				_listview.setItemChecked(position,false);
+				//view.setBackgroundColor(colors[1]);
+				//_listview.setItemChecked(position,false);
+				cb.setChecked(false);
 			}
 
-			return view;
+			return v;
 		}
 
 		@Override
@@ -280,7 +303,8 @@ public class CreateAllergyActivity3 extends ListActivity {
 		}
 
 	}
-
+}
+/*
 	@Override
 	protected Dialog onCreateDialog(int id) {
 		Dialog dialog;
@@ -322,7 +346,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 					if(error_flag == OK) {
 						_bindinglist.add(name.toUpperCase());
 						_clickeditems.add(name.toUpperCase());
-						_addedIngreds.add(name.toUpperCase());
+						//_addedIngreds.add(name.toUpperCase());
 					}
 				}
 			});
@@ -366,5 +390,5 @@ public class CreateAllergyActivity3 extends ListActivity {
 
 
 }
-
+*/
 

@@ -17,7 +17,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -46,7 +50,12 @@ public class CreateAllergyActivity extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.createallergyscreen1);
+		
+		/*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);	*/
+		
 		allergIcons = new ArrayList<String>();
 		allergIcons.add("hehehe");
 		allergIcons.add("hehehe");
@@ -77,7 +86,7 @@ public class CreateAllergyActivity extends Activity {
 		et = (EditText) this.findViewById(R.id.editTextAllergyCreate);	
 		et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		
-		
+	
 		this.discard = (Button) this.findViewById(R.id.buttonDiscardAllergy1);
 		this.create = (Button) this.findViewById(R.id.buttonCreateAllergy1);
 
@@ -101,9 +110,13 @@ public class CreateAllergyActivity extends Activity {
 					startActivityForResult(i, CALL_CREATEACTIVITY2);
 				}
 				else if(error_flag == ALLERGY_EXISTS) {
+					Animation shake = AnimationUtils.loadAnimation(getBaseContext(),R.anim.shake);
+					et.startAnimation(shake);
 					CreateAllergyActivity.this.showDialog(ALLERGY_EXISTS);
 				}
 				else if(error_flag == BLANK_FIELD) {
+					Animation shake = AnimationUtils.loadAnimation(getBaseContext(),R.anim.shake);
+					et.startAnimation(shake);
 					CreateAllergyActivity.this.showDialog(BLANK_FIELD);
 				}
 			}
