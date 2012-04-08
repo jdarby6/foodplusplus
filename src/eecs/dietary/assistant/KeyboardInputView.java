@@ -38,16 +38,20 @@ public class KeyboardInputView extends ListActivity {
 	private Button key;
 	private Dialog d;
 	private Toast toast;
+	private ListView lv;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.ingredientslist);
 		
 		setListAdapter(new IngredientListAdapter(this, R.layout.list_item, DietaryAssistantActivity._Ingredients.returnAll()));
 
 		
-		ListView lv = getListView();
+		lv = getListView();
+		lv.setClickable(true);
+		lv.setFocusable(true);
+		
 		lv.setTextFilterEnabled(true);
 		
 		key = (Button) findViewById(R.id.buttonKeyIngredients);
@@ -254,8 +258,8 @@ public class KeyboardInputView extends ListActivity {
 			String ingredient = super.getItem(position);
 
 			View view = super.getView(position,convertView,parent);
-			((TextView)view).setTextColor(Color.GREEN);
-			view.setBackgroundColor(Color.WHITE);
+			//((TextView)view).setTextColor(Color.GREEN);
+			view.setBackgroundColor(0xFFFFFFFF);
 			if(DietaryAssistantActivity._Ingredients.check(ingredient)) {
 
 				view.setBackgroundColor(colors[0]);

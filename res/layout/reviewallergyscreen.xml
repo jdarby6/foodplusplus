@@ -27,7 +27,12 @@
         android:gravity="center_horizontal"
         android:layout_marginTop="4dp"
         >
-        
+        <ImageView
+		        android:id="@+id/iconcreateallergy"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/icon" 
+	        />
 	    <TextView 
 	        android:id="@+id/textviewreviewallergy"
 	        android:text="testallergy"
@@ -39,12 +44,7 @@
 	        android:gravity="center_horizontal"
 	        android:layout_marginRight="10dp"
 	        />
-		    <ImageView
-		        android:id="@+id/iconcreateallergy"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:src="@drawable/icon" 
-	        />
+		    
 	 </LinearLayout>
 	    
     

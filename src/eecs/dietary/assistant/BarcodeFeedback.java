@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -33,7 +34,8 @@ public class BarcodeFeedback extends ListActivity {
 		setContentView(R.layout.barcode_feedback);
 		
 		potentialAllergens = 0;
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		
 		Intent i = getIntent(); //retrieve previous intent to get extras (for barcode info)
 
 		brand = i.getStringExtra("brand");

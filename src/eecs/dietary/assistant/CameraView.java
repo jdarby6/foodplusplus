@@ -26,6 +26,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Window;
 import android.widget.Toast;
 
 public class CameraView extends Activity {
@@ -39,16 +40,14 @@ public class CameraView extends Activity {
 	public static int RETURN_FROM_NEW_CROP = 54324587;
 
 	private Uri outputFileUri;
-	public int pixeldensity = 400;
-	public int subsamplefactor = 1;
-	public boolean preferquality = true;
+
 
 	AlertDialog ad; 
 
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		//		setContentView(R.layout.list_item); //trash view
 
 		//		ad = new AlertDialog.Builder(this).create();
@@ -141,9 +140,9 @@ public class CameraView extends Activity {
 			
 			BitmapFactory.Options options = new BitmapFactory.Options();
 
-			options.inSampleSize = subsamplefactor;
-			options.inPreferQualityOverSpeed = preferquality;
-			options.inTargetDensity = pixeldensity;
+			options.inSampleSize = DietaryAssistantActivity._OCR.subsamplefactor;
+			options.inPreferQualityOverSpeed = DietaryAssistantActivity._OCR.preferquality;
+			options.inTargetDensity = DietaryAssistantActivity._OCR.pixeldensity;
 			Bitmap bitmap = BitmapFactory.decodeFile(final_path, options); 	
 			
 			try {
@@ -303,9 +302,9 @@ public class CameraView extends Activity {
 
 		BitmapFactory.Options options = new BitmapFactory.Options();
 
-		options.inSampleSize = subsamplefactor;
-		options.inPreferQualityOverSpeed = preferquality;
-		options.inTargetDensity = pixeldensity;
+		options.inSampleSize = DietaryAssistantActivity._OCR.subsamplefactor;
+		options.inPreferQualityOverSpeed = DietaryAssistantActivity._OCR.preferquality;
+		options.inTargetDensity = DietaryAssistantActivity._OCR.pixeldensity;
 		Bitmap bitmap = BitmapFactory.decodeFile(_imagepath, options);
 
 		try {

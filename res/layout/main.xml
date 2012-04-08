@@ -52,6 +52,16 @@
         android:onClick="Allergy_on_click"
         android:gravity="center_horizontal"
         />
+     <TextView
+        android:text="Options"
+        android:textSize="12pt"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:onClick="Options_on_click"
+        android:gravity="center_horizontal"
+        />
 
   </LinearLayout>
 

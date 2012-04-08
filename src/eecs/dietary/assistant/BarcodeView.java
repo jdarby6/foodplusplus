@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.view.Window;
 import android.widget.Toast;
 
 public class BarcodeView extends Activity {
@@ -15,7 +16,7 @@ public class BarcodeView extends Activity {
 	@Override 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		this.requestWindowFeature(Window.FEATURE_NO_TITLE);	
 		dbHelper = new DataBaseHelper(this, "upc_db"); //copy local database "upc_db" to work with this app
 		try {
 			dbHelper.createDataBase();
