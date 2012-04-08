@@ -1,27 +1,25 @@
 package eecs.dietary.assistant;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class AllergyChoiceView extends ListActivity {
 
@@ -30,7 +28,7 @@ public class AllergyChoiceView extends ListActivity {
 	private ArrayList<String> _bindinglist;
 	private List<String> _clickeditems;
 	private ListView _listview;
-	private Button _createbutton;
+	private ImageButton _createbutton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,7 +68,7 @@ public class AllergyChoiceView extends ListActivity {
 		setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
 	
 		
-		_createbutton = (Button) findViewById(R.id.allergycreate);
+		_createbutton = (ImageButton) findViewById(R.id.allergycreate);
 		_createbutton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
