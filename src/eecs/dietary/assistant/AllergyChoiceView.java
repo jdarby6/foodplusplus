@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -132,6 +133,10 @@ public class AllergyChoiceView extends ListActivity {
 				
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+				
+				ImageView iv = (ImageView) v.findViewById(R.id.icon);
+				DietaryAssistantActivity._Ingredients.setImageIcon(iv, DietaryAssistantActivity._Ingredients.GetIconIndex(allergy));
+				
 				if(tt != null) {
 					tt.setText(allergy);
 				}

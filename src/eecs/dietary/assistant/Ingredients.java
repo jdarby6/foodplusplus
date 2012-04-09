@@ -141,7 +141,27 @@ class Ingredients {
 
 	public int GetIconIndex(String allergy) {
 		// TODO Auto-generated method stub
-		return 0;
+		//allergy.toLowerCase();
+		if(allergy.equalsIgnoreCase("milk")) {
+			return 46;
+		}
+		else if(allergy.equalsIgnoreCase("soy")) {
+			return 20;
+		}
+		else if(allergy.equalsIgnoreCase("wheat")) {
+			return 29;
+		}
+		else if(allergy.equalsIgnoreCase("peanuts")) {
+			return 34;
+		}
+		else if(allergy.equalsIgnoreCase("shellfish")) {
+			return 50;
+		}
+		else {
+			int length = allergy.length() + 10;
+			return length;
+		}
+	
 	}
 
 	public void setImageIcon(ImageView iv, int allergyIconIndex) {
@@ -149,46 +169,55 @@ class Ingredients {
 		
 		if(iv != null) {
 	    	  switch(allergyIconIndex) {
-		    	  case 0:		    		 
-		    		  iv.setImageResource(R.drawable.untitled12);
+		    	  case 46:		    		 
+		    		  iv.setImageResource(R.drawable.untitled46);
 		    		  break;
-		    	  case 1:
-		    		  iv.setImageResource(R.drawable.untitled13);
+		    	  case 20:
+		    		  iv.setImageResource(R.drawable.untitled20);
 		    		  break;
-		    	  case 2:
+		    	  case 29:
+		    		  iv.setImageResource(R.drawable.untitled29);
+		    		  break;
+		    	  case 34:
+		    		  iv.setImageResource(R.drawable.untitled34);
+		    		  break;
+		    	  case 50:
+		    		  iv.setImageResource(R.drawable.untitled50);
+		    		  break;
+		    	  case 4:
 		    		  iv.setImageResource(R.drawable.untitled14);
 		    		  break;
 		    	  case 3:
 		    		  iv.setImageResource(R.drawable.untitled15);
 		    		  break;
-		    	  case 4:
+		    	  case 2:
 		    		  iv.setImageResource(R.drawable.untitled16);
 		    		  break;
-		    	  case 5:
+		    	  case 7:
 		    		  iv.setImageResource(R.drawable.untitled17);
 		    		  break;
 		    	  case 6:
 		    		  iv.setImageResource(R.drawable.untitled18);
 		    		  break;
-		    	  case 7:
+		    	  case 8:
 		    		  iv.setImageResource(R.drawable.untitled19);
 		    		  break;
-		    	  case 8:
+		    	  case 5:
 		    		  iv.setImageResource(R.drawable.untitled20);
 		    		  break;
 		    	  case 9:
 		    		  iv.setImageResource(R.drawable.untitled21);
 		    		  break;
-		    	  case 10:
+		    	  case 13:
 		    		  iv.setImageResource(R.drawable.untitled22);
 		    		  break;
-		    	  case 11:
+		    	  case 12:
 		    		  iv.setImageResource(R.drawable.untitled23);
 		    		  break;
-		    	  case 12:
+		    	  case 11:
 		    		  iv.setImageResource(R.drawable.untitled24);
 		    		  break;
-		    	  case 13:
+		    	  case 10:
 		    		  iv.setImageResource(R.drawable.untitled25);
 		    		  break;
 		    	  case 14:
@@ -208,9 +237,6 @@ class Ingredients {
 		    		  break;
 		    	  case 19:
 		    		  iv.setImageResource(R.drawable.untitled31);
-		    		  break;
-		    	  case 20:
-		    		  iv.setImageResource(R.drawable.untitled32);
 		    		  break;
 		    	  case 21:
 		    		  iv.setImageResource(R.drawable.untitled33);

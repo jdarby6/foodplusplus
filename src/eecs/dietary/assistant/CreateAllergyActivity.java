@@ -64,6 +64,16 @@ public class CreateAllergyActivity extends Activity {
 		allergIcons.add("hehehe");
 		allergIcons.add("hehehe");
 		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
 		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
 		gv = (GridView) this.findViewById(R.id.gridAllergies);
