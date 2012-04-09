@@ -6,12 +6,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper{
 
@@ -182,19 +184,27 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	
 	//insert a new row into the ingredients database
 	public void Insert(String allergy, String ingredient) {
-		if(myDataBase.isReadOnly()) { }
-		else {
-			try {
-				myDataBase.execSQL("INSERT INTO all_ingreds(allergy, ingredient) VALUES('"+allergy+"', '"+ingredient+"')");
-			}
-			catch(SQLException e) {
-				
-//				int x = 5;
-				
-			}
-		}
-			//myDataBase.ex
-			//myDataBase.
+		
+		// ContentValues class is used to store a set of values that the ContentResolver can process. 
+		ContentValues contentValues = new ContentValues();
+		
+		// Get values from the POJO class and passing them to the ContentValues class
+		contentValues.put("allergy", allergy.toUpperCase());
+		contentValues.put("ingredient", ingredient.toUpperCase());
+
+		// Now we can insert the data in to relevant table
+		long affectedColumnId = myDataBase.insert("all_ingreds", null, contentValues);
+		
+		Log.d("affectedColumnId", String.valueOf(affectedColumnId));
+		
+//		if(myDataBase.isReadOnly()) { }
+//		else {
+//			try {
+//				myDataBase.execSQL("INSERT INTO all_ingreds(allergy, ingredient) VALUES('"+allergy+"', '"+ingredient+"')");
+//			}
+//			catch(SQLException e) {
+//			}
+//		}
 	}
 	
 	public Cursor returnAllAllergens(List<String> allergies) {

@@ -2,11 +2,11 @@ package eecs.dietary.assistant;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.util.Log;
 import android.widget.ImageView;
 
 
@@ -14,7 +14,7 @@ class Ingredients {
 	ArrayList<String> all_ingreds;
 	ArrayList<String> allergiesSuffered;
 	ArrayList<String> all_allergies;
-	DataBaseHelper dbHelper;
+	static DataBaseHelper dbHelper;
 
 	//Constructor that populates "all_allergies" list variable
 	Ingredients(Context context) {
@@ -86,6 +86,9 @@ class Ingredients {
 
 	public ArrayList<String> returnByAllergy(String allergy) {
 		Cursor cursor = dbHelper.returnIngredientNames(allergy);
+		if(cursor.getCount() == 0) { 
+			Log.d("No results", "allergy '" + allergy + "' has no ingredients or does not exist");
+		}
 		ArrayList<String> results = new ArrayList<String>();
 		for(int i=0; i < cursor.getCount(); i++) {
 			cursor.moveToNext();

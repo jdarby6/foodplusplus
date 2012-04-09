@@ -6,6 +6,7 @@ import java.util.List;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
@@ -62,9 +63,15 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 	});
 	this.create.setOnClickListener(new Button.OnClickListener() { 
 		public void onClick(View v) {
-				
-			setResult(SAVED_BUTTON);
+			//add new allergy to database, update allergiesSuffered, all_allergies
+			DietaryAssistantActivity._Ingredients.all_allergies.add(allergyname);
+			DietaryAssistantActivity._Ingredients.allergiesSuffered.add(allergyname);
+			for(int i = 0; i < ingredientstoinclude.size(); i++) {
+		        Log.d("New allergy name: " + allergyname + " Ingredient:", ingredientstoinclude.get(i));
+				DietaryAssistantActivity._Ingredients.dbHelper.Insert(allergyname, ingredientstoinclude.get(i));
+			}
 			
+			setResult(SAVED_BUTTON);
 			finish();
 		}
 	});

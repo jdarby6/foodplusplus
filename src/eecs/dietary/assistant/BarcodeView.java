@@ -47,8 +47,8 @@ public class BarcodeView extends Activity {
 				String contents = intent.getStringExtra("SCAN_RESULT");
 				// Handle successful scan
 
-				//temporary message to demonstrate that the barcode was read successfully
-				Toast.makeText(this, "Got this number from barcode: " + contents, Toast.LENGTH_LONG).show();
+//				//temporary message to demonstrate that the barcode was read successfully
+//				Toast.makeText(this, "Got this number from barcode: " + contents, Toast.LENGTH_LONG).show();
 				
 				Cursor cursor = dbHelper.findUPC(contents);
 				//brand, name, description, container, size, uom, ingredients

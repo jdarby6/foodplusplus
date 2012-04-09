@@ -95,6 +95,12 @@ public class AllergyChoiceView extends ListActivity {
 			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
 				//add code to update the allergy list in this view with the newest created allergy (if not already done)
 				//****
+				_clickeditems = new ArrayList<String>();
+				_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
+				
+				_bindinglist = new ArrayList<String>();
+				_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
+				setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
 			}
 		}	
 	}
