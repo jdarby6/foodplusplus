@@ -14,7 +14,7 @@ class Ingredients {
 	ArrayList<String> all_ingreds;
 	ArrayList<String> allergiesSuffered;
 	ArrayList<String> all_allergies;
-	static DataBaseHelper dbHelper;
+	DataBaseHelper dbHelper;
 
 	//Constructor that populates "all_allergies" list variable
 	Ingredients(Context context) {
@@ -38,14 +38,19 @@ class Ingredients {
 		all_ingreds = new ArrayList<String>();
 		allergiesSuffered = new ArrayList<String>();
 		all_allergies = new ArrayList<String>();
-		all_allergies.add("eggs");
-		all_allergies.add("fish");
-		all_allergies.add("milk");
-		all_allergies.add("peanuts");
-		all_allergies.add("shellfish");
-		all_allergies.add("soy");
-		all_allergies.add("treenuts");
-		all_allergies.add("wheat");	
+		Cursor cursor = dbHelper.returnAllAllergies();
+		for(int i = 0; i < cursor.getCount(); i++) {
+			cursor.moveToNext();
+			all_allergies.add(cursor.getString(0).toLowerCase());
+		}
+//		all_allergies.add("eggs");
+//		all_allergies.add("fish");
+//		all_allergies.add("milk");
+//		all_allergies.add("peanuts");
+//		all_allergies.add("shellfish");
+//		all_allergies.add("soy");
+//		all_allergies.add("treenuts");
+//		all_allergies.add("wheat");	
 	}
 
 	public ArrayList<String> returnAll() {

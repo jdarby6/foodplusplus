@@ -163,6 +163,11 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	}
 	
 	//get all allergies in alphabetical order
+	public Cursor returnAllAllergies() {
+		return myDataBase.rawQuery("SELECT DISTINCT allergy FROM all_ingreds ORDER BY allergy ASC", null);
+	}
+	
+	//get all allergies for specified ingredient in alphabetical order
 	public Cursor returnAllergyNames(String ingredient) {
 		return myDataBase.rawQuery("SELECT allergy FROM all_ingreds WHERE ingredient = '" + ingredient + "' ORDER BY allergy ASC", null);
 	}
@@ -209,10 +214,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	
 	public Cursor returnAllAllergens(List<String> allergies) {
 		if(allergies.size() > 0) {
-			String query = "SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = " + allergies.get(0);
+			String query = "SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = " + allergies.get(0).toUpperCase();
 			
 			for(int i = 1; i < allergies.size(); i++) {
-				query = query + " OR allergy = " + allergies.get(i);
+				query = query + " OR allergy = " + allergies.get(i).toUpperCase();
 			}
 			
 			query = query + " ORDER BY ingredient ASC";
