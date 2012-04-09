@@ -34,7 +34,7 @@ public class BarcodeFeedback extends ListActivity {
 		setContentView(R.layout.barcode_feedback);
 		
 		potentialAllergens = 0;
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		
 		Intent i = getIntent(); //retrieve previous intent to get extras (for barcode info)
 
