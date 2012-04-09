@@ -150,13 +150,88 @@ class Ingredients {
 		if(iv != null) {
 	    	  switch(allergyIconIndex) {
 		    	  case 0:		    		 
-		    		  iv.setImageResource(R.drawable.icon);
+		    		  iv.setImageResource(R.drawable.untitled12);
 		    		  break;
 		    	  case 1:
-		    		  iv.setImageResource(R.drawable.milk);
-		    		  break;	  
+		    		  iv.setImageResource(R.drawable.untitled13);
+		    		  break;
+		    	  case 2:
+		    		  iv.setImageResource(R.drawable.untitled14);
+		    		  break;
+		    	  case 3:
+		    		  iv.setImageResource(R.drawable.untitled15);
+		    		  break;
+		    	  case 4:
+		    		  iv.setImageResource(R.drawable.untitled16);
+		    		  break;
+		    	  case 5:
+		    		  iv.setImageResource(R.drawable.untitled17);
+		    		  break;
+		    	  case 6:
+		    		  iv.setImageResource(R.drawable.untitled18);
+		    		  break;
+		    	  case 7:
+		    		  iv.setImageResource(R.drawable.untitled19);
+		    		  break;
+		    	  case 8:
+		    		  iv.setImageResource(R.drawable.untitled20);
+		    		  break;
+		    	  case 9:
+		    		  iv.setImageResource(R.drawable.untitled21);
+		    		  break;
+		    	  case 10:
+		    		  iv.setImageResource(R.drawable.untitled22);
+		    		  break;
+		    	  case 11:
+		    		  iv.setImageResource(R.drawable.untitled23);
+		    		  break;
+		    	  case 12:
+		    		  iv.setImageResource(R.drawable.untitled24);
+		    		  break;
+		    	  case 13:
+		    		  iv.setImageResource(R.drawable.untitled25);
+		    		  break;
+		    	  case 14:
+		    		  iv.setImageResource(R.drawable.untitled26);
+		    		  break;
+		    	  case 15:
+		    		  iv.setImageResource(R.drawable.untitled27);
+		    		  break;
+		    	  case 16:
+		    		  iv.setImageResource(R.drawable.untitled28);
+		    		  break;
+		    	  case 17:
+		    		  iv.setImageResource(R.drawable.untitled29);
+		    		  break;
+		    	  case 18:
+		    		  iv.setImageResource(R.drawable.untitled30);
+		    		  break;
+		    	  case 19:
+		    		  iv.setImageResource(R.drawable.untitled31);
+		    		  break;
+		    	  case 20:
+		    		  iv.setImageResource(R.drawable.untitled32);
+		    		  break;
+		    	  case 21:
+		    		  iv.setImageResource(R.drawable.untitled33);
+		    		  break;
+		    	  case 22:
+		    		  iv.setImageResource(R.drawable.untitled34);
+		    		  break;
+		    	  case 23:
+		    		  iv.setImageResource(R.drawable.untitled35);
+		    		  break;
+		    	  case 24:
+		    		  iv.setImageResource(R.drawable.untitled36);
+		    		  break;
+		    	  case 25:
+		    		  iv.setImageResource(R.drawable.untitled37);
+		    		  break;
+		    	  case 26:
+		    		  iv.setImageResource(R.drawable.untitled38);
+		    		  break;
 		    	  default:
-		    		  iv.setImageResource(R.drawable.icon);
+		    		  iv.setImageResource(R.drawable.untitled40);
 		    		  break;
 	    	  }
 		}  
