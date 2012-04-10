@@ -22,7 +22,7 @@
             android:layout_marginBottom="20dp"
             android:onClick="TextInput_on_click"
             android:padding="0dp"
-            android:src="@drawable/keyboardbtn" />
+            android:src="@drawable/new_keyboardbtn" />
 
         <ImageButton
             android:id="@+id/barcodeButton"
@@ -33,7 +33,7 @@
             android:layout_marginBottom="20dp"
             android:onClick="Barcode_on_click"
             android:padding="0dp"
-            android:src="@drawable/barcodebtn" />
+            android:src="@drawable/new_barcodebtn" />
 
         <ImageButton
             android:id="@+id/cameraButton"
@@ -44,7 +44,7 @@
             android:layout_marginBottom="20dp"
             android:onClick="Camera_on_click"
             android:padding="0dp"
-            android:src="@drawable/camerabtn" />
+            android:src="@drawable/new_camerabtn" />
 
         <ImageButton
             android:id="@+id/allergiesButton"
@@ -56,7 +56,7 @@
             android:layout_centerVertical="true"
             android:onClick="Allergy_on_click"
             android:padding="0dp"
-            android:src="@drawable/allergiesbtn" />
+            android:src="@drawable/new_allergybtn" />
         
         <ImageButton
             android:id="@+id/optionsButton"
@@ -67,7 +67,7 @@
             android:layout_marginBottom="20dp"
             android:onClick="Options_on_click"
             android:padding="0dp"
-            android:src="@drawable/optionsbtn" />
+            android:src="@drawable/new_optionsbtn" />
 
     </RelativeLayout>
 
