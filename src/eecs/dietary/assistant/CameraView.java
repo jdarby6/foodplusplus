@@ -14,6 +14,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -44,10 +46,13 @@ public class CameraView extends Activity {
 
 	AlertDialog ad; 
 
+	
+	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		setContentView(R.layout.camera_view);
 		//		setContentView(R.layout.list_item); //trash view
 
 		//		ad = new AlertDialog.Builder(this).create();
@@ -85,6 +90,11 @@ public class CameraView extends Activity {
 					dialog.dismiss();
 				}
 			}
+		});
+		dialog.setOnCancelListener(new OnCancelListener() {
+			public void onCancel(DialogInterface arg0) {
+				finish();	
+			}	
 		});
 
 		dialog.show();

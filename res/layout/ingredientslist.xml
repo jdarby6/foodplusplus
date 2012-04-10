@@ -20,12 +20,12 @@
         android:layout_weight="1" 
         android:layout_above="@+id/buttonKeyIngredients"
          />
-     <RelativeLayout
-    android:orientation="horizontal"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_centerHorizontal="true"
-   >
+	     <RelativeLayout
+	    android:orientation="horizontal"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerHorizontal="true"
+	   >
 
 			<ImageButton
 		        android:id="@+id/buttonKeyIngredients"
@@ -36,10 +36,11 @@
 		        android:layout_alignParentBottom="true"
 		        android:background="@null"
     			android:scaleType="centerInside"
-    			android:layout_marginBottom="10dp"
-    			android:layout_marginLeft="5dip"
-    			android:layout_marginRight="5dip"
+    			android:layout_marginBottom="0dp"
+    			android:layout_marginLeft="1dip"
+    			android:layout_marginRight="1dip"
 		        android:layout_centerHorizontal="true"
+		        android:paddingBottom="0dp"
 		     />
 			
          
