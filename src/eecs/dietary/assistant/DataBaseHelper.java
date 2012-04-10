@@ -240,5 +240,25 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		return myDataBase.rawQuery("SELECT brand, name, description, container, size, uom, ingredients FROM barcode_data WHERE upc_a = " + upc, null);
 	}
 	
+	/*
+	 * Methods for allergy icons
+	 */
+	public Cursor findAllergyIcon(String allergy) {
+		//ADD CODE HERE
+	
+	}
+	public void InsertAllergyIcon(String allergy, int index) {
+		//ADD CODE HERE
+	}
+	
+	public void RemoveAllergyIcon(String allergy) {
+		//ADD CODE HERE
+	}
+	}
+	
+	
+	
+	
+	
 	
 }

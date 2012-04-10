@@ -141,7 +141,11 @@ class Ingredients {
 
 	public int GetIconIndex(String allergy) {
 		// TODO Auto-generated method stub
-		//allergy.toLowerCase();
+
+		//Cursor c = dbHelper.findAllergyIcon(allergy);
+		//return c.get(0) 
+		
+		
 		if(allergy.equalsIgnoreCase("milk")) {
 			return 46;
 		}
@@ -161,9 +165,19 @@ class Ingredients {
 			int length = allergy.length() + 10;
 			return length;
 		}
+
 	
 	}
 
+	public void InsertAllergyIcon(String allergy, int iconindex) {
+		dbHelper.InsertAllergyIcon(allergy, iconindex);
+	}
+	
+	public void RemoveAllergyIcon(String allergy) {
+		dbHelper.RemoveAllergyIcon(allergy);
+	}
+	
+	
 	public void setImageIcon(ImageView iv, int allergyIconIndex) {
 		// TODO Auto-generated method stub
 		
