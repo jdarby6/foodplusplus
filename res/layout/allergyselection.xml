@@ -10,10 +10,14 @@
     	android:id="@+id/allergycreate"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:src="@drawable/createallergybtn"
+    	android:src="@drawable/createallergybigbtn"
     	android:layout_alignParentBottom="true"
     	android:layout_centerHorizontal="true"
+    	android:background="@null"
+    	android:scaleType="centerInside"
     	android:layout_marginBottom="10dp"
+    	android:layout_marginLeft="5dip"
+    	android:layout_marginRight="5dip"
     	android:padding="0dp"
     	/>
     

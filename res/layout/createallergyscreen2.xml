@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
+    android:background="@drawable/blankbackground"
     android:layout_height="fill_parent">
   
     <LinearLayout
@@ -31,35 +32,52 @@
   <LinearLayout
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="0dip"
     android:layout_weight="1"
    >
 	  	
 	  <ListView android:id="@+id/listallergycreate2"
 	    android:layout_width="fill_parent" 
+	    android:background="@android:color/transparent"
+		android:cacheColorHint="@android:color/transparent"
 	    android:layout_height="wrap_content"
 	    android:layout_weight="1" >
 	    </ListView>
       
      </LinearLayout>
      <LinearLayout
-         android:orientation="horizontal"
-         android:layout_width="fill_parent"
-         android:layout_height="40dp"
+        android:orientation="horizontal"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@null"
       >
 	 
-		    <Button
+         <ImageButton
 		        android:id="@+id/buttonBackAllergyCreate2"
-		        android:layout_width="wrap_content"
-		        android:layout_height="fill_parent"
-		        android:layout_weight="0.5"
-		        android:text="Back" />
-			<Button
+		        android:layout_weight="1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/backbtn"
+		        android:padding="0dp"
+		        android:background="@null"
+    			android:scaleType="centerInside"
+    			android:layout_marginBottom="10dp"
+    			android:layout_marginLeft="5dip"
+    			android:layout_marginRight="5dip"
+		     />
+  	
+  		<ImageButton
 		        android:id="@+id/buttonForwardAllergyCreate2"
-		        android:layout_width="wrap_content"
-		        android:layout_height="fill_parent"
-		        android:layout_weight="0.5"
-		        android:text="Continue" />
+		        android:layout_weight="1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:src="@drawable/continuebtn"
+		        android:padding="0dp"
+		        android:background="@null"
+    			android:scaleType="centerInside"
+    			android:layout_marginBottom="10dp"
+    			android:layout_marginRight="5dip"
+		     />
          
          </LinearLayout>
 
