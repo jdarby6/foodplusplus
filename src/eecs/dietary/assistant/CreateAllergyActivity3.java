@@ -30,6 +30,7 @@ import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -49,9 +50,9 @@ public class CreateAllergyActivity3 extends ListActivity {
 
 
 	//private Button _addIngred;
-	private Button _backward;
-	private Button _forward;
-	private Button _keyboard; 
+	private ImageButton _backward;
+	private ImageButton _forward;
+	private ImageButton _keyboard; 
 	private EditText _filterbox;
 
 
@@ -89,9 +90,9 @@ public class CreateAllergyActivity3 extends ListActivity {
 		});*/
 
 		//setting up buttons
-		_backward = (Button) this.findViewById(R.id.buttonBackAllergyCreate3);
-		_forward = (Button) this.findViewById(R.id.buttonForwardAllergyCreate3);
-		_keyboard = (Button) this.findViewById(R.id.buttonKeyAllergyCreate3);
+		_backward = (ImageButton) this.findViewById(R.id.buttonBackAllergyCreate3);
+		_forward = (ImageButton) this.findViewById(R.id.buttonForwardAllergyCreate3);
+		_keyboard = (ImageButton) this.findViewById(R.id.buttonKeyAllergyCreate3);
 		_backward.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
 				setResult(BACKWARD_BUTTON);

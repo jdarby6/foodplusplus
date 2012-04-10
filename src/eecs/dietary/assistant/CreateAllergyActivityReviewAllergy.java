@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,8 +24,8 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 	private ListView lv;
 	private ArrayAdapter<String> adapter;
 	private List<String> ingredientstoinclude;
-	private Button discard;
-	private Button create;
+	private ImageButton discard;
+	private ImageButton create;
 	private String allergyname;
 	private int allergyIconIndex;
 	public static int SAVED_BUTTON = 98765432;
@@ -53,8 +54,8 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 		lv.setAdapter(adapter);
 		
 	
-	this.discard = (Button) this.findViewById(R.id.buttonDiscardAllergy1);
-	this.create = (Button) this.findViewById(R.id.buttonCreateAllergy1);
+	this.discard = (ImageButton) this.findViewById(R.id.buttonDiscardAllergy1);
+	this.create = (ImageButton) this.findViewById(R.id.buttonCreateAllergy1);
 	this.discard.setOnClickListener(new Button.OnClickListener() { 
 		public void onClick(View v) {
 			setResult(BACKWARD_BUTTON);

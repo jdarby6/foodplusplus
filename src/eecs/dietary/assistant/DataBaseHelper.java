@@ -245,7 +245,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	 */
 	public Cursor findAllergyIcon(String allergy) {
 		//ADD CODE HERE
-	
+		return null;
 	}
 	public void InsertAllergyIcon(String allergy, int index) {
 		//ADD CODE HERE
@@ -253,12 +253,5 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	
 	public void RemoveAllergyIcon(String allergy) {
 		//ADD CODE HERE
-	}
-	}
-	
-	
-	
-	
-	
-	
+	}	
 }

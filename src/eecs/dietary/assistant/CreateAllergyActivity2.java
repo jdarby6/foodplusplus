@@ -15,14 +15,15 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 
 public class CreateAllergyActivity2 extends Activity {
 	
-	private Button backward;
-	private Button forward;
+	private ImageButton backward;
+	private ImageButton forward;
 	public static int BACKWARD_BUTTON_CODE = 90819084;
 	public static int CALL_ACTIVITY_3 = 837123;
 	private ArrayList<String> _clickeditems;
@@ -66,8 +67,8 @@ public class CreateAllergyActivity2 extends Activity {
 		});
 		
 			
-		this.backward = (Button) this.findViewById(R.id.buttonBackAllergyCreate2);
-		this.forward = (Button) this.findViewById(R.id.buttonForwardAllergyCreate2);
+		this.backward = (ImageButton) this.findViewById(R.id.buttonBackAllergyCreate2);
+		this.forward = (ImageButton) this.findViewById(R.id.buttonForwardAllergyCreate2);
 		this.backward.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
 				setResult(BACKWARD_BUTTON_CODE);

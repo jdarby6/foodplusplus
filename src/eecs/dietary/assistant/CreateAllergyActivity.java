@@ -20,12 +20,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 //First screen in create allergy sequence
@@ -36,8 +36,8 @@ public class CreateAllergyActivity extends Activity {
 	static final int ALLERGY_EXISTS = 1;
 	static final int BLANK_FIELD = 2;
 	
-	private Button discard;
-	private Button create; 
+	private ImageButton discard;
+	private ImageButton create; 
 	private EditText et;
 	private GridView gv;
 	private List<String> allergIcons; 
@@ -95,8 +95,8 @@ public class CreateAllergyActivity extends Activity {
 		et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		
 	
-		this.discard = (Button) this.findViewById(R.id.buttonDiscardAllergy1);
-		this.create = (Button) this.findViewById(R.id.buttonCreateAllergy1);
+		this.discard = (ImageButton) this.findViewById(R.id.buttonDiscardAllergy1);
+		this.create = (ImageButton) this.findViewById(R.id.buttonCreateAllergy1);
 
 		this.create.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
