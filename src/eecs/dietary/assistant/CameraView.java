@@ -45,7 +45,7 @@ public class CameraView extends Activity {
 
 
 	AlertDialog ad; 
-
+	private AlertDialog.Builder dialog;
 	
 	
 	@Override 
@@ -64,7 +64,7 @@ public class CameraView extends Activity {
 
 
 		String[] addPhoto=new String[]{ "Camera" , "Gallery" };
-		AlertDialog.Builder dialog=new AlertDialog.Builder(this);
+		dialog=new AlertDialog.Builder(this);
 		dialog.setTitle(getResources().getString(R.string.method));
 
 		dialog.setItems(addPhoto,new DialogInterface.OnClickListener(){
@@ -117,6 +117,10 @@ public class CameraView extends Activity {
 				sendImage.putExtra("UserImage", _imagepath);
 				startActivityForResult(sendImage, RETURN_FROM_NEW_CROP);
 			}
+			else {
+				//finish();
+				dialog.show();
+			}
 		}
 		else if(requestcode == PICK_FROM_FILE) {
 			//User has selected an image from the phone's gallery to be cropped
@@ -129,12 +133,19 @@ public class CameraView extends Activity {
 
 				doCrop();
 			}
+			else {
+				dialog.show();
+				//finish();
+			}
 		}
 		else if(requestcode == RETURN_FROM_CROP) {  	
 			//Image has been cropped, and needs to be passed to the OCR methods
 			if (resultcode == RESULT_OK) {
 				Bitmap bitmap = prepareCroppedImage(data);
 				startOCR(bitmap);
+			}
+			else { 
+				finish();
 			}
 
 		}
