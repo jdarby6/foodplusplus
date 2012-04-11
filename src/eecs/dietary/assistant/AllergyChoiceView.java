@@ -7,7 +7,11 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -15,7 +19,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -25,58 +28,65 @@ import android.widget.TextView;
 public class AllergyChoiceView extends ListActivity {
 
 	public static int CALL_CREATE_ALLERGY = 73612;
-	
+
 	private ArrayList<String> _bindinglist;
 	private List<String> _clickeditems;
 	private ListView _listview;
 	private ImageButton _createbutton;
 	private ImageButton _backbutton;
 	
+	private String[] menuItems;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		menuItems = new String[] { "Delete" };
 		
 		setContentView(R.layout.allergyselection);
 		_clickeditems = new ArrayList<String>();
 		_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
-		
+
 		_listview = getListView();
 		_listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		_listview.setClickable(true);
 		_listview.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) { 
-	
-						String allergy = (String) _listview.getItemAtPosition(arg2);
-						
-						if(_clickeditems.contains(allergy)) {
-							_clickeditems.remove(allergy);
-							DietaryAssistantActivity._Ingredients.allergiesSuffered.remove(allergy);
-							CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
-							cb.setChecked(false);
-						}
-						else {
-							_clickeditems.add(allergy);
-							DietaryAssistantActivity._Ingredients.allergiesSuffered.add(allergy);
-							CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
-							cb.setChecked(true);
-						}				
-					}
-			});
-				
+
+				String allergy = (String) _listview.getItemAtPosition(arg2);
+
+				if(_clickeditems.contains(allergy)) {
+					_clickeditems.remove(allergy);
+					DietaryAssistantActivity._Ingredients.allergiesSuffered.remove(allergy);
+					CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
+					cb.setChecked(false);
+				}
+				else {
+					_clickeditems.add(allergy);
+					DietaryAssistantActivity._Ingredients.allergiesSuffered.add(allergy);
+					CheckBox cb = (CheckBox) arg1.findViewById(R.id.checkbox);
+					cb.setChecked(true);
+				}				
+			}
+		});
+
 		_bindinglist = new ArrayList<String>();
 		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
 		setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
-	
 		
+
+		registerForContextMenu(_listview);
+
+
 		_backbutton = (ImageButton) findViewById(R.id.allergyback);
 		_backbutton.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				finish();
 			}	
 		});
-		
+
 		_createbutton = (ImageButton) findViewById(R.id.allergycreate);
 		_createbutton.setOnClickListener(new OnClickListener() {
 
@@ -85,10 +95,42 @@ public class AllergyChoiceView extends ListActivity {
 				i.setClass(AllergyChoiceView.this, CreateAllergyActivity.class);
 				startActivityForResult(i,CALL_CREATE_ALLERGY);
 			}
-			
-			
-			
+
+
+
 		});
+	}
+
+	@Override
+	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+//		if (v.getId()==R.id.list) {
+			AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)menuInfo;
+			menu.setHeaderTitle(_bindinglist.get(info.position));
+			for (int i = 0; i < menuItems.length; i++) {
+				menu.add(Menu.NONE, i, i, menuItems[i]);
+			}
+//		}
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+		int menuItemIndex = item.getItemId();
+//		String menuItemName = menuItems[menuItemIndex];
+		String listItemName = _bindinglist.get(info.position);
+		if(menuItemIndex == 0) { // "Delete"
+			DietaryAssistantActivity._Ingredients.dbHelper.removeAllergy(listItemName);
+			DietaryAssistantActivity._Ingredients.all_allergies.remove(listItemName);
+			DietaryAssistantActivity._Ingredients.allergiesSuffered.remove(listItemName);
+			
+			_clickeditems = new ArrayList<String>();
+			_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
+
+			_bindinglist = new ArrayList<String>();
+			_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
+			setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
+		}
+		return true;
 	}
 
 	@Override 
@@ -102,49 +144,48 @@ public class AllergyChoiceView extends ListActivity {
 				//do nothing
 			}
 			if(resultcode == CreateAllergyActivityReviewAllergy.SAVED_BUTTON) {
-				//add code to update the allergy list in this view with the newest created allergy (if not already done)
-				//****
+				//update the allergy list in this view with the newest created allergy
 				_clickeditems = new ArrayList<String>();
 				_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
-				
+
 				_bindinglist = new ArrayList<String>();
 				_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
 				setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
 			}
 		}	
 	}
-	
-	
+
+
 	private class myAdapter extends ArrayAdapter<String>  {
-		
+
 		private ArrayList<String> items;
-		
+
 		public myAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
 			super(context,textViewResourceId,items);
 			this.items = items;
 		}
-		
+
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-		
+
 			String allergy = getItem(position);
 			View v = convertView;
 
 			if(v==null) {
-			
+
 				LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = li.inflate(R.layout.allergy_list_item, null);	
 				v.setFocusable(false);
 			}
-			
+
 			if(allergy != null) {
-				
+
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
-				
+
 				ImageView iv = (ImageView) v.findViewById(R.id.icon);
 				DietaryAssistantActivity._Ingredients.setImageIcon(iv, DietaryAssistantActivity._Ingredients.GetIconIndex(allergy));
-				
+
 				if(tt != null) {
 					tt.setText(allergy);
 				}
@@ -154,7 +195,7 @@ public class AllergyChoiceView extends ListActivity {
 					int numberOfIngredients = DietaryAssistantActivity._Ingredients.returnByAllergy(allergy).size();
 					bt.setText(Integer.toString(numberOfIngredients)+ " ingredients");
 				}
-				
+
 				if(_clickeditems.contains(allergy)) {
 					CheckBox cb = (CheckBox) v.findViewById(R.id.checkbox);
 					cb.setChecked(true);
@@ -165,9 +206,9 @@ public class AllergyChoiceView extends ListActivity {
 						cb.setChecked(false);	
 					}
 				}
-			
+
 			}
-					
+
 			return v;
 		}
 	}

@@ -193,11 +193,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		// ContentValues class is used to store a set of values that the ContentResolver can process. 
 		ContentValues contentValues = new ContentValues();
 		
-		// Get values from the POJO class and passing them to the ContentValues class
 		contentValues.put("allergy", allergy.toUpperCase());
 		contentValues.put("ingredient", ingredient.toUpperCase());
 
-		// Now we can insert the data in to relevant table
+		// Now we can insert the data into relevant table
 		long affectedColumnId = myDataBase.insert("all_ingreds", null, contentValues);
 		
 		Log.d("affectedColumnId", String.valueOf(affectedColumnId));
@@ -227,6 +226,10 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		else return null;
 	}
 	
+	//Remove allergy from database
+	public void removeAllergy(String name) {
+		myDataBase.delete("all_ingreds", "allergy=?", new String[] { name.toUpperCase() });
+	}
 	
 	
 	
