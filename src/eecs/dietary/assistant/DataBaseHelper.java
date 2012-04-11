@@ -213,13 +213,13 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	
 	public Cursor returnAllAllergens(List<String> allergies) {
 		if(allergies.size() > 0) {
-			String query = "SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = " + allergies.get(0).toUpperCase();
+			String query = "SELECT DISTINCT ingredient FROM all_ingreds WHERE allergy = '" + allergies.get(0).toUpperCase();
 			
 			for(int i = 1; i < allergies.size(); i++) {
-				query = query + " OR allergy = " + allergies.get(i).toUpperCase();
+				query = query + "' OR allergy = '" + allergies.get(i).toUpperCase();
 			}
 			
-			query = query + " ORDER BY ingredient ASC";
+			query = query + "' ORDER BY ingredient ASC";
 			
 			return myDataBase.rawQuery(query, null);
 		}
