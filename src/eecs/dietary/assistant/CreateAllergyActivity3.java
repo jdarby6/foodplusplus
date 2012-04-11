@@ -77,9 +77,9 @@ public class CreateAllergyActivity3 extends ListActivity {
 		setContentView(R.layout.createallergyscreen3);
 		
 		//setting up the edit box on the top of screen
-		_filterbox = (EditText) findViewById(R.id.createallergy3searchbox);
+		/*_filterbox = (EditText) findViewById(R.id.createallergy3searchbox);
 		_filterbox.addTextChangedListener(filterTextWatcher);
-		_filterbox.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+		_filterbox.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);*/
 
 		//setting up button to add new ingredient to list
 		//_addIngred = (Button) this.findViewById(R.id.buttonAddIngredient);
@@ -92,7 +92,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 		//setting up buttons
 		_backward = (ImageButton) this.findViewById(R.id.buttonBackAllergyCreate3);
 		_forward = (ImageButton) this.findViewById(R.id.buttonForwardAllergyCreate3);
-		_keyboard = (ImageButton) this.findViewById(R.id.buttonKeyAllergyCreate3);
+		//_keyboard = (ImageButton) this.findViewById(R.id.buttonKeyAllergyCreate3);
 		_backward.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
 				setResult(BACKWARD_BUTTON);
@@ -111,12 +111,12 @@ public class CreateAllergyActivity3 extends ListActivity {
 				startActivityForResult(i,CALL_REVIEW_SCREEN);
 			}
 		});	
-		_keyboard.setOnClickListener(new Button.OnClickListener() { 
+		/*_keyboard.setOnClickListener(new Button.OnClickListener() { 
 			public void onClick(View v) {
 				InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);	
 			}
-		});	
+		});*/	
 
 		_ingredients = new ArrayList<String>();
 		_ingredients.addAll(DietaryAssistantActivity._Ingredients.returnAll());
@@ -258,12 +258,7 @@ public class CreateAllergyActivity3 extends ListActivity {
 
 	};
 
-	//helper for the filter
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-		_filterbox.removeTextChangedListener(filterTextWatcher);
-	}
+	
 
 	 public class ImageAdapterIngredientCard extends BaseAdapter {
 	      private Context _context;

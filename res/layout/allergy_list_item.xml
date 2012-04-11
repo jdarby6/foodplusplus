@@ -9,7 +9,7 @@
         android:layout_width="55dip"
         android:layout_height="55dip"
         android:layout_marginRight="6dip"
-        android:src="@drawable/icon" 
+         
         
         />
     <LinearLayout

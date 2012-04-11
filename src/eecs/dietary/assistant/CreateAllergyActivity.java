@@ -13,13 +13,20 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.method.KeyListener;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnKeyListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
@@ -45,16 +52,36 @@ public class CreateAllergyActivity extends Activity {
 	
 	public static int CALL_CREATEACTIVITY2 = 38238414;
 	public static int DISCARD = 391931;
+	
+	
+	@Override
+	public void onBackPressed() {
+		finish();
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	        finish();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		setContentView(R.layout.createallergyscreen1);
-		
 		/*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);	*/
+		setContentView(R.layout.createallergyscreen1);
+		
+		
 		
 		allergIcons = new ArrayList<String>();
+		
+		
 		allergIcons.add("hehehe");
 		allergIcons.add("hehehe");
 		allergIcons.add("hehehe");
@@ -74,7 +101,16 @@ public class CreateAllergyActivity extends Activity {
 		allergIcons.add("hehehe");
 		allergIcons.add("hehehe");
 		allergIcons.add("hehehe");
-		this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
+		allergIcons.add("hehehe");
 		
 		gv = (GridView) this.findViewById(R.id.gridAllergies);
 		gv.setAdapter(new ImageAdapterAllergyIcons(this,allergIcons));
@@ -94,6 +130,9 @@ public class CreateAllergyActivity extends Activity {
 		et = (EditText) this.findViewById(R.id.editTextAllergyCreate);	
 		et.setInputType(InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
 		
+		
+		
+
 	
 		this.discard = (ImageButton) this.findViewById(R.id.buttonDiscardAllergy1);
 		this.create = (ImageButton) this.findViewById(R.id.buttonCreateAllergy1);
@@ -120,12 +159,12 @@ public class CreateAllergyActivity extends Activity {
 				else if(error_flag == ALLERGY_EXISTS) {
 					Animation shake = AnimationUtils.loadAnimation(getBaseContext(),R.anim.shake);
 					et.startAnimation(shake);
-					CreateAllergyActivity.this.showDialog(ALLERGY_EXISTS);
+					//CreateAllergyActivity.this.showDialog(ALLERGY_EXISTS);
 				}
 				else if(error_flag == BLANK_FIELD) {
 					Animation shake = AnimationUtils.loadAnimation(getBaseContext(),R.anim.shake);
 					et.startAnimation(shake);
-					CreateAllergyActivity.this.showDialog(BLANK_FIELD);
+					//CreateAllergyActivity.this.showDialog(BLANK_FIELD);
 				}
 			}
 		});

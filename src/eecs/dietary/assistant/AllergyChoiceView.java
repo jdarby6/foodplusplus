@@ -30,6 +30,7 @@ public class AllergyChoiceView extends ListActivity {
 	private List<String> _clickeditems;
 	private ListView _listview;
 	private ImageButton _createbutton;
+	private ImageButton _backbutton;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,13 @@ public class AllergyChoiceView extends ListActivity {
 		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
 		setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
 	
+		
+		_backbutton = (ImageButton) findViewById(R.id.allergyback);
+		_backbutton.setOnClickListener(new OnClickListener() {
+			public void onClick(View arg0) {
+				finish();
+			}	
+		});
 		
 		_createbutton = (ImageButton) findViewById(R.id.allergycreate);
 		_createbutton.setOnClickListener(new OnClickListener() {

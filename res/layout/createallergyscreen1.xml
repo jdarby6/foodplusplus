@@ -5,95 +5,83 @@
     android:background="@drawable/blankbackground"
     android:layout_height="fill_parent">
         
-  <LinearLayout
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-   >
-   <LinearLayout
-  	    android:orientation="vertical"
-    	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
-    	android:layout_weight="1"
-  	    
-  	    > 
-    <TextView 
-        android:text="Let's create a new allergy! What shall we call it?"
-        android:textSize="25dp"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_weight="1"
-        android:layout_margin="5dp"
-        android:gravity="center_vertical|center_horizontal"
-        />
-    </LinearLayout>
 
   	<LinearLayout
   	    android:orientation="vertical"
     	android:layout_width="fill_parent"
-    	android:layout_height="fill_parent"
+    	android:layout_height="wrap_content"
     	android:layout_weight="1"
-  	    android:gravity="center_vertical"
+  	    android:gravity="top"
+  	    android:background="@android:color/transparent"
+  	    android:cacheColorHint="@android:color/transparent"
   	    > 
-    <EditText
-        android:id="@+id/editTextAllergyCreate"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:gravity="top"
-        android:hint="Allergy Name"
-     >
-     
-    </EditText>
-    
-    <GridView xmlns:android="http://schemas.android.com/apk/res/android" 
-			android:id="@+id/gridAllergies"
-			android:layout_width="fill_parent" 
-			android:layout_height="fill_parent"
-			android:stretchMode="columnWidth"
-			android:numColumns="auto_fit"
-			android:columnWidth="45dp"
-			android:gravity="center_horizontal|center_vertical"
-			>			
-      </GridView>
-    
+		    <EditText
+		        android:id="@+id/editTextAllergyCreate"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:gravity="top"
+		        android:layout_marginLeft="5dp"
+		        android:layout_marginRight="5dp"
+		        android:layout_marginTop="5dp"
+		        android:hint="Enter Allergy Name..."
+		     >	     
+		    </EditText>
+		    
+		    <GridView xmlns:android="http://schemas.android.com/apk/res/android" 
+					android:id="@+id/gridAllergies"
+					android:layout_width="fill_parent" 
+					android:layout_height="wrap_content"
+					android:stretchMode="columnWidth"
+					android:numColumns="auto_fit"
+					android:columnWidth="45dp"
+					android:gravity="center_horizontal|center_vertical"
+					android:background="@android:color/transparent"
+					android:cacheColorHint="@android:color/transparent"
+					>			
+		      </GridView>
+		    
     
     </LinearLayout> 
   
-  </LinearLayout>
+
   <LinearLayout
     	android:orientation="horizontal"
     	android:layout_width="fill_parent"
-    	android:layout_height="0dp"
+    	android:layout_height="40dp"
     	android:background="@null"
-    	android:layout_weight="0.1"
     	android:gravity="bottom"
+    	android:padding="0dp"
+    	android:layout_margin="0dp"
    >
   			<ImageButton
 		        android:id="@+id/buttonDiscardAllergy1"
-		        android:layout_weight="1"
+		        android:layout_weight="0.5"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:src="@drawable/discardbtn"
+		        android:src="@drawable/new_discardbtn"
 		        android:padding="0dp"
 		        android:background="@null"
-    			android:scaleType="centerInside"
-    			android:layout_marginBottom="5dp"
-    			android:layout_marginLeft="5dip"
-    			android:layout_marginRight="5dip"
+    			android:scaleType="fitXY"
+    			android:layout_marginBottom="2dip"
+    			android:layout_marginLeft="4dip"
+    			android:layout_marginRight="2dip"
+    			
+    			android:gravity="bottom"
 		     />
   	
   			<ImageButton
 		        android:id="@+id/buttonCreateAllergy1"
-		        android:layout_weight="1"
+		        android:layout_weight="0.5"
 		        android:layout_width="fill_parent"
 		        android:layout_height="wrap_content"
-		        android:src="@drawable/createbtn"
+		        android:src="@drawable/new_createbtn"
 		        android:padding="0dp"
 		        android:background="@null"
-    			android:scaleType="centerInside"
-    			android:layout_marginBottom="5dp"
-    			android:layout_marginRight="5dip"
+    			android:scaleType="fitXY"
+    			android:layout_marginBottom="2dip"
+    			android:layout_marginRight="4dip"
+    			android:layout_marginLeft="2dip"
+    			android:gravity="bottom"
 		     />
       
       </LinearLayout>

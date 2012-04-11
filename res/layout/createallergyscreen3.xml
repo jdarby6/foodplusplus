@@ -6,13 +6,26 @@
     android:background="@drawable/blankbackground"
     android:orientation="vertical" >
 
-    <!-- Pretty hint text, and maxLines -->
-    <EditText android:id="@+id/createallergy3searchbox" 
+    
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:hint="type to filter"
-        android:inputType="text"
-        android:maxLines="1"/>
+        android:ellipsize="none"
+        android:gravity="top|center_horizontal"
+        android:scrollHorizontally="false"
+        android:singleLine="false"
+        android:text="Awesome! What ingredients are allergens?"
+        android:textSize="22dp"
+        android:textStyle="bold" 
+        android:textColor="?android:attr/textColorPrimary"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp"
+        android:paddingBottom="0dp"
+        android:layout_margin="2dp"
+        
+        />
+    
+    
  <!--    <Button android:id="@+id/buttonAddIngredient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -31,9 +44,9 @@
      <LinearLayout
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:layout_height="0dp"
-    android:layout_weight="0.1"
+    android:layout_height="40dp"
     android:background="@null"
+    android:minHeight="70dp"
    >
    		<ImageButton
 		        android:id="@+id/buttonBackAllergyCreate3"
@@ -43,24 +56,12 @@
 		        android:src="@drawable/backbtn"
 		        android:padding="0dp"
 		        android:background="@null"
-    			android:scaleType="centerInside"
+    			android:scaleType="fitXY"
     			android:layout_marginBottom="2dp"
     			android:layout_marginLeft="2dip"
     			android:layout_marginRight="2dip"
 		     />
-   
-   		<ImageButton
-		        android:id="@+id/buttonKeyAllergyCreate3"
-		        android:layout_weight="1"
-		        android:layout_width="fill_parent"
-		        android:layout_height="wrap_content"
-		        android:src="@drawable/keyboardbigbtn"
-		        android:padding="0dp"
-		        android:background="@null"
-    			android:scaleType="centerInside"
-    			android:layout_marginRight="2dip"
-    			android:layout_marginBottom="2dp"
-		     />
+
   	
   		<ImageButton
 		        android:id="@+id/buttonForwardAllergyCreate3"
@@ -70,7 +71,7 @@
 		        android:src="@drawable/continuebtn"
 		        android:padding="0dp"
 		        android:background="@null"
-    			android:scaleType="centerInside"
+    			android:scaleType="fitXY"
     			android:layout_marginBottom="2dp"
     			android:layout_marginRight="2dip"
 		     />

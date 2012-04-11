@@ -2,6 +2,7 @@ package eecs.dietary.assistant;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -277,5 +278,7 @@ class Ingredients {
 		}  
 		
 	}
+
+	
 	
 }

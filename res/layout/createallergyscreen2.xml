@@ -15,16 +15,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ellipsize="none"
-        android:gravity="top"
+        android:gravity="top|center_horizontal"
         android:scrollHorizontally="false"
         android:singleLine="false"
         android:text="Great! Should we include any known allergies?"
-        android:textSize="16sp"
+        android:textSize="22dp"
         android:textStyle="bold" 
+        android:textColor="?android:attr/textColorPrimary"
         android:paddingRight="4dp"
         android:paddingLeft="4dp"
         android:paddingBottom="0dp"
-        android:layout_margin="0dp"
+        android:layout_margin="2dp"
+        
         />
 
     </LinearLayout> 
@@ -48,8 +50,7 @@
      <LinearLayout
         android:orientation="horizontal"
     	android:layout_width="fill_parent"
-    	android:layout_height="0dp"
-    	android:layout_weight="0.1"
+    	android:layout_height="40dp"
     	android:background="@null"
       >
 	 
@@ -61,8 +62,8 @@
 		        android:src="@drawable/backbtn"
 		        android:padding="0dp"
 		        android:background="@null"
-    			android:scaleType="centerInside"
-    			android:layout_marginBottom="5dp"
+    			android:scaleType="fitXY"
+    			android:layout_marginBottom="5dip"
     			android:layout_marginLeft="5dip"
     			android:layout_marginRight="5dip"
 		     />
@@ -75,8 +76,8 @@
 		        android:src="@drawable/continuebtn"
 		        android:padding="0dp"
 		        android:background="@null"
-    			android:scaleType="centerInside"
-    			android:layout_marginBottom="5dp"
+    			android:scaleType="fitXY"
+    			android:layout_marginBottom="5dip"
     			android:layout_marginRight="5dip"
 		     />
          

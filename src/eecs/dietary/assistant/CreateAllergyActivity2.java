@@ -16,6 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -127,6 +128,10 @@ private class myAdapter extends ArrayAdapter<String>  {
 			v.setFocusable(false);
 			
 			if(allergy != null) {
+				
+				ImageView iv = (ImageView) v.findViewById(R.id.icon);
+				int iconIndex = DietaryAssistantActivity._Ingredients.GetIconIndex(allergy);	
+				DietaryAssistantActivity._Ingredients.setImageIcon(iv, iconIndex);
 				
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);

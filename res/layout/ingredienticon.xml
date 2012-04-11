@@ -7,6 +7,8 @@
     android:paddingLeft="1dp"
     android:paddingRight="1dp" 
     android:gravity="center_horizontal|center_vertical"
+    android:background="@android:color/transparent"
+  	    android:cacheColorHint="@android:color/transparent"
     >
     
     
@@ -16,6 +18,8 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:src="@drawable/icon"
+        android:background="@android:color/transparent"
+  	    android:cacheColorHint="@android:color/transparent"
         >
     </ImageView>
    	
