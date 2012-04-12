@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/optionspressedbtn"
+    <item android:drawable="@drawable/settingspressedbtn"
           android:state_pressed="true" />
-    <item android:drawable="@drawable/optionsbtn" />
+    <item android:drawable="@drawable/settingsbtn" />
 </selector>
