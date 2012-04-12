@@ -14,6 +14,7 @@ public class DietaryAssistantActivity extends Activity {
 	/** Called when the activity is first created. */
 
 	public static Ingredients _Ingredients;
+	public static Icons _Icons;
 	
 	public static OCR _OCR;
 	
@@ -27,6 +28,7 @@ public class DietaryAssistantActivity extends Activity {
 			_OCR = new OCR(Environment.getExternalStorageDirectory()); //location of tesseract language file (on phone)
 			_OCRReader = new OCRReader();
 			_Ingredients = new Ingredients(getBaseContext());
+			_Icons = new Icons(getBaseContext());
 		}
 
 		setContentView(R.layout.main);

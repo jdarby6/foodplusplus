@@ -45,7 +45,7 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 		tv.setText(allergyname );
 		iv = (ImageView) findViewById(R.id.iconcreateallergy);
 		
-		DietaryAssistantActivity._Ingredients.setImageIcon(iv,allergyIconIndex);
+		DietaryAssistantActivity._Icons.setImageIcon(iv,allergyIconIndex);
 		
 		ingredientstoinclude = sender.getExtras().getStringArrayList("ingredients");
 		

@@ -11,7 +11,6 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
@@ -24,56 +23,57 @@ public class BarcodeFeedback extends ListActivity {
 	private double size;
 	private String uom;
 	private List<String> ingredients;
-	private int potentialAllergens;
-	
+	private static int potentialAllergens;
+
 	private TextView tv;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.barcode_feedback);
-		
+
 		potentialAllergens = 0;
-//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
+		//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
 		Intent i = getIntent(); //retrieve previous intent to get extras (for barcode info)
 
 		brand = i.getStringExtra("brand");
 		tv = (TextView) findViewById(R.id.brandtext);
 		tv.setText("Brand: " + brand);
-		
+
 		name = i.getStringExtra("name");
 		tv = (TextView) findViewById(R.id.nametext);
 		tv.setText("Name: " + name);
-		
+
 		description = i.getStringExtra("description");
 		tv = (TextView) findViewById(R.id.desctext);
 		tv.setText("Description: " + description);
-		
+
 		container = i.getStringExtra("container");
 		tv = (TextView) findViewById(R.id.containertext);
 		tv.setText("Container: " + container);
-		
+
 		size = i.getDoubleExtra("size", 0.0);
 		uom = i.getStringExtra("uom");
 		tv = (TextView) findViewById(R.id.sizetext);
 		tv.setText("Size: " + String.valueOf(size) + " " + uom);
-		
-		
+
+
 		//Separates ingredients by commas (also removes the period that sometimes appears at the end of the list
 		ingredients = new ArrayList<String>(Arrays.asList(i.getStringExtra("ingredients").toUpperCase().split("[.,] ?")));
 
 		setListAdapter(new myFeedbackAdapter(this, R.layout.list_item, ingredients));
-		
+
 		tv = (TextView) findViewById(R.id.allergencounttext);
-		tv.setText("Found " + potentialAllergens + " potential allergens (in red):");
+		tv.setText("Potential allergens in red:");
+//		tv.setText("Found " + potentialAllergens + " potential allergens (in red):");
 
 	}
 
 	@Override
 	public void onPause() {
 		super.onPause();
-//		super.finish();
+		//		super.finish();
 		//finish();
 	}
 
@@ -97,31 +97,33 @@ public class BarcodeFeedback extends ListActivity {
 			View view = super.getView(position,convertView,parent);
 
 			ingredient = ingredient.replaceAll("[^a-zA-Z0-9]+", " ");
-			
+
 			Cursor all_bad_ingreds = DietaryAssistantActivity._Ingredients.dbHelper.returnAllAllergens(DietaryAssistantActivity._Ingredients.allergiesSuffered);
 			if(all_bad_ingreds != null) {
 				for(int i = 0; i < all_bad_ingreds.getCount(); i++) {
-			
+
 					all_bad_ingreds.moveToNext();
-					
+
 					allergen = all_bad_ingreds.getString(0);
 					allergen = allergen.replaceAll("[^a-zA-Z0-9]+", " ");
-					
+
 					if(ingredient.contentEquals(allergen)) {
 						view.setBackgroundColor(colors[0]);
 						view.setContentDescription("Violates allergy");
 						view.setVerticalFadingEdgeEnabled(true);
-						
+
 						found = true;
-						potentialAllergens++;
+//						potentialAllergens++;
+//						TextView tv = (TextView) findViewById(R.id.allergencounttext);
+//						tv.setText("Found " + potentialAllergens + " potential allergens (in red):");
 						break;
 					}
 				}
 			}
-//					else if(DietaryAssistantActivity._Ingredients.
-//							.contains(ingredient)) {
-//						view.setBackgroundColor(colors[1]);
-//					}
+			//					else if(DietaryAssistantActivity._Ingredients.
+			//							.contains(ingredient)) {
+			//						view.setBackgroundColor(colors[1]);
+			//					}
 			if(found == false) {
 				view.setBackgroundColor(colors[2]);
 			}

@@ -208,12 +208,12 @@ public class KeyboardInputView extends ListActivity {
 	    	 
 	    				gridItem = new View(_context);
 	    				gridItem = inflater.inflate(R.layout.ingredienticon, null);
-	    				int iconIndex = DietaryAssistantActivity._Ingredients.GetIconIndex(allergy);
+	    				int iconIndex = DietaryAssistantActivity._Icons.GetIconIndex(allergy);
 	    	 
 	    				ImageView imageView = (ImageView) gridItem
 	    						.findViewById(R.id.grid_item_image);
 	    				
-	    				DietaryAssistantActivity._Ingredients.setImageIcon(imageView, iconIndex);
+	    				DietaryAssistantActivity._Icons.setImageIcon(imageView, iconIndex);
 	    				
 	    				
 	     			} else {

@@ -184,7 +184,7 @@ public class AllergyChoiceView extends ListActivity {
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
 
 				ImageView iv = (ImageView) v.findViewById(R.id.icon);
-				DietaryAssistantActivity._Ingredients.setImageIcon(iv, DietaryAssistantActivity._Ingredients.GetIconIndex(allergy));
+				DietaryAssistantActivity._Icons.setImageIcon(iv, DietaryAssistantActivity._Icons.GetIconIndex(allergy));
 
 				if(tt != null) {
 					tt.setText(allergy);

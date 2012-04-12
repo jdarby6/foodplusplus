@@ -130,8 +130,8 @@ private class myAdapter extends ArrayAdapter<String>  {
 			if(allergy != null) {
 				
 				ImageView iv = (ImageView) v.findViewById(R.id.icon);
-				int iconIndex = DietaryAssistantActivity._Ingredients.GetIconIndex(allergy);	
-				DietaryAssistantActivity._Ingredients.setImageIcon(iv, iconIndex);
+				int iconIndex = DietaryAssistantActivity._Icons.GetIconIndex(allergy);	
+				DietaryAssistantActivity._Icons.setImageIcon(iv, iconIndex);
 				
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);

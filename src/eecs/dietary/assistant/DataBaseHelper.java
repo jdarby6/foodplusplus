@@ -199,15 +199,7 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 		// Now we can insert the data into relevant table
 		long affectedColumnId = myDataBase.insert("all_ingreds", null, contentValues);
 		
-		Log.d("affectedColumnId", String.valueOf(affectedColumnId));
-		
-//		if(myDataBase.isReadOnly()) { }
-//		else {
-//			try {
-//				myDataBase.execSQL("INSERT INTO all_ingreds(allergy, ingredient) VALUES('"+allergy+"', '"+ingredient+"')");
-//			}
-//			catch(SQLException e) {
-//			}
+//		Log.d("affectedColumnId", String.valueOf(affectedColumnId));
 //		}
 	}
 	
@@ -244,17 +236,23 @@ public class DataBaseHelper extends SQLiteOpenHelper{
 	}
 	
 	/*
-	 * Methods for allergy icons
+	 ***** Methods for allergy icons *****
 	 */
 	public Cursor findAllergyIcon(String allergy) {
-		//ADD CODE HERE
-		return null;
+		return myDataBase.rawQuery("SELECT ind FROM icons WHERE allergy = '" + allergy.toUpperCase() + "'", null);
 	}
+	
 	public void InsertAllergyIcon(String allergy, int index) {
-		//ADD CODE HERE
+		ContentValues contentValues = new ContentValues();
+		
+		contentValues.put("allergy", allergy.toUpperCase());
+		contentValues.put("ind", index);
+
+		// Now we can insert the data into relevant table
+		long affectedColumnId = myDataBase.insert("icons", null, contentValues);
 	}
 	
 	public void RemoveAllergyIcon(String allergy) {
-		//ADD CODE HERE
+		myDataBase.delete("icons", "allergy=?", new String[] { allergy.toUpperCase() });
 	}	
 }

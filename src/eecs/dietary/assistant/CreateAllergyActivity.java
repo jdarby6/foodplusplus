@@ -259,7 +259,7 @@ public class CreateAllergyActivity extends Activity {
 
 	    			ImageView imageView = (ImageView) gridItem
     						.findViewById(R.id.grid_item_image); 
-    				DietaryAssistantActivity._Ingredients.setImageIcon(imageView,position);
+    				DietaryAssistantActivity._Icons.setImageIcon(imageView,position);
     				
 	    			if(position == selectedIconIndex) {
 	    				gridItem.setBackgroundColor(Color.rgb(0xE7, 0x7A, 0x26));
