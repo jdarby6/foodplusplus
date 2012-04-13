@@ -52,8 +52,12 @@ public class CropTest extends Activity {
         Log.d("touch", path);
         Options options = new BitmapFactory.Options();
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
+       
         //options.inSampleSize = 2;
         options.inScaled = false;
+        
+        
+        
         original = BitmapFactory.decodeFile(path, options);
         Display display = getWindowManager().getDefaultDisplay();
         int width = original.getWidth(); origWidth = width;

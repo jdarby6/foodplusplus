@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout 
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/blankbackground"
+    android:orientation="vertical" >
+	
+       <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="none"
+        android:gravity="top|center_horizontal"
+        android:scrollHorizontally="false"
+        android:singleLine="false"
+        android:text="Here's what I found..."
+        android:textSize="22dp"
+        android:textStyle="bold" 
+        android:textColor="?android:attr/textColorPrimary"
+        android:paddingRight="4dp"
+        android:paddingLeft="4dp"
+        android:paddingBottom="0dp"
+        android:layout_margin="4dp"
+        android:id="@+id/topocrfeedbacktext"
+        
+        />
+   	    
+	<ListView android:id="@android:id/list"
+	        android:layout_width="fill_parent"        
+	        android:background="@android:color/transparent"
+			android:cacheColorHint="@android:color/transparent"
+	        android:layout_height="fill_parent"
+	        android:layout_weight="1" 
+	/>
+</LinearLayout>

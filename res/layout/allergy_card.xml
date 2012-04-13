@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginTop="0dp"
+    android:orientation="vertical"
+    android:background="@drawable/blankbackground"
+    > 
+    <TextView
+            android:id="@+id/toptextallergy"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Testing Ingredient"
+            android:textSize="26dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginBottom="4dp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="4dp"
+            android:gravity="center_horizontal|center_vertical"
+        />
+     <ListView android:id="@+id/listingreds"
+          android:layout_width="fill_parent"        
+        android:background="@android:color/transparent"
+		android:cacheColorHint="@android:color/transparent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toptextallergy"
+        android:layout_above="@+id/delete"
+        />
+		<Button  
+		    android:id="@+id/delete"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:text="Delete"
+        	android:layout_above="@+id/close"
+        	
+		/>
+		<Button 
+		    android:id="@+id/close"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:text="Close"
+        	android:layout_alignParentBottom="true"
+		/>
+
+</RelativeLayout>

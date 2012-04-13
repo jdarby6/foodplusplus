@@ -166,6 +166,9 @@ public class CameraView extends Activity {
 			options.inTargetDensity = DietaryAssistantActivity._OCR.pixeldensity;
 			Bitmap bitmap = BitmapFactory.decodeFile(final_path, options); 	
 			
+			
+			
+			
 			try {
 
 				ExifInterface exif = new ExifInterface(_imagepath);

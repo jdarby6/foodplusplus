@@ -3,6 +3,7 @@ package eecs.dietary.assistant;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +15,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,6 +40,9 @@ public class AllergyChoiceView extends ListActivity {
 	private ImageButton _backbutton;
 	
 	private String[] menuItems;
+	private Dialog d;
+	
+	private CharSequence allergy;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,13 +78,76 @@ public class AllergyChoiceView extends ListActivity {
 				}				
 			}
 		});
+		_listview.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				
+				TextView tv = (TextView) arg1.findViewById(R.id.toptext);
+				allergy = tv.getText();
+				
+				List<String> ingredients = DietaryAssistantActivity._Ingredients.returnByAllergy(allergy.toString());
+				
+				
+				d = new Dialog(arg0.getContext(),android.R.style.Theme_Dialog);
+				d.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				d.setContentView(R.layout.allergy_card);
+				
+				TextView tt = (TextView) d.findViewById(R.id.toptextallergy);
+				tt.setText(allergy);
+				
+				Button close = (Button) d.findViewById(R.id.close);
+				close.setOnClickListener(new OnClickListener() {
+					public void onClick(View arg0) {
+						d.dismiss();
+					}
+				});
+				
+				Button del = (Button) d.findViewById(R.id.delete);
+				del.setOnClickListener(new OnClickListener() {
+
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						
+						DietaryAssistantActivity._Ingredients.dbHelper.removeAllergy(allergy.toString());
+						DietaryAssistantActivity._Ingredients.all_allergies.remove(allergy.toString());
+						DietaryAssistantActivity._Ingredients.allergiesSuffered.remove(allergy.toString());
+						_clickeditems.clear();
+						_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
+						//_bindinglist = new ArrayList<String>();
+						_bindinglist.clear();
+						_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
+						d.dismiss();
+						_listview.setAdapter(new myAdapter(_listview.getContext(), android.R.layout.simple_list_item_multiple_choice, _bindinglist));
+					}
+	
+				});
+				
+				
+				ListView lv = (ListView) d.findViewById(R.id.listingreds);
+				lv.setAdapter(new ArrayAdapter<String>(d.getContext(),R.layout.list_item,ingredients));
+				
+				//lv.setAdapter(adapter);
+				
+				
+				//call displaying the dialog
+				d.show();
+				return false;
+			}
+			
+			
+			
+			
+		});
+
 
 		_bindinglist = new ArrayList<String>();
 		_bindinglist.addAll(DietaryAssistantActivity._Ingredients.all_allergies);
 		setListAdapter(new myAdapter(this, android.R.layout.simple_list_item_multiple_choice, _bindinglist));
 		
 
-		registerForContextMenu(_listview);
+//		registerForContextMenu(_listview);
 
 
 		_backbutton = (ImageButton) findViewById(R.id.allergyback);
@@ -100,7 +170,7 @@ public class AllergyChoiceView extends ListActivity {
 
 		});
 	}
-
+/*
 	@Override
 	public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
 //		if (v.getId()==R.id.list) {
@@ -132,7 +202,7 @@ public class AllergyChoiceView extends ListActivity {
 		}
 		return true;
 	}
-
+*/
 	@Override 
 	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
 		super.onActivityResult(requestcode, resultcode, data);
