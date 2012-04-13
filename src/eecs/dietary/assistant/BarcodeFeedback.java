@@ -107,7 +107,8 @@ public class BarcodeFeedback extends ListActivity {
 					allergen = all_bad_ingreds.getString(0);
 					allergen = allergen.replaceAll("[^a-zA-Z0-9]+", " ");
 
-					if(ingredient.contentEquals(allergen)) {
+					if(ingredient.contains(allergen) || allergen.contains(ingredient))
+                    {
 						view.setBackgroundColor(colors[0]);
 						view.setContentDescription("Violates allergy");
 						view.setVerticalFadingEdgeEnabled(true);

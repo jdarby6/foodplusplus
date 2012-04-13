@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:drawable="@drawable/discardbtn"
+    <item android:drawable="@drawable/discardpressedbtn"
           android:state_pressed="true" />
     <item android:drawable="@drawable/discardbtn" />
 </selector>

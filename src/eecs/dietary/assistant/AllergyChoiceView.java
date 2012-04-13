@@ -97,14 +97,14 @@ public class AllergyChoiceView extends ListActivity {
 				TextView tt = (TextView) d.findViewById(R.id.toptextallergy);
 				tt.setText(allergy);
 				
-				Button close = (Button) d.findViewById(R.id.close);
+				ImageButton close = (ImageButton) d.findViewById(R.id.close);
 				close.setOnClickListener(new OnClickListener() {
 					public void onClick(View arg0) {
 						d.dismiss();
 					}
 				});
 				
-				Button del = (Button) d.findViewById(R.id.delete);
+				ImageButton del = (ImageButton) d.findViewById(R.id.delete);
 				del.setOnClickListener(new OnClickListener() {
 
 					public void onClick(View v) {

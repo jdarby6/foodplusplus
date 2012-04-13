@@ -88,7 +88,7 @@ public class KeyboardInputView extends ListActivity {
 		d.setContentView(R.layout.ingredient_card);
 		
 		
-		Button close = (Button) d.findViewById(R.id.closeCard);
+		ImageButton close = (ImageButton) d.findViewById(R.id.closeCard);
 		close.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View arg0) {
@@ -148,7 +148,7 @@ public class KeyboardInputView extends ListActivity {
 		});*/
 	
 		TextView bt = (TextView) d.findViewById(R.id.bottomtextingred);		//NEED TO DO --
-		bt.setText("hehehehqhwerhqwerhqwreqhwerhqhwerhjqwerqrewr");         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT
+		bt.setText("temporary text holder. this will be additional ingredient information");         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT
 		
 		
 		d.show();

@@ -5,7 +5,7 @@
     android:padding="10dp"
     android:layout_marginTop="0dp"
     android:orientation="vertical"
-
+    android:background="@drawable/squareish_blank_background" 
     > 
         <TextView
             android:id="@+id/toptextingred"
@@ -15,7 +15,8 @@
             android:gravity="top"
             android:layout_gravity="top"
             android:text="TestIngredient"
-            android:textSize="26dp"
+            android:textSize="30dp"
+            android:textStyle="bold"
             android:layout_marginTop="2dp"
             android:layout_marginBottom="4dp"
             android:textColor="?android:attr/textColorPrimary"
@@ -25,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:id="@+id/bottomtextingred"
-            android:textColor="?android:attr/textColorSecondary"
+            android:textColor="?android:attr/textColorPrimary"
         />
         <TextView
             android:layout_width="fill_parent"
@@ -46,13 +47,16 @@
 			>			
       </GridView>
            	
-   	<Button
+   	<ImageButton
    	    android:id="@+id/closeCard"
    	    android:layout_width="fill_parent"
-   	    android:layout_height="50dp"
+   	    android:layout_height="35dp"
    	    android:text="Close"
+   	    android:src="@drawable/new_closebtn"
+   	    android:scaleType="fitXY"
+   	    android:background="@null"
    	    >
    	    
-   	</Button> 
+   	</ImageButton> 
      
 </LinearLayout>
