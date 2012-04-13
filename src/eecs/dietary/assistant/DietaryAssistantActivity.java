@@ -13,11 +13,11 @@ import android.view.Window;
 public class DietaryAssistantActivity extends Activity {
 	/** Called when the activity is first created. */
 
+	
+	//helper (data provider) classes
 	public static Ingredients _Ingredients;
 	public static Icons _Icons;
-	
 	public static OCR _OCR;
-	
 	public static OCRReader _OCRReader;
 
 	@Override
@@ -30,45 +30,31 @@ public class DietaryAssistantActivity extends Activity {
 			_Ingredients = new Ingredients(getBaseContext());
 			_Icons = new Icons(getBaseContext());
 		}
-
 		setContentView(R.layout.main);
 
 	}
 
+	//these function names are used in the XML file for each button onClick
 	public void Camera_on_click(final View trash) {
-		
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, CameraView.class);
-		
 		startActivityForResult(intent, 0);
 	}
-	
 	public void Barcode_on_click(final View trash) {
-		
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, BarcodeView.class);
-		
 		startActivityForResult(intent, 0);
 	}
-
 	public void TextInput_on_click(final View trash) {
-
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, KeyboardInputView.class);
-
 		startActivityForResult(intent, 0);
-
 	}
-
 	public void Allergy_on_click(final View trash) {
-
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, AllergyChoiceView.class);
-		
 		startActivityForResult(intent, 0);
-
 	}
-	
 	public void Options_on_click(final View trash) {
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this,options.class);
@@ -80,7 +66,7 @@ public class DietaryAssistantActivity extends Activity {
 	
 	
 	
-
+	//utility function for printing out Nicely Typed Messages or Milk Eggs Etc
 	public static void FormatStringArray(ArrayList<String> _bindinglist) {
 		// TODO Auto-generated method stub
 		
