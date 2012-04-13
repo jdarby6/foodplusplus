@@ -1,8 +1,10 @@
 package eecs.dietary.assistant;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 
@@ -21,6 +23,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.os.Bundle;
+import android.os.Debug;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
@@ -56,9 +59,9 @@ public class CropTest extends Activity {
         //options.inSampleSize = 2;
         options.inScaled = false;
         
+        //original = BitmapFactory.decodeFile(path, options);
+        original = decodeFile(path);
         
-        
-        original = BitmapFactory.decodeFile(path, options);
         Display display = getWindowManager().getDefaultDisplay();
         int width = original.getWidth(); origWidth = width;
         int height = original.getHeight(); origHeight = height;
@@ -147,6 +150,29 @@ public class CropTest extends Activity {
                 FileOutputStream fout = new FileOutputStream(cropFile);
                 PrintStream p = new PrintStream(fout);
                 
+                int leftX, rightX;
+                if(topLeft.x < bottomRight.x)
+                {
+                	leftX = topLeft.x; rightX = bottomRight.x;
+                }
+                else
+                {
+                	leftX = bottomRight.x; rightX = topLeft.x;
+                }
+                
+                int topY, bottomY;
+                if(topLeft.y < bottomRight.y)
+                {
+                	topY = topLeft.y; bottomY = bottomRight.y;
+                }
+                else
+                {
+                	topY = bottomRight.y; bottomY = topLeft.y;
+                }
+                
+                topLeft.x = leftX; topLeft.y = topY;
+                bottomRight.x = rightX; bottomRight.y = bottomY;
+                
                 int x = topLeft.x, y = topLeft.y, width = (bottomRight.x-topLeft.x), height = (bottomRight.y-topLeft.y);
                 
                 Log.d("touch", "x: " + x + " y: " + y + " width: " + width + " height: " + height);
@@ -184,6 +210,9 @@ public class CropTest extends Activity {
                 }
                 
                 p.close();
+                bmp.recycle();
+                original.recycle();
+                userImage.recycle();
                
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -260,6 +289,53 @@ public class CropTest extends Activity {
     	}
     	    	  	
     }
+    
+    private Bitmap decodeFile(String f){
+        Bitmap b = null;
+        try {
+            //Decode image size
+            BitmapFactory.Options o = new BitmapFactory.Options();
+            o.inJustDecodeBounds = true;
+            
+            FileInputStream fis = new FileInputStream(f);
+            BitmapFactory.decodeStream(fis, null, o);
+            fis.close();
+
+            int scale = 1;
+            while(!checkBitmapFitsInMemory(o.outWidth, o.outHeight, 2))
+            {
+            	scale *= 2;
+            	o.inSampleSize = scale;
+            	BitmapFactory.decodeStream(fis, null, o);
+            }
+
+            //Decode with inSampleSize
+            BitmapFactory.Options o2 = new BitmapFactory.Options();
+            o2.inSampleSize = scale;
+            o2.inPreferredConfig = Bitmap.Config.ARGB_8888;
+            o2.inScaled = false;
+            fis = new FileInputStream(f);
+            b = BitmapFactory.decodeStream(fis, null, o2);
+            fis.close();
+        } catch (IOException e) {
+        }
+        return b;
+    }
+    
+    public static boolean checkBitmapFitsInMemory(long bmpwidth,long bmpheight, int bmpdensity ){
+        long reqsize=bmpwidth*bmpheight*bmpdensity;
+        long allocNativeHeap = Debug.getNativeHeapAllocatedSize();
+
+
+        final long heapPad=(long) Math.max(4*1024*1024,Runtime.getRuntime().maxMemory()*0.1);
+        if ((reqsize + allocNativeHeap + heapPad) >= Runtime.getRuntime().maxMemory())
+        {
+            return false;
+        }
+        return true;
+
+    }
+    
 	public Bitmap toGrayscale(Bitmap bmpOriginal)
 	{        
 	    int width, height;
