@@ -88,7 +88,7 @@ public class BarcodeFeedback extends ListActivity {
 		}
 		@Override
 		public View getView(int position, View convertView, ViewGroup parent) {
-			int[] colors = new int[] { 0x30FF0000, 0xFF00FF00, 0xFF888888 }; //0 is red, 1 is green, 2 is gray
+			int[] colors = new int[] { 0x30FF0000, 0xFF00FF00, 0xFF888888, 0x07000000 }; //0 is red, 1 is green, 2 is gray, 3 is transparent
 
 			String ingredient = super.getItem(position);
 			String allergen = null;
@@ -126,7 +126,7 @@ public class BarcodeFeedback extends ListActivity {
 			//						view.setBackgroundColor(colors[1]);
 			//					}
 			if(found == false) {
-				view.setBackgroundColor(colors[2]);
+				view.setBackgroundColor(colors[3]);
 			}
 
 			return view;
