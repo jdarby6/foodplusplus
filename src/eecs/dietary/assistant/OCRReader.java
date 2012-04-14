@@ -14,14 +14,16 @@ public class OCRReader {
 	
 	
 	
-	List<String> FindBadIngredients(String OCRtext) {
+		List<String> FindBadIngredients(String OCRtext) {
 		List<String> badingreds = new ArrayList<String>();
 		List<String> tempingreds = new ArrayList<String>();
 			
 		int pos = FindFirstPositionOf("Ingredients:",OCRtext); 
 		int LD = 0;
-		OCRtext = OCRtext.substring(pos+"Ingredients:".length(),OCRtext.length());
- 		
+		if("Ingredients".length() > OCRtext.length()) { } 
+		else {
+			OCRtext = OCRtext.substring(pos+"Ingredients:".length(),OCRtext.length());
+		}
 		for(int i=0; i<DietaryAssistantActivity._Ingredients.allergiesSuffered.size(); i++) {
 			tempingreds = DietaryAssistantActivity._Ingredients.returnByAllergy(DietaryAssistantActivity._Ingredients.allergiesSuffered.get(i));
 			for(int j=0; j<tempingreds.size(); j++) {
@@ -70,8 +72,10 @@ public class OCRReader {
 	List<String> RetrieveIngredients(String OCRtext) {
 		
 		int pos = FindFirstPositionOf("Ingredients:",OCRtext); 
-		OCRtext = OCRtext.substring(pos+"Ingredients:".length(),OCRtext.length());
-		
+		if("Ingredients".length() > OCRtext.length()) { }
+		else {
+			OCRtext = OCRtext.substring(pos+"Ingredients:".length(),OCRtext.length());
+		}
 		List<String> cleanedIngredients = new ArrayList<String>();
 		
 		String[] ingredients = OCRtext.split(",");
