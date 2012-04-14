@@ -12,6 +12,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.ComponentName;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -25,13 +26,15 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
 
-public class CameraView extends Activity {
+public class CameraView extends Activity implements Runnable {
 
 	private String _imagepath = Environment.getExternalStorageDirectory().toString() + "/ocr.png";
 
@@ -42,7 +45,8 @@ public class CameraView extends Activity {
 	public static int RETURN_FROM_NEW_CROP = 54324587;
 
 	private Uri outputFileUri;
-
+	private Bitmap _bitmap;
+	private ProgressDialog pdialog;
 
 	AlertDialog ad; 
 	private AlertDialog.Builder dialog;
@@ -154,6 +158,8 @@ public class CameraView extends Activity {
 			finish();
 		}
 		else if(requestcode == RETURN_FROM_NEW_CROP) {
+			
+			
 			File FILE_PATH = Environment.getExternalStorageDirectory();
             FILE_PATH = new File(FILE_PATH + "/DietaryAssistant/tmp/");
             String final_path = FILE_PATH.toString() + "/cropped.png";
@@ -209,6 +215,8 @@ public class CameraView extends Activity {
 				ad.show();
 			}
 
+			
+			
 			startOCR(bitmap);
 		}
 		else
@@ -383,7 +391,23 @@ public class CameraView extends Activity {
 		if(bitmap == null) Log.d("mycamera", "bimap is null. shit.");			
 		else
 		{
-		DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
+			
+			//SHOW LOADING SCREEN THING HERE
+			
+					
+		//pdialog.show();
+		
+		_bitmap = bitmap;
+		pdialog = ProgressDialog.show(CameraView.this, "", "Reading the ingredients. Please wait...",true);
+		
+		Thread thread = new Thread(this);
+		thread.start();
+		
+		//DietaryAssistantActivity._OCR.ReadBitmapImage(bitmap);
+		
+		//pdialog.dismiss();
+		
+			
 		//		int conf = DietaryAssistantActivity._OCR._tessapi.meanConfidence();
 		//		DietaryAssistantActivity._OCRReader.IngredientDictionary = DietaryAssistantActivity._Ingredients.returnAll();
 		//		DietaryAssistantActivity._OCRReader.IngredientsFound = DietaryAssistantActivity._OCRReader.RetrieveIngredients(DietaryAssistantActivity._OCR.readText);
@@ -391,8 +415,8 @@ public class CameraView extends Activity {
 		///ad.setMessage(Integer.toString(conf) + "//" + DietaryAssistantActivity._OCR.readText);
 		///ad.show();
 
-		Intent i = new Intent(this, OCRFeedback.class);
-		startActivityForResult(i, RETURN_FROM_OCR);
+		//Intent i = new Intent(this, OCRFeedback.class);
+		//startActivityForResult(i, RETURN_FROM_OCR);
 		}
 	}
 
@@ -430,4 +454,24 @@ public class CameraView extends Activity {
 			}
 		} catch (Exception e) {}
 	}
+
+
+
+
+
+	public void run() {
+		// TODO Auto-generated method stub
+		DietaryAssistantActivity._OCR.ReadBitmapImage(_bitmap);
+		handler.sendEmptyMessage(0);
+	}
+	
+	private Handler handler = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			pdialog.dismiss();
+			Intent i = new Intent(CameraView.this, OCRFeedback.class);
+			startActivityForResult(i, RETURN_FROM_OCR);
+			
+		}
+	};
 }
