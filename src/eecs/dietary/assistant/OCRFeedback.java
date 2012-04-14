@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -233,6 +234,9 @@ public class OCRFeedback extends ListActivity {
 			String ingredient = super.getItem(position);
 
 			View view = super.getView(position,convertView,parent);
+			Typeface tf = Typeface.createFromAsset(
+			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+			((TextView)view).setTypeface(tf);
 			//((TextView)view).setTextColor(Color.GREEN);
 			view.setBackgroundColor(0xFFFFFFFF);
 			if(DietaryAssistantActivity._Ingredients.check(ingredient)) {
@@ -254,6 +258,10 @@ public class OCRFeedback extends ListActivity {
 	  super.onCreate(savedInstanceState);
 	  setContentView(R.layout.ocrfeedback);
 
+	  Typeface tf = Typeface.createFromAsset(
+		        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+	  TextView toptv = (TextView) findViewById(R.id.topocrfeedbacktext);
+	  toptv.setTypeface(tf);
 	  
 	  String ocrtext = DietaryAssistantActivity._OCR.readText;
 //	  int pos = DietaryAssistantActivity._OCRReader.FindFirstPositionOf("Ingredients:", ocrtext);

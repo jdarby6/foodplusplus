@@ -8,6 +8,7 @@ import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,30 +33,41 @@ public class BarcodeFeedback extends ListActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.barcode_feedback);
 
+		Typeface tf = Typeface.createFromAsset(
+		        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+		
 		potentialAllergens = 0;
 		//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		Intent i = getIntent(); //retrieve previous intent to get extras (for barcode info)
 
+		tv = (TextView) findViewById(R.id.textView1);
+		tv.setTypeface(tf);
+		
 		brand = i.getStringExtra("brand");
 		tv = (TextView) findViewById(R.id.brandtext);
+		tv.setTypeface(tf);
 		tv.setText("Brand: " + brand);
 
 		name = i.getStringExtra("name");
 		tv = (TextView) findViewById(R.id.nametext);
+		tv.setTypeface(tf);
 		tv.setText("Name: " + name);
 
 		description = i.getStringExtra("description");
 		tv = (TextView) findViewById(R.id.desctext);
+		tv.setTypeface(tf);
 		tv.setText("Description: " + description);
 
 		container = i.getStringExtra("container");
 		tv = (TextView) findViewById(R.id.containertext);
+		tv.setTypeface(tf);
 		tv.setText("Container: " + container);
 
 		size = i.getDoubleExtra("size", 0.0);
 		uom = i.getStringExtra("uom");
 		tv = (TextView) findViewById(R.id.sizetext);
+		tv.setTypeface(tf);
 		tv.setText("Size: " + String.valueOf(size) + " " + uom);
 
 
@@ -65,6 +77,7 @@ public class BarcodeFeedback extends ListActivity {
 		setListAdapter(new myFeedbackAdapter(this, R.layout.list_item, ingredients));
 
 		tv = (TextView) findViewById(R.id.allergencounttext);
+		tv.setTypeface(tf);
 		tv.setText("Potential allergens in red:");
 //		tv.setText("Found " + potentialAllergens + " potential allergens (in red):");
 
@@ -95,7 +108,10 @@ public class BarcodeFeedback extends ListActivity {
 			boolean found = false;
 
 			View view = super.getView(position,convertView,parent);
-
+			Typeface tf = Typeface.createFromAsset(
+			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+			((TextView)view).setTypeface(tf);
+			
 			ingredient = ingredient.replaceAll("[^a-zA-Z0-9]+", " ");
 
 			Cursor all_bad_ingreds = DietaryAssistantActivity._Ingredients.dbHelper.returnAllAllergens(DietaryAssistantActivity._Ingredients.allergiesSuffered);

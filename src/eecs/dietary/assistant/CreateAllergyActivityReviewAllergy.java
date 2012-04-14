@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -23,7 +28,7 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 	private TextView tv;
 	private ListView lv;
 	private ArrayAdapter<String> adapter;
-	private List<String> ingredientstoinclude;
+	private ArrayList<String> ingredientstoinclude;
 	private ImageButton discard;
 	private ImageButton create;
 	private String allergyname;
@@ -42,14 +47,19 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 		allergyname = sender.getExtras().getString("allergyname");
 		allergyIconIndex = sender.getExtras().getInt("iconIndex");
 		tv = (TextView) findViewById(R.id.textviewreviewallergy);
+		Typeface tf = Typeface.createFromAsset(
+		        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+		tv.setTypeface(tf);
 		tv.setText(allergyname );
+		TextView catv = (TextView) this.findViewById(R.id.textviewreviewallergyintro);
+		catv.setTypeface(tf);
 		iv = (ImageView) findViewById(R.id.iconcreateallergy);
 		
 		DietaryAssistantActivity._Icons.setImageIcon(iv,allergyIconIndex);
 		
 		ingredientstoinclude = sender.getExtras().getStringArrayList("ingredients");
 		
-		adapter = new ArrayAdapter<String>(this, R.layout.list_item, ingredientstoinclude);
+		adapter = new myAdapter(this, R.layout.list_item, ingredientstoinclude);
 		lv = getListView();
 		lv.setAdapter(adapter);
 		
@@ -78,6 +88,25 @@ public class CreateAllergyActivityReviewAllergy extends ListActivity {
 	});
 	
 	}
-	
+	private class myAdapter extends ArrayAdapter<String>  {
+		
+		private ArrayList<String> items;
+		
+		public myAdapter(Context context, int textViewResourceId, ArrayList<String> items) {
+			super(context,textViewResourceId,items);
+			this.items = items;
+		}
+		
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+		
+			View view = super.getView(position,convertView,parent);
+			Typeface tf = Typeface.createFromAsset(
+			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+			((TextView)view).setTypeface(tf);
+						
+			return view;
+		}
+	}
 	
 }

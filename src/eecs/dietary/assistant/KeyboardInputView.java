@@ -6,7 +6,9 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +19,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -45,6 +46,12 @@ public class KeyboardInputView extends ListActivity {
 		
 		setListAdapter(new IngredientListAdapter(this, R.layout.list_item, DietaryAssistantActivity._Ingredients.returnAll()));
 
+		Typeface tf = Typeface.createFromAsset(
+		        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+		TextView tv = (TextView) findViewById(R.id.litv);
+		if(tf == null) Log.d("font", "tf null");
+		if(tv == null) Log.d("font", "tv null");
+		//tv.setTypeface(tf);
 		
 		lv = getListView();
 		lv.setClickable(true);
@@ -246,6 +253,12 @@ public class KeyboardInputView extends ListActivity {
 			super(context,textViewResourceId,list2);
 			//			this.mContext = context;
 			//			list = list2;
+			/*Typeface tf = Typeface.createFromAsset(
+			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+			TextView tv = (TextView) findViewById(R.id.litv);
+			if(tf == null) Log.d("font", "tf null adapter");
+			if(tv == null) Log.d("font", "tv null adapter");
+			tv.setTypeface(tf);*/
 		}
 		
 		
@@ -256,6 +269,9 @@ public class KeyboardInputView extends ListActivity {
 			String ingredient = super.getItem(position);
 
 			View view = super.getView(position,convertView,parent);
+			Typeface tf = Typeface.createFromAsset(
+			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+			((TextView)view).setTypeface(tf);
 			//((TextView)view).setTextColor(Color.GREEN);
 			view.setBackgroundColor(0xFFFFFFFF);
 			if(DietaryAssistantActivity._Ingredients.check(ingredient)) {

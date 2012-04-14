@@ -8,17 +8,20 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.InputMethodManager;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -55,6 +58,9 @@ public class CreateAllergyActivity3 extends ListActivity {
 	private ImageButton _keyboard; 
 	private EditText _filterbox;
 
+	private static final int FILTER = Menu.FIRST;
+	private static final int CHECK_ALL = Menu.FIRST+1;
+	private static final int UNCHECK_ALL = Menu.FIRST+2;	
 
 	private HashSet<String> _clickeditems;  //keeps track of what ingredients are clicked/checked
 	private ListView _listview;
@@ -89,6 +95,11 @@ public class CreateAllergyActivity3 extends ListActivity {
 			}
 		});*/
 
+		Typeface tf = Typeface.createFromAsset(
+		        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+		TextView catv = (TextView) this.findViewById(R.id.ca3tv);
+		catv.setTypeface(tf);
+		
 		//setting up buttons
 		_backward = (ImageButton) this.findViewById(R.id.buttonBackAllergyCreate3);
 		_forward = (ImageButton) this.findViewById(R.id.buttonForwardAllergyCreate3);
@@ -224,6 +235,47 @@ public class CreateAllergyActivity3 extends ListActivity {
 			}});
 	}
 
+	@Override 
+	public boolean onCreateOptionsMenu(Menu menu) {
+        menu.add(0, CHECK_ALL, 0, "Select All");
+        menu.add(0, UNCHECK_ALL, 0, "Deselect All");
+        menu.add(0, FILTER, 0, "Filter Ingredients");
+        return super.onCreateOptionsMenu(menu);
+    }
+	
+	@Override 
+	public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case CHECK_ALL:
+            	Log.d("create", "Select all clicked");
+                for(int i = 0; i < _ingredients.size(); i++)
+                {
+                	String cur_ingredient = _ingredients.get(i);
+                	if(!_clickeditems.contains(cur_ingredient)) {
+    					_clickeditems.add(cur_ingredient);
+    				}
+                }
+                _myAdapter.notifyDataSetChanged();
+                return true;
+            case UNCHECK_ALL:
+            	Log.d("create", "Deselect all clicked");
+            	for(int i = 0; i < _ingredients.size(); i++)
+                {
+                	String cur_ingredient = _ingredients.get(i);
+                	if(_clickeditems.contains(cur_ingredient)) {
+    					_clickeditems.remove(cur_ingredient);
+    				}
+                }
+            	_myAdapter.notifyDataSetChanged();
+            	return true;
+            case FILTER:
+            	InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+				imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+				return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
 
 	@Override 
 	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
@@ -341,8 +393,11 @@ public class CreateAllergyActivity3 extends ListActivity {
 				v.setFocusable(false);
 			}
 			
+			Typeface tf = Typeface.createFromAsset(
+			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
 			CheckBox cb = (CheckBox) v.findViewById(R.id.checkbox);
 			TextView tv = (TextView) v.findViewById(R.id.text);
+			tv.setTypeface(tf);
 			tv.setText(ingredient);
 					
 			if(_clickeditems.contains(ingredient)) {

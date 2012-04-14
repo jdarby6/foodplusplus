@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -240,18 +241,22 @@ public class AllergyChoiceView extends ListActivity {
 
 			String allergy = getItem(position);
 			View v = convertView;
-
+			
 			if(v==null) {
 
 				LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				v = li.inflate(R.layout.allergy_list_item, null);	
 				v.setFocusable(false);
 			}
-
+			
 			if(allergy != null) {
 
+				Typeface tf = Typeface.createFromAsset(
+				        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
+				tt.setTypeface(tf);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+				bt.setTypeface(tf);
 
 				ImageView iv = (ImageView) v.findViewById(R.id.icon);
 				DietaryAssistantActivity._Icons.setImageIcon(iv, DietaryAssistantActivity._Icons.GetIconIndex(allergy));

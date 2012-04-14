@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +40,11 @@ public class CreateAllergyActivity2 extends Activity {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.createallergyscreen2);
 		_clickeditems = new ArrayList<String>();
+		
+		Typeface tf = Typeface.createFromAsset(
+		        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+		TextView catv = (TextView) this.findViewById(R.id.ca2tv);
+		catv.setTypeface(tf);
 
 		Intent sender = getIntent();
 		allergyname = sender.getExtras().getString("allergyname");
@@ -133,8 +139,12 @@ private class myAdapter extends ArrayAdapter<String>  {
 				int iconIndex = DietaryAssistantActivity._Icons.GetIconIndex(allergy);	
 				DietaryAssistantActivity._Icons.setImageIcon(iv, iconIndex);
 				
+				Typeface tf = Typeface.createFromAsset(
+				        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
 				TextView tt = (TextView) v.findViewById(R.id.toptext);
+				tt.setTypeface(tf);
 				TextView bt = (TextView) v.findViewById(R.id.bottomtext);
+				bt.setTypeface(tf);
 				if(tt != null) {
 					tt.setText(allergy);
 				}
