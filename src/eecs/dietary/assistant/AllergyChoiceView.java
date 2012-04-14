@@ -44,6 +44,7 @@ public class AllergyChoiceView extends ListActivity {
 	private Dialog d;
 	
 	private CharSequence allergy;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +56,9 @@ public class AllergyChoiceView extends ListActivity {
 		setContentView(R.layout.allergyselection);
 		_clickeditems = new ArrayList<String>();
 		_clickeditems.addAll(DietaryAssistantActivity._Ingredients.allergiesSuffered);
-
+		
+		
+		
 		_listview = getListView();
 		_listview.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		_listview.setClickable(true);
@@ -84,10 +87,11 @@ public class AllergyChoiceView extends ListActivity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				// TODO Auto-generated method stub
-				
+				Typeface tf = Typeface.createFromAsset(
+				        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
 				TextView tv = (TextView) arg1.findViewById(R.id.toptext);
 				allergy = tv.getText();
-				
+				tv.setTypeface(tf);
 				List<String> ingredients = DietaryAssistantActivity._Ingredients.returnByAllergy(allergy.toString());
 				
 				
@@ -97,6 +101,7 @@ public class AllergyChoiceView extends ListActivity {
 				
 				TextView tt = (TextView) d.findViewById(R.id.toptextallergy);
 				tt.setText(allergy);
+				tt.setTypeface(tf);
 				
 				ImageButton close = (ImageButton) d.findViewById(R.id.close);
 				close.setOnClickListener(new OnClickListener() {
@@ -127,7 +132,12 @@ public class AllergyChoiceView extends ListActivity {
 				
 				
 				ListView lv = (ListView) d.findViewById(R.id.listingreds);
-				lv.setAdapter(new ArrayAdapter<String>(d.getContext(),R.layout.list_item,ingredients));
+				lv.setAdapter(new IngredientAdapter(d.getContext(),R.layout.list_item,ingredients));
+				
+				
+				//TextView tv1 = (TextView) lv.findViewById(R.id.litv);
+				//tv1.setTypeface(tf);
+				
 				
 				//lv.setAdapter(adapter);
 				
@@ -226,6 +236,34 @@ public class AllergyChoiceView extends ListActivity {
 		}	
 	}
 
+	
+	private class IngredientAdapter extends ArrayAdapter<String> {
+
+		private ArrayList<String> items;
+		public IngredientAdapter(Context context, int textViewResourceId,
+				List<String> objects) {
+			super(context, textViewResourceId, objects);
+			this.items = items;
+		}
+		@Override
+		public View getView(int position, View convertView, ViewGroup parent) {
+
+			String ingredient = getItem(position);
+			View v = convertView;
+			if(v == null) {
+				LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				v = li.inflate(R.layout.list_item, null);	
+			}
+			TextView tv = (TextView) v.findViewById(R.id.litv);
+			tv.setText(ingredient);
+			Typeface tf = Typeface.createFromAsset(
+			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
+			tv.setTypeface(tf);
+			
+			return v;
+		
+		}
+	}
 
 	private class myAdapter extends ArrayAdapter<String>  {
 
@@ -288,6 +326,3 @@ public class AllergyChoiceView extends ListActivity {
 		}
 	}
 }
-
-
-

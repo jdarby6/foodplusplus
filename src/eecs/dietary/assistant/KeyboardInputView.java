@@ -94,6 +94,8 @@ public class KeyboardInputView extends ListActivity {
 		d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		d.setContentView(R.layout.ingredient_card);
 		
+		Typeface tf = Typeface.createFromAsset(
+		        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
 		
 		ImageButton close = (ImageButton) d.findViewById(R.id.closeCard);
 		close.setOnClickListener(new OnClickListener() {
@@ -111,6 +113,7 @@ public class KeyboardInputView extends ListActivity {
 		
 		TextView tt = (TextView) d.findViewById(R.id.toptextingred);
 		tt.setText(ingredient);
+		tt.setTypeface(tf);
 		//tt.setTextSize(30);
 		
 		gv = (GridView) d.findViewById(R.id.myGrid);		
@@ -156,7 +159,7 @@ public class KeyboardInputView extends ListActivity {
 	
 		TextView bt = (TextView) d.findViewById(R.id.bottomtextingred);		//NEED TO DO --
 		bt.setText("temporary text holder. this will be additional ingredient information");         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT
-		
+		bt.setTypeface(tf);
 		
 		d.show();
 		

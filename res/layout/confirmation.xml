@@ -21,24 +21,42 @@
             android:layout_marginBottom="4dp"
             android:textColor="?android:attr/textColorPrimary"
         />
-       <Button
-        android:id="@+id/yes"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Yes" 
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
-        />
-       <Button
-        android:id="@+id/cancel"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Cancel" 
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="5dp"
-        />
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@null"
+            >
+		       <ImageButton
+		        android:id="@+id/yes"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Yes" 
+		        android:src="@drawable/new_yesbtn"
+		        android:scaleType="fitXY"
+		        android:layout_marginLeft="5dp"
+		        android:layout_marginRight="2dp"
+		        android:layout_marginBottom="5dp"
+		        android:layout_marginTop="5dp"
+		        android:layout_weight="0.5"
+		        android:background="@null"
+		        />
+		       <ImageButton
+		        android:id="@+id/cancel"
+		        android:layout_width="fill_parent"
+		        android:layout_height="wrap_content"
+		        android:text="Cancel" 
+		        android:src="@drawable/new_cancelbtn"
+		        android:scaleType="fitXY"
+		        android:layout_marginLeft="2dp"
+		        android:layout_marginRight="5dp"
+		        android:layout_marginBottom="5dp"
+		        android:layout_marginTop="5dp"
+		        android:layout_weight="0.5"
+		        android:background="@null"
+		   
+		        />
+	 </LinearLayout>
      
      
 </LinearLayout>

@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ public class options extends Activity implements SeekBar.OnSeekBarChangeListener
 	TextView _ocrQualityValue;
 	TextView _ocrEstimatedtime;
 	TextView _ocrQualityValueTop;
-	Button _resetbutton;
+	ImageButton _resetbutton;
 	Dialog _areyousure;
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class options extends Activity implements SeekBar.OnSeekBarChangeListener
 		_ocrQualityBar.setOnSeekBarChangeListener(this);
 		
 		
-		_resetbutton = (Button) findViewById(R.id.resetbutton);
+		_resetbutton = (ImageButton) findViewById(R.id.resetbutton);
 		_resetbutton.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
@@ -53,10 +54,12 @@ public class options extends Activity implements SeekBar.OnSeekBarChangeListener
 					
 				}
 				TextView tv = (TextView) _areyousure.findViewById(R.id.message);
+				Typeface tf = Typeface.createFromAsset(
+				        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
 				tv.setText("Are you sure you want to reset? All user generated allergies will be lost");
-				
-				Button yes = (Button) _areyousure.findViewById(R.id.yes);
-				Button cancel = (Button) _areyousure.findViewById(R.id.cancel);
+				tv.setTypeface(tf);
+				ImageButton yes = (ImageButton) _areyousure.findViewById(R.id.yes);
+				ImageButton cancel = (ImageButton) _areyousure.findViewById(R.id.cancel);
 				yes.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
 				//		DietaryAssistantActivity._Ingredients.reset();
