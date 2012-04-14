@@ -36,6 +36,7 @@ public class OCRFeedback extends ListActivity {
 	List<String> badingreds = new ArrayList<String>();
 	List<String> okingreds = new ArrayList<String>();
 	List<String> unknowningreds = new ArrayList<String>();
+	List<Integer> confidences=  new ArrayList<Integer>();
 	private Dialog d;
 	private Toast toast;
 	private GridView gv;
@@ -64,20 +65,16 @@ public class OCRFeedback extends ListActivity {
 		d = new Dialog(this,android.R.style.Theme_Dialog);
 		d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		d.setContentView(R.layout.ingredient_card);
-		
-		
+			
 		Button close = (Button) d.findViewById(R.id.closeCard);
 		close.setOnClickListener(new OnClickListener() {
-
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
 				if(toast != null) {
 					toast.cancel();
 				}
 				d.dismiss();
-			}
-			
-			
+			}	
 		});
 		
 		TextView tt = (TextView) d.findViewById(R.id.toptextingred);
@@ -217,13 +214,13 @@ public class OCRFeedback extends ListActivity {
 	
 
 	private class IngredientListAdapter extends ArrayAdapter<String> {
-		//		List<String> list;
-		//		Context mContext;
+				List<String> list;
+				Context mContext;
 
 		public IngredientListAdapter(Context context, int textViewResourceId, List<String> list2) {
 			super(context,textViewResourceId,list2);
-			//			this.mContext = context;
-			//			list = list2;
+						this.mContext = context;
+						this.list = list2;
 		}
 		
 		
@@ -231,14 +228,26 @@ public class OCRFeedback extends ListActivity {
 		public View getView(int position, View convertView, ViewGroup parent) {
 			int[] colors = new int[] { 0x30FF0000, 0x300000FF, 0x000000 }; //0 is red, 1 is blue
 
-			String ingredient = super.getItem(position);
+			String ingredient = list.get(position);
 
-			View view = super.getView(position,convertView,parent);
+			
+			View view = convertView;
+			
+			if(view == null) {
+				LayoutInflater li = (LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				view = li.inflate(R.layout.ocrfeedbackitem, null);			
+			}
+			
+			
+			TextView ingred = (TextView) view.findViewById(R.id.ingredientname);
+			ingred.setText(ingredient);
+			TextView conf = (TextView) view.findViewById(R.id.confidencelevel);
+			conf.setText(Integer.toString(confidences.get(position))+"%");
 			Typeface tf = Typeface.createFromAsset(
 			        getBaseContext().getAssets(), "fonts/MODERNA_.TTF");
-			((TextView)view).setTypeface(tf);
-			//((TextView)view).setTextColor(Color.GREEN);
-			view.setBackgroundColor(0xFFFFFFFF);
+			conf.setTypeface(tf);
+			ingred.setTypeface(tf);
+			
 			if(DietaryAssistantActivity._Ingredients.check(ingredient)) {
 
 				view.setBackgroundColor(colors[0]);
@@ -265,13 +274,12 @@ public class OCRFeedback extends ListActivity {
 	  toptv.setTypeface(tf);
 	  
 	  String ocrtext = DietaryAssistantActivity._OCR.readText;
-//	  int pos = DietaryAssistantActivity._OCRReader.FindFirstPositionOf("Ingredients:", ocrtext);
-	//  ad.setMessage(ocrtext.subSequence(pos, pos+"Ingredients".length()));
-	//  ad.show();
+
 	  
-	  fillIngredsFound(DietaryAssistantActivity._OCRReader.FindBadIngredients(ocrtext),true);
-	  fillIngredsFound(DietaryAssistantActivity._OCRReader.RetrieveIngredients(ocrtext),false);
-	  setListAdapter(new IngredientListAdapter(this, R.layout.list_item, ingredsFound));
+	  
+	  
+	  fillIngredsFound(DietaryAssistantActivity._OCRReader.FindIngredients(ocrtext));
+	  setListAdapter(new IngredientListAdapter(this, R.layout.ocrfeedbackitem, ingredsFound));
 
 	  
 	}
@@ -283,27 +291,21 @@ public class OCRFeedback extends ListActivity {
 		//finish();
 	}
 	
-	private void fillIngredsFound(List<String> ingreds, boolean bad) {
-	
+	private void fillIngredsFound(List<String> ingreds) {
+		badingreds.clear();
+		unknowningreds.clear();
 		for(int a=0; a<ingreds.size(); a++) {
-			if(bad) {
+			if(DietaryAssistantActivity._Ingredients.check(ingreds.get(a))) {
 				badingreds.add(ingreds.get(a));
 			}
-		//	else if(DietaryAssistantActivity._Ingredients.contains(ingreds.get(a))) {
-		//		okingreds.add(ingreds.get(a));
-		//	}
 			else {
 				unknowningreds.add(ingreds.get(a));
 			}
+			confidences.add(DietaryAssistantActivity._OCRReader.confidences.get(a));
 		}
-		if(bad) {
-			ingredsFound.addAll(badingreds);
-		}
-		else {
-		//ingredsFound.addAll(okingreds);
-			ingredsFound.addAll(unknowningreds);
-		}
-		
+		ingredsFound.clear();
+		ingredsFound.addAll(badingreds);
+		ingredsFound.addAll(unknowningreds);
 	}
 	
 	/*
