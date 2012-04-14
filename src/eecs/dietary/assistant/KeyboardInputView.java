@@ -110,6 +110,8 @@ public class KeyboardInputView extends ListActivity {
 			
 			
 		});
+		TextView tt2 = (TextView) d.findViewById(R.id.bottomtextingred2);
+		tt2.setTypeface(tf);
 		
 		TextView tt = (TextView) d.findViewById(R.id.toptextingred);
 		tt.setText(ingredient);
