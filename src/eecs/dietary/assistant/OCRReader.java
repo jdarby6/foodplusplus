@@ -41,7 +41,7 @@ public class OCRReader {
 									totallength = totallength + words[k].length();
 									LD = getLevenshteinDistance(words[k].toUpperCase(),OCRtext.substring(pos2, pos2+words[k].length()).toUpperCase());
 									if( (double) LD / (double)words[k].length() < 0.2) { //change less than 20% of characters
-										mean_confidence = mean_confidence + words[k].length() * (int)100 - ((int)Math.round((double) LD / (double)words[k].length()));
+										mean_confidence = mean_confidence + words[k].length() * (int)Math.floor(100 *(1 - ((double) LD / (double)words[k].length())));
 									}
 									else {
 										valid = false;
@@ -56,7 +56,7 @@ public class OCRReader {
 							else {
 							
 								ingreds.add(tempingreds.get(j));
-								confidences.add( (int)100 - (int)Math.round((double) LD / (double)tempingreds.get(j).length()) );
+								confidences.add( (int)Math.floor(100*(1-(double) LD / (double)tempingreds.get(j).length())) );
 						
 							}
 						}
