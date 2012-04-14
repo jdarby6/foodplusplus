@@ -60,6 +60,9 @@ public class CropTest extends Activity {
         options.inScaled = false;
         
         //original = BitmapFactory.decodeFile(path, options);
+        if(original != null) {
+        	original = null;
+        }
         original = decodeFile(path);
         
         Display display = getWindowManager().getDefaultDisplay();

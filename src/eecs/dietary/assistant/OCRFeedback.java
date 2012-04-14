@@ -275,9 +275,6 @@ public class OCRFeedback extends ListActivity {
 	  
 	  String ocrtext = DietaryAssistantActivity._OCR.readText;
 
-	  
-	  
-	  
 	  fillIngredsFound(DietaryAssistantActivity._OCRReader.FindIngredients(ocrtext));
 	  setListAdapter(new IngredientListAdapter(this, R.layout.ocrfeedbackitem, ingredsFound));
 
