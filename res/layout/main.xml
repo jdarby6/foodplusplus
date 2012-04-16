@@ -70,15 +70,17 @@
             android:src="@drawable/new_optionsbtn" />
         
         
-        <Button 
+        <ImageButton 
             android:id="@+id/help"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:onClick="Help_on_click"
+            android:scaleType="fitXY"
             android:padding="0dp"
-            android:text="hehehe"
+            android:src="@drawable/help_icon"
          />
 
     </RelativeLayout>
