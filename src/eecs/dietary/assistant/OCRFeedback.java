@@ -43,7 +43,7 @@ public class OCRFeedback extends ListActivity {
 	private Dialog d;
 	private Toast toast;
 	private GridView gv;
-	public static int CALL_BARCODE = 938123;
+	public static int CALL_BARCODE = 93867123;
 	public static int CALL_CAMERA_AGAIN = 38103;
 	
 

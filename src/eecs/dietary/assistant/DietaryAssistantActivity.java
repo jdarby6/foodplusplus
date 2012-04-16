@@ -83,11 +83,11 @@ public class DietaryAssistantActivity extends Activity {
 			else if(resultcode == OCRFeedback.CALL_BARCODE) {
 				Intent intent = new Intent();
 				intent.setClass(DietaryAssistantActivity.this, BarcodeView.class);
-				startActivityForResult(intent, 0);
+				startActivityForResult(intent, call_barcode);
 				
 			}
 		}
-		if(requestcode == call_barcode) {
+		else if(requestcode == call_barcode) {
 			if(resultcode == BarcodeView.CALL_CAMERA) {
 				Intent intent = new Intent();
 				intent.setClass(DietaryAssistantActivity.this, CameraView.class);
