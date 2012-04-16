@@ -160,65 +160,69 @@ public class CameraView extends Activity implements Runnable {
 		}
 		else if(requestcode == RETURN_FROM_NEW_CROP) {
 			
-			
-			File FILE_PATH = Environment.getExternalStorageDirectory();
-            FILE_PATH = new File(FILE_PATH + "/DietaryAssistant/tmp/");
-            String final_path = FILE_PATH.toString() + "/cropped.png";
-            Log.d("mycamera", final_path);
-			
-			BitmapFactory.Options options = new BitmapFactory.Options();
-
-			options.inSampleSize = DietaryAssistantActivity._OCR.subsamplefactor;
-			options.inPreferQualityOverSpeed = DietaryAssistantActivity._OCR.preferquality;
-			options.inTargetDensity = DietaryAssistantActivity._OCR.pixeldensity;
-			Bitmap bitmap = BitmapFactory.decodeFile(final_path, options); 	
-			
-			
-			
-			
-			try {
-
-				ExifInterface exif = new ExifInterface(_imagepath);
-				int exifOrientation = exif.getAttributeInt(
-						ExifInterface.TAG_ORIENTATION,
-						ExifInterface.ORIENTATION_NORMAL);
-
-				int rotate = 0;
-
-				switch (exifOrientation) {
-				case ExifInterface.ORIENTATION_ROTATE_90:
-					rotate = 90;
-					break;
-				case ExifInterface.ORIENTATION_ROTATE_180:
-					rotate = 180;
-					break;
-				case ExifInterface.ORIENTATION_ROTATE_270:
-					rotate = 270;
-					break;
-				}
-
-				// Getting width & height of the given image.
-				int w = bitmap.getWidth();
-				int h = bitmap.getHeight();
-
-				// Setting pre rotate
-				Matrix mtx = new Matrix();
-				mtx.preRotate(rotate);
-
-				// Rotating Bitmap
-				bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
-
-				// Convert to ARGB_8888, required by tess
-				bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
-
-			} catch (IOException e) {
-				ad.setMessage("io exception");
-				ad.show();
+			if(resultcode == CropTest.Pressed_back) { 
+				finish();
 			}
-
-			
-			
-			startOCR(bitmap);
+			else {
+				File FILE_PATH = Environment.getExternalStorageDirectory();
+	            FILE_PATH = new File(FILE_PATH + "/DietaryAssistant/tmp/");
+	            String final_path = FILE_PATH.toString() + "/cropped.png";
+	            Log.d("mycamera", final_path);
+				
+				BitmapFactory.Options options = new BitmapFactory.Options();
+	
+				options.inSampleSize = DietaryAssistantActivity._OCR.subsamplefactor;
+				options.inPreferQualityOverSpeed = DietaryAssistantActivity._OCR.preferquality;
+				options.inTargetDensity = DietaryAssistantActivity._OCR.pixeldensity;
+				Bitmap bitmap = BitmapFactory.decodeFile(final_path, options); 	
+				
+				
+				
+				
+				try {
+	
+					ExifInterface exif = new ExifInterface(_imagepath);
+					int exifOrientation = exif.getAttributeInt(
+							ExifInterface.TAG_ORIENTATION,
+							ExifInterface.ORIENTATION_NORMAL);
+	
+					int rotate = 0;
+	
+					switch (exifOrientation) {
+					case ExifInterface.ORIENTATION_ROTATE_90:
+						rotate = 90;
+						break;
+					case ExifInterface.ORIENTATION_ROTATE_180:
+						rotate = 180;
+						break;
+					case ExifInterface.ORIENTATION_ROTATE_270:
+						rotate = 270;
+						break;
+					}
+	
+					// Getting width & height of the given image.
+					int w = bitmap.getWidth();
+					int h = bitmap.getHeight();
+	
+					// Setting pre rotate
+					Matrix mtx = new Matrix();
+					mtx.preRotate(rotate);
+	
+					// Rotating Bitmap
+					bitmap = Bitmap.createBitmap(bitmap, 0, 0, w, h, mtx, false);
+	
+					// Convert to ARGB_8888, required by tess
+					bitmap = bitmap.copy(Bitmap.Config.ARGB_8888, true);
+	
+				} catch (IOException e) {
+					ad.setMessage("io exception");
+					ad.show();
+				}
+	
+				
+				
+				startOCR(bitmap);
+			}
 		}
 		else
 		{

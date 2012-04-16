@@ -26,6 +26,7 @@ import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -71,7 +72,7 @@ public class OCRFeedback extends ListActivity {
 		d.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		d.setContentView(R.layout.ingredient_card);
 			
-		Button close = (Button) d.findViewById(R.id.closeCard);
+		ImageButton close = (ImageButton) d.findViewById(R.id.closeCard);
 		close.setOnClickListener(new OnClickListener() {
 			public void onClick(View arg0) {
 				// TODO Auto-generated method stub
@@ -128,8 +129,8 @@ public class OCRFeedback extends ListActivity {
 		});*/
 	
 		TextView bt = (TextView) d.findViewById(R.id.bottomtextingred);		//NEED TO DO --
-		bt.setText("hehehehqhwerhqwerhqwreqhwerhqhwerhjqwerqrewr");         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT
-		
+		bt.setText(DietaryAssistantActivity._Ingredients.getAdditionalIngredientInfo(ingredient));         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT
+	//	bt.setTypeface(tf);
 		
 		d.show();
 		

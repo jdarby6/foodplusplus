@@ -27,6 +27,7 @@ import android.os.Debug;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -47,6 +48,25 @@ public class CropTest extends Activity {
 	private float drawHeight, drawWidth;
 	private int origWidth, origHeight;
 	private int dispH, dispW;
+	public static int Pressed_back = 8732201;
+	
+	@Override
+	public void onBackPressed() {
+		setResult(Pressed_back);
+		finish();
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    	setResult(Pressed_back);
+			finish();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
+	
+	
 	
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
