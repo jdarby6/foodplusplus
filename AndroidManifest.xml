@@ -85,6 +85,9 @@
         >
             
         </activity>
+        <activity android:name=".Tutorial"
+        >
+        </activity>
         <activity android:name="com.google.zxing.client.android.CaptureActivity"
    			android:screenOrientation="landscape"
    			android:configChanges="orientation|keyboardHidden"

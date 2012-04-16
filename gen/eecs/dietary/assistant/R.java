@@ -168,8 +168,10 @@ public final class R {
         public static final int OCRQualityIntro=0x7f09005e;
         public static final int OCRqualitytext=0x7f090060;
         public static final int RelativeLayout1=0x7f090054;
+        public static final int Tutorial1=0x7f090070;
         public static final int allergencounttext=0x7f09001c;
         public static final int allergiesButton=0x7f090059;
+        public static final int allergiesText=0x7f090071;
         public static final int allergyback=0x7f090013;
         public static final int allergycreate=0x7f090014;
         public static final int allergyselectionlin=0x7f090012;
@@ -178,6 +180,7 @@ public final class R {
         public static final int auto_focus=0x7f090000;
         public static final int back_button=0x7f090047;
         public static final int barcodeButton=0x7f090057;
+        public static final int barcodeText=0x7f090073;
         public static final int barcode_image_view=0x7f090022;
         public static final int bookmark_title=0x7f09001d;
         public static final int bookmark_url=0x7f09001e;
@@ -197,6 +200,7 @@ public final class R {
         public static final int ca2tv=0x7f09003b;
         public static final int ca3tv=0x7f09003f;
         public static final int cameraButton=0x7f090058;
+        public static final int cameraText=0x7f090072;
         public static final int cancel=0x7f090032;
         public static final int checkbox=0x7f090011;
         public static final int close=0x7f09000d;
@@ -229,6 +233,7 @@ public final class R {
         public static final int ingredientname=0x7f09005c;
         public static final int iv_icon=0x7f090042;
         public static final int keyboardButton=0x7f090055;
+        public static final int keyboardText=0x7f090074;
         public static final int launch_product_query=0x7f090004;
         public static final int linearLayout1=0x7f090015;
         public static final int list=0x7f090052;
@@ -241,6 +246,7 @@ public final class R {
         public static final int myGrid=0x7f09004e;
         public static final int nametext=0x7f090018;
         public static final int optionsButton=0x7f090056;
+        public static final int optionsText=0x7f090075;
         public static final int page_number_view=0x7f090069;
         public static final int preview_view=0x7f09001f;
         public static final int query_button=0x7f090067;
@@ -316,6 +322,7 @@ public final class R {
         public static final int search_book_contents_list_item=0x7f030020;
         public static final int share=0x7f030021;
         public static final int transparent_dialog_ingredient=0x7f030022;
+        public static final int tutorial=0x7f030023;
     }
     public static final class raw {
         public static final int beep=0x7f060000;

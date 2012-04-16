@@ -61,8 +61,9 @@ public class DietaryAssistantActivity extends Activity {
 		startActivityForResult(intent,0);
 	}
 	public void Help_on_click(final View trash) {
-		
-		//call helper here
+		Intent intent = new Intent();
+		intent.setClass(DietaryAssistantActivity.this, Tutorial.class);
+		startActivityForResult(intent, 0);
 	}
 	
 	
