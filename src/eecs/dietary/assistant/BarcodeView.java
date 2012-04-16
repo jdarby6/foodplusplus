@@ -3,20 +3,32 @@ package eecs.dietary.assistant;
 import java.io.IOException;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 import android.widget.Toast;
 
 public class BarcodeView extends Activity {
 	private DataBaseHelper dbHelper;
 	
+	
+	public static int CALL_CAMERA = 93831345;
+	
+	
+
+	
+	
 	@Override 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);	
+		this.setContentView(R.layout.camera_view);
 		dbHelper = new DataBaseHelper(this, "upc_db"); //copy local database "upc_db" to work with this app
 		try {
 			dbHelper.createDataBase();
@@ -67,13 +79,38 @@ public class BarcodeView extends Activity {
 					startActivity(i);
 				}
 				else {
-					Toast.makeText(this, "Could not find UPC code '" + contents + "'", Toast.LENGTH_LONG).show();
+					//Toast.makeText(this, "Could not find UPC code '" + contents + "'", Toast.LENGTH_LONG).show();
+						//Dialog d;
+					  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+					  builder.setMessage("Could not find code '" + contents + "'. Try camera?");
+					  builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+						
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							setResult(CALL_CAMERA);
+							finish();
+						}
+					});
+					  builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+						
+						public void onClick(DialogInterface dialog, int which) {
+							// TODO Auto-generated method stub
+							setResult(0);
+							finish();
+						}
+					});
+					  
+					builder.show();
+					
+					
+					
+					
 				}
 				
 			} else if (resultCode == RESULT_CANCELED) {
 				// Handle cancel
 			}
-			finish();
+			//finish();
 		}
 	}
 

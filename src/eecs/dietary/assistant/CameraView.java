@@ -154,7 +154,8 @@ public class CameraView extends Activity implements Runnable {
 
 		}
 		else if(requestcode == RETURN_FROM_OCR) {
-			setResult(0);
+			
+			setResult(resultcode);
 			finish();
 		}
 		else if(requestcode == RETURN_FROM_NEW_CROP) {
@@ -462,6 +463,7 @@ public class CameraView extends Activity implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		DietaryAssistantActivity._OCR.ReadBitmapImage(_bitmap);
+		DietaryAssistantActivity._OCRReader.FillIngredients(DietaryAssistantActivity._OCR.readText);
 		handler.sendEmptyMessage(0);
 	}
 	

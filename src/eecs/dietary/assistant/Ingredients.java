@@ -140,4 +140,18 @@ class Ingredients {
 		}
 	}
 	
+	
+	
+	public String getAdditionalIngredientInfo(String ingredient) {
+		
+		
+		
+		
+		
+		
+		
+		return " ";
+	}
+	
+	
 }

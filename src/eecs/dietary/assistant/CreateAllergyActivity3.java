@@ -221,13 +221,13 @@ public class CreateAllergyActivity3 extends ListActivity {
 
 						toast = Toast.makeText(gv.getContext(),cs,Toast.LENGTH_SHORT);
 						toast.setGravity(Gravity.TOP|Gravity.CENTER, xy[0], xy[1]);
-						toast.show();
+				//		toast.show();
 					}
 				});
 
 				
 				TextView bt = (TextView) d.findViewById(R.id.bottomtextingred);		//NEED TO DO --
-				bt.setText("hehehehqhwerhqwerhqwreqhwerhqhwerhjqwerqrewr");         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT	
+				bt.setText(DietaryAssistantActivity._Ingredients.getAdditionalIngredientInfo(ingredient));         //WILL BE ADDITIONAL INFO ABOUT EACH INGREDIENT	
 				d.show();
 				return false;
 				

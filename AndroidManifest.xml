@@ -82,10 +82,12 @@
             
         </activity>
         <activity android:name=".options"
+            android:screenOrientation="portrait"
         >
             
         </activity>
         <activity android:name=".Tutorial"
+            android:screenOrientation="portrait"
         >
         </activity>
         <activity android:name="com.google.zxing.client.android.CaptureActivity"

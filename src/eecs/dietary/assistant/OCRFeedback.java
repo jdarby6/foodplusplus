@@ -5,9 +5,12 @@ import java.util.List;
 
 import eecs.dietary.assistant.KeyboardInputView.ImageAdapterIngredientCard;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -40,6 +43,8 @@ public class OCRFeedback extends ListActivity {
 	private Dialog d;
 	private Toast toast;
 	private GridView gv;
+	public static int CALL_BARCODE = 938123;
+	public static int CALL_CAMERA_AGAIN = 38103;
 	
 
 	@Override
@@ -100,7 +105,7 @@ public class OCRFeedback extends ListActivity {
 
 				toast = Toast.makeText(gv.getContext(),cs,Toast.LENGTH_SHORT);
 				toast.setGravity(Gravity.TOP|Gravity.CENTER, xy[0], xy[1]);
-				toast.show();
+		//		toast.show();
 				
 				
 			}
@@ -273,9 +278,35 @@ public class OCRFeedback extends ListActivity {
 	  TextView toptv = (TextView) findViewById(R.id.topocrfeedbacktext);
 	  toptv.setTypeface(tf);
 	  
-	  String ocrtext = DietaryAssistantActivity._OCR.readText;
+	 // String ocrtext = DietaryAssistantActivity._OCR.readText;
 
-	  fillIngredsFound(DietaryAssistantActivity._OCRReader.FindIngredients(ocrtext));
+	  fillIngredsFound(DietaryAssistantActivity._OCRReader.ingreds);
+	  if(ingredsFound.size()==0) {
+		  Dialog d;
+		  AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		  builder.setMessage("The picture was kinda fuzzy and I couldn't find any ingredients :(");
+		  builder.setPositiveButton("Redo", new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				setResult(CALL_CAMERA_AGAIN);
+				finish();
+			}
+		});
+		  builder.setNegativeButton("Barcode", new DialogInterface.OnClickListener() {
+			
+			public void onClick(DialogInterface dialog, int which) {
+				// TODO Auto-generated method stub
+				setResult(CALL_BARCODE);
+				finish();
+			}
+		});
+		  
+		builder.show();
+		  
+		  
+	  }
+	  
 	  setListAdapter(new IngredientListAdapter(this, R.layout.ocrfeedbackitem, ingredsFound));
 
 	  

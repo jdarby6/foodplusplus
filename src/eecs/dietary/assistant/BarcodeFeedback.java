@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -28,6 +29,24 @@ public class BarcodeFeedback extends ListActivity {
 
 	private TextView tv;
 
+	
+	@Override
+	public void onBackPressed() {
+	//	setResult(RETURN_FROM_FEEDBACK);
+		finish();
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if (keyCode == KeyEvent.KEYCODE_BACK) {
+	    //	setResult(RETURN_FROM_FEEDBACK);
+			finish();
+	        return true;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
+	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

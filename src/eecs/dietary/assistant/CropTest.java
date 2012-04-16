@@ -32,6 +32,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 public class CropTest extends Activity {
 	Panel myView;
@@ -49,6 +50,10 @@ public class CropTest extends Activity {
 	
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        Toast t = Toast.makeText(this,"Drag your fingers to form a rectangle around the ingredients label. Press select to continue.", Toast.LENGTH_LONG);
+        t.show();
+        
         
         Intent calling = this.getIntent();
         String path = calling.getStringExtra("UserImage");

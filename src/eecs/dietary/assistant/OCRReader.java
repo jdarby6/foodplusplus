@@ -14,55 +14,59 @@ public class OCRReader {
 		public List<Integer> confidences = new ArrayList<Integer>();
 	
 	
-		public List<String> FindIngredients(String OCRtext) {
+		public List<String> FillIngredients(String OCRtext) {
 			//List<String> ingreds = new ArrayList<String>();
-			List<String> tempingreds = new ArrayList<String>();
 			ingreds.clear();
 			confidences.clear();
-			int pos,LD;
-			//for(int i=0; i<DietaryAssistantActivity._Ingredients.allergiesSuffered.size(); i++) {
-				tempingreds = DietaryAssistantActivity._Ingredients.returnAll();
-				for(int j=0; j<tempingreds.size(); j++) {
+			if(OCRtext.length() < 10) { }
+			else {
+				List<String> tempingreds = new ArrayList<String>();
 				
-					pos = FindFirstPositionOf(tempingreds.get(j),OCRtext);
-					if(pos+tempingreds.get(j).length() > OCRtext.length()) { } 
-					else {
-						LD = getLevenshteinDistance(tempingreds.get(j).toUpperCase(),OCRtext.substring(pos, pos+tempingreds.get(j).length()).toUpperCase());
-						if( (double) LD / (double)tempingreds.get(j).length() < 0.2) { //change less than 20% of characters
-							
-							String[] words = tempingreds.get(j).split(" ");
-							if(words.length > 1) { 
-								boolean valid = true;
-								int mean_confidence = 0;
-								int totallength = 0;
-								int pos2;
-								for(int k=0; k<words.length; k++) {
-									pos2 = FindFirstPositionOf(words[k],OCRtext.substring(pos,pos+tempingreds.get(j).length()));
-									totallength = totallength + words[k].length();
-									LD = getLevenshteinDistance(words[k].toUpperCase(),OCRtext.substring(pos2, pos2+words[k].length()).toUpperCase());
-									if( (double) LD / (double)words[k].length() < 0.2) { //change less than 20% of characters
-										mean_confidence = mean_confidence + words[k].length() * (int)Math.floor(100 *(1 - ((double) LD / (double)words[k].length())));
+				int pos,LD;
+				//for(int i=0; i<DietaryAssistantActivity._Ingredients.allergiesSuffered.size(); i++) {
+					tempingreds = DietaryAssistantActivity._Ingredients.returnAll();
+					for(int j=0; j<tempingreds.size(); j++) {
+					
+						pos = FindFirstPositionOf(tempingreds.get(j),OCRtext);
+						if(pos+tempingreds.get(j).length() > OCRtext.length()) { } 
+						else {
+							LD = getLevenshteinDistance(tempingreds.get(j).toUpperCase(),OCRtext.substring(pos, pos+tempingreds.get(j).length()).toUpperCase());
+							if( (double) LD / (double)tempingreds.get(j).length() < 0.2) { //change less than 20% of characters
+								
+								String[] words = tempingreds.get(j).split(" ");
+								if(words.length > 1) { 
+									boolean valid = true;
+									int mean_confidence = 0;
+									int totallength = 0;
+									int pos2;
+									for(int k=0; k<words.length; k++) {
+										pos2 = FindFirstPositionOf(words[k],OCRtext.substring(pos,pos+tempingreds.get(j).length()));
+										totallength = totallength + words[k].length();
+										LD = getLevenshteinDistance(words[k].toUpperCase(),OCRtext.substring(pos2, pos2+words[k].length()).toUpperCase());
+										if( (double) LD / (double)words[k].length() < 0.2) { //change less than 20% of characters
+											mean_confidence = mean_confidence + words[k].length() * (int)Math.floor(100 *(1 - ((double) LD / (double)words[k].length())));
+										}
+										else {
+											valid = false;
+											break;
+										}
 									}
-									else {
-										valid = false;
-										break;
-									}
+									if(valid) {
+										ingreds.add(tempingreds.get(j));
+										confidences.add( mean_confidence / totallength );
+									}						
 								}
-								if(valid) {
+								else {
+								
 									ingreds.add(tempingreds.get(j));
-									confidences.add( mean_confidence / totallength );
-								}						
-							}
-							else {
+									confidences.add( (int)Math.floor(100*(1-(double) LD / (double)tempingreds.get(j).length())) );
 							
-								ingreds.add(tempingreds.get(j));
-								confidences.add( (int)Math.floor(100*(1-(double) LD / (double)tempingreds.get(j).length())) );
-						
+								}
 							}
 						}
-					}
-					
-			//	}
+						
+				//	}
+				}
 			}
 	
 			return ingreds;

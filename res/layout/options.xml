@@ -62,10 +62,10 @@
 	<ImageButton
         android:id="@+id/resetbutton"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:text="Reset To Defaults" 
-        android:layout_marginLeft="25dp"
-        android:layout_marginRight="25dp"
+        android:layout_marginLeft="45dp"
+        android:layout_marginRight="45dp"
         android:layout_marginBottom="5dp"
         android:layout_marginTop="12dp"
         android:src="@drawable/new_resetbtn"

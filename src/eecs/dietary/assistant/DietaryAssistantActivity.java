@@ -19,6 +19,10 @@ public class DietaryAssistantActivity extends Activity {
 	public static Icons _Icons;
 	public static OCR _OCR;
 	public static OCRReader _OCRReader;
+	
+	public static int call_camera = 9382;
+	public static int call_barcode = 83291;
+	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -38,12 +42,12 @@ public class DietaryAssistantActivity extends Activity {
 	public void Camera_on_click(final View trash) {
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, CameraView.class);
-		startActivityForResult(intent, 0);
+		startActivityForResult(intent, call_camera);
 	}
 	public void Barcode_on_click(final View trash) {
 		Intent intent = new Intent();
 		intent.setClass(DietaryAssistantActivity.this, BarcodeView.class);
-		startActivityForResult(intent, 0);
+		startActivityForResult(intent, call_barcode);
 	}
 	public void TextInput_on_click(final View trash) {
 		Intent intent = new Intent();
@@ -66,6 +70,33 @@ public class DietaryAssistantActivity extends Activity {
 		startActivityForResult(intent, 0);
 	}
 	
+	@Override 
+	protected void onActivityResult(int requestcode, int resultcode, Intent data) {
+		super.onActivityResult(requestcode, resultcode, data);
+	
+		if(requestcode == call_camera) {
+			if(resultcode == OCRFeedback.CALL_CAMERA_AGAIN) {
+				Intent intent = new Intent();
+				intent.setClass(DietaryAssistantActivity.this, CameraView.class);
+				startActivityForResult(intent, call_camera);
+			}
+			else if(resultcode == OCRFeedback.CALL_BARCODE) {
+				Intent intent = new Intent();
+				intent.setClass(DietaryAssistantActivity.this, BarcodeView.class);
+				startActivityForResult(intent, 0);
+				
+			}
+		}
+		if(requestcode == call_barcode) {
+			if(resultcode == BarcodeView.CALL_CAMERA) {
+				Intent intent = new Intent();
+				intent.setClass(DietaryAssistantActivity.this, CameraView.class);
+				startActivityForResult(intent, call_camera);
+			}
+		}
+		
+		
+	}
 	
 	
 	
